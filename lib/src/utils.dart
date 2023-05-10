@@ -36,12 +36,13 @@ bool isNthBitSet(int x, int n) {
   return (x & (1 << n)) != 0;
 }
 
-int readAndConvertValue(
-    List<int> ftmsData, int ftmsDataOffset, FTMSDataParameter dataParameter) {
-  var data = ftmsData
-      .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
-      .toList();
-  var value = intArrayToLittleEndian(data);
+int readAndConvertLittleEndianValue(
+    List<int> data, FTMSDataParameter dataParameter) {
+  print(data);
+  var reversedData = List<int>.from(data.reversed);
+
+  var value = intArrayToLittleEndian(reversedData);
+  print('value: $value');
 
   if (dataParameter.signed &&
       ((value >> (dataParameter.size * 8 - 1)) & 1) == 1) {

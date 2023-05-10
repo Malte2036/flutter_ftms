@@ -20,8 +20,11 @@ abstract class FTMSData {
           features[dataParameter.flagName] == true;
 
       if (parameterIsEnabled) {
-        var value =
-            readAndConvertValue(ftmsData, ftmsDataOffset, dataParameter);
+        var data = ftmsData
+            .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
+            .toList();
+
+        var value = readAndConvertLittleEndianValue(data, dataParameter);
         print(
             '${dataParameter.name}: ${value} [${(value * dataParameter.factor).toInt()}${dataParameter.unit}]');
 

@@ -7,8 +7,11 @@ void main() {
     // power: 102
     [68, 0, 0, 0, 180, 0, 102, 0],
     // cadence: 360 (180)
-    // power: 103
-    [68, 0, 0, 0, 104, 1, 100, 0]
+    // power: 100
+    [68, 0, 0, 0, 104, 1, 100, 0],
+    // cadence: 260 (130)
+    // power: 101
+    [68, 0, 0, 0, 4, 1, 101, 0]
   ];
 
   test('indoor bike features', () {
@@ -35,11 +38,43 @@ void main() {
     var instantaneousCadence = indoorBike.parameterValues
         .firstWhere((value) => value.name == "Instantaneous Cadence");
 
-    expect(instantaneousCadence.value * instantaneousCadence.factor, 90);
+    expect(instantaneousCadence.value, 180);
 
     var instantaneousPower = indoorBike.parameterValues
         .firstWhere((value) => value.name == "Instantaneous Power");
 
-    expect(instantaneousPower.value * instantaneousPower.factor, 102);
+    expect(instantaneousPower.value, 102);
+  });
+
+  test('indoor bike parse medium data correct', () {
+    var d = data[1];
+
+    var indoorBike = IndoorBike(d);
+
+    var instantaneousCadence = indoorBike.parameterValues
+        .firstWhere((value) => value.name == "Instantaneous Cadence");
+
+    expect(instantaneousCadence.value, 360);
+
+    var instantaneousPower = indoorBike.parameterValues
+        .firstWhere((value) => value.name == "Instantaneous Power");
+
+    expect(instantaneousPower.value, 100);
+  });
+
+  test('indoor bike parse complex data correct', () {
+    var d = data[2];
+
+    var indoorBike = IndoorBike(d);
+
+    var instantaneousCadence = indoorBike.parameterValues
+        .firstWhere((value) => value.name == "Instantaneous Cadence");
+
+    expect(instantaneousCadence.value, 260);
+
+    var instantaneousPower = indoorBike.parameterValues
+        .firstWhere((value) => value.name == "Instantaneous Power");
+
+    expect(instantaneousPower.value, 101);
   });
 }

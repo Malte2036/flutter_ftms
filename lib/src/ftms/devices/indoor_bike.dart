@@ -21,7 +21,7 @@ class IndoorBike extends FTMSData {
 
   @override
   List<FTMSDataParameter> get allFTMSDataParameters => [
-        const FTMSDataParameter("Instantaneous Speed", "", 1, "Km/h", 0.01),
+        const FTMSDataParameter("Instantaneous Speed", "", 2, "Km/h", 0.01),
         const FTMSDataParameter(
             "Average Speed", "Average Speed", 2, "Km/h", 0.01),
         const FTMSDataParameter(
