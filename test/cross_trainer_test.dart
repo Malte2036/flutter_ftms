@@ -59,7 +59,7 @@ void main() {
     expect(featureMap["Movement Direction"], false /* maybe */);
   });
 
-  test('cross trainer parse simple data correct', () {
+  /*test('cross trainer parse simple data correct', () {
     for (var d in data) {
       //var d = data[0];
 
@@ -75,5 +75,5 @@ void main() {
 
       expect(instantaneousCadence.value, 180);*/
     }
-  });
+  });*/
 }

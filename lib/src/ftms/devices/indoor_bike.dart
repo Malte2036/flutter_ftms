@@ -1,52 +1,56 @@
 import 'package:flutter_ftms/src/ftms/ftms_data.dart';
+import 'package:flutter_ftms/src/ftms/ftms_flag.dart';
 import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
 
 class IndoorBike extends FTMSData {
   @override
   List<String> get allFTMSDataFlags => [
-        "More Data",
-        "Average Speed",
-        "Instantaneous Cadence",
-        "Average Cadence",
-        "Total Distance",
-        "Resistance Level",
-        "Instantaneous Power",
-        "Average Power",
-        "Expended Energy",
-        "Heart Rate",
-        "Metabolic Equivalent",
-        "Elapsed Time",
-        "Remaining Time"
+        FTMSFlag.moreDataFlag,
+        FTMSFlag.avgSpeedFlag,
+        FTMSFlag.instCadenceFlag,
+        FTMSFlag.avgCadenceFlag,
+        FTMSFlag.totalDistanceFlag,
+        FTMSFlag.resistanceLevelFlag,
+        FTMSFlag.instPowerFlag,
+        FTMSFlag.avgPowerFlag,
+        FTMSFlag.expendedEnergyFlag,
+        FTMSFlag.heartRateFlag,
+        FTMSFlag.metabolicEquivalentFlag,
+        FTMSFlag.elapsedTimeFlag,
+        FTMSFlag.remainingTimeFlag
       ];
 
   @override
   List<FTMSDataParameter> get allFTMSDataParameters => [
-        const FTMSDataParameter("Instantaneous Speed", "", 2, "Km/h", 0.01),
+        const FTMSDataParameter("Instantaneous Speed", null, 2, "Km/h", 0.01),
         const FTMSDataParameter(
-            "Average Speed", "Average Speed", 2, "Km/h", 0.01),
+            "Average Speed", FTMSFlag.avgSpeedFlag, 2, "Km/h", 0.01),
         const FTMSDataParameter(
-            "Instantaneous Cadence", "Instantaneous Cadence", 2, "/min", 0.5),
+            "Instantaneous Cadence", FTMSFlag.instCadenceFlag, 2, "/min", 0.5),
         const FTMSDataParameter(
-            "Average Cadence", "Average Cadence", 2, "/min", 0.5),
+            "Average Cadence", FTMSFlag.avgCadenceFlag, 2, "/min", 0.5),
         const FTMSDataParameter(
-            "Total Distance", "Total Distance", 3, "metre", 1),
+            "Total Distance", FTMSFlag.totalDistanceFlag, 3, "metre", 1),
         const FTMSDataParameter(
-            "Resistance Level", "Resistance Level", 2, "unitless", 1),
+            "Resistance Level", FTMSFlag.resistanceLevelFlag, 2, "unitless", 1),
         const FTMSDataParameter(
-            "Instantaneous Power", "Instantaneous Power", 2, "watt", 1),
-        const FTMSDataParameter("Average Power", "Average Power", 2, "watt", 1),
+            "Instantaneous Power", FTMSFlag.instPowerFlag, 2, "watt", 1),
         const FTMSDataParameter(
-            "Total Energy", "Expended Energy", 2, "kcal", 1),
+            "Average Power", FTMSFlag.avgPowerFlag, 2, "watt", 1),
         const FTMSDataParameter(
-            "Energy Per Hour", "Expended Energy", 2, "kcal", 1),
+            "Total Energy", FTMSFlag.expendedEnergyFlag, 2, "kcal", 1),
         const FTMSDataParameter(
-            "Energy Per Minute", "Expended Energy", 1, "kcal", 1),
-        const FTMSDataParameter("Heart Rate", "Heart Rate", 1, "Beats/m", 1),
+            "Energy Per Hour", FTMSFlag.expendedEnergyFlag, 2, "kcal", 1),
         const FTMSDataParameter(
-            "Metabolic Equivalent", "Metabolic Equivalent", 1, "meta", 0.1),
-        const FTMSDataParameter("Elapsed Time", "Elapsed Time", 2, "second", 1),
+            "Energy Per Minute", FTMSFlag.expendedEnergyFlag, 1, "kcal", 1),
         const FTMSDataParameter(
-            "Remaining Time", "Remaining Time", 2, "second", 1),
+            "Heart Rate", FTMSFlag.heartRateFlag, 1, "Beats/m", 1),
+        const FTMSDataParameter("Metabolic Equivalent",
+            FTMSFlag.metabolicEquivalentFlag, 1, "meta", 0.1),
+        const FTMSDataParameter(
+            "Elapsed Time", FTMSFlag.elapsedTimeFlag, 2, "second", 1),
+        const FTMSDataParameter(
+            "Remaining Time", FTMSFlag.remainingTimeFlag, 2, "second", 1),
       ];
 
   IndoorBike(ftmsData) : super(ftmsData);

@@ -16,8 +16,8 @@ abstract class FTMSData {
 
     int ftmsDataOffset = 2;
     for (var dataParameter in allFTMSDataParameters) {
-      var parameterIsEnabled = dataParameter.flagName.isEmpty ||
-          features[dataParameter.flagName] == true;
+      var parameterIsEnabled =
+          dataParameter.flag == null || features[dataParameter.flag] == true;
 
       if (parameterIsEnabled) {
         List<int> data;
