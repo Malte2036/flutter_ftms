@@ -20,13 +20,19 @@ abstract class FTMSData {
           features[dataParameter.flagName] == true;
 
       if (parameterIsEnabled) {
-        var data = ftmsData
-            .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
-            .toList();
+        List<int> data;
+        try {
+          data = ftmsData
+              .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
+              .toList();
+        } catch (e) {
+          print('Data is missing!');
+          break;
+        }
 
         var value = readAndConvertLittleEndianValue(data, dataParameter);
-        print(
-            '${dataParameter.name}: ${value} [${(value * dataParameter.factor).toInt()}${dataParameter.unit}]');
+        //print(
+        //    '${dataParameter.name}: ${value} [${(value * dataParameter.factor).toInt()}${dataParameter.unit}]');
 
         ftmsDataOffset += dataParameter.size;
 

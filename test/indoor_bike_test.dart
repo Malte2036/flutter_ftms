@@ -23,7 +23,9 @@ void main() {
 
     const availableFeatures = ["Instantaneous Cadence", "Instantaneous Power"];
 
-    availableFeatures.forEach((feature) => expect(featureMap[feature], true));
+    for (var feature in availableFeatures) {
+      expect(featureMap[feature], true);
+    }
 
     indoorBike.allFTMSDataFlags
         .where((feature) => !availableFeatures.contains(feature))

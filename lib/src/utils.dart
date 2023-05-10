@@ -24,7 +24,6 @@ String dataToBinaryFlags(intArray) {
 
 int dataToFlags(intArray) {
   var binary = dataToBinaryFlags(intArray);
-  print(binary);
   return binaryToInt(binary);
 }
 
@@ -38,11 +37,10 @@ bool isNthBitSet(int x, int n) {
 
 int readAndConvertLittleEndianValue(
     List<int> data, FTMSDataParameter dataParameter) {
-  print(data);
   var reversedData = List<int>.from(data.reversed);
 
   var value = intArrayToLittleEndian(reversedData);
-  print('value: $value');
+  //print('value: $value');
 
   if (dataParameter.signed &&
       ((value >> (dataParameter.size * 8 - 1)) & 1) == 1) {

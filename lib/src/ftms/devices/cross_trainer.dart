@@ -24,25 +24,25 @@ class CrossTrainer extends FTMSData {
 
   @override
   List<FTMSDataParameter> get allFTMSDataParameters => [
-        const FTMSDataParameter(
-            "Instantaneous Speed", "Average Speed", 2, "Km/h", 0.01),
+        const FTMSDataParameter("Instantaneous Speed", "", 2, "Km/h", 0.01),
         const FTMSDataParameter(
             "Average Speed", "Average Speed", 2, "Km/h", 0.01),
-        const FTMSDataParameter("Total Distance", "Total Distance", 3,
-            /*"metre", 1*/ "km", 0.000001),
-        //FTMSDataParameter("Step Per Minute", "Step Count", 2, "step_per_minute", 1),
-        //FTMSDataParameter(
-        //    "Average Step Rate", "Step Count", 2, "step_per_minute", 1),
+        const FTMSDataParameter(
+            "Total Distance", "Total Distance", 3, "metre", 1),
+        const FTMSDataParameter(
+            "Step Per Minute", "Step Count", 2, "step_per_minute", 1),
+        const FTMSDataParameter(
+            "Average Step Rate", "Step Count", 2, "step_per_minute", 1),
         const FTMSDataParameter(
             "Stride Count", "Stride Count", 2, "" /*"unitless"*/, 1),
-        //FTMSDataParameter(
-        //    "Inclination", "Inclination and Ramp Angle Setting", 2, "percent", 0.1),
-        //FTMSDataParameter("Ramp Angle Setting",
-        //    "Inclination and Ramp Angle Setting", 2, "degree", 0.1),
-        //FTMSDataParameter(
-        //    "Positive Elevation Gain", "Elevation Gain", 2, "metre", 1),
-        //FTMSDataParameter(
-        //    "Negative Elevation Gain", "Elevation Gain", 2, "metre", 1),
+        const FTMSDataParameter("Inclination",
+            "Inclination and Ramp Angle Setting", 2, "percent", 0.1),
+        const FTMSDataParameter("Ramp Angle Setting",
+            "Inclination and Ramp Angle Setting", 2, "degree", 0.1),
+        const FTMSDataParameter(
+            "Positive Elevation Gain", "Elevation Gain", 2, "metre", 1),
+        const FTMSDataParameter(
+            "Negative Elevation Gain", "Elevation Gain", 2, "metre", 1),
         const FTMSDataParameter(
             "Resistance Level", "Resistance Level", 2, "" /*"unitless"*/, 0.1,
             signed: true),
