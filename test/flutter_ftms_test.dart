@@ -38,7 +38,7 @@ void main() {
     data.forEach((ftmsData) {
       print('----------$i----------');
       i = i + 1;
-      var ftms = FTMSCrossTrainer(ftmsData);
+      var ftms = CrossTrainer(ftmsData);
       sleep(const Duration(milliseconds: 1000));
     });
   });
@@ -59,7 +59,7 @@ void main() {
   });
 
   test('ftms features', () {
-    var ftms = FTMSCrossTrainer(data[0]);
+    var ftms = CrossTrainer(data[0]);
     var features = ftms.getFTMSDataFeatures();
 
 // sollte laut doku

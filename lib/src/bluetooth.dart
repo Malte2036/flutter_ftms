@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
+import 'package:flutter_ftms/src/ftms/devices/indoor_bike.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Bluetooth {
@@ -46,12 +47,13 @@ class Bluetooth {
   static const ftmsServiceUUID = "00001826";
 
   static const statusChar = "00002AD9";
-  static const dataChar = "00002ACE";
+  static const dataCharCrossTrainer = "00002ACE";
+  static const dataCharIndoorBike = "00002AD2";
 
   static const characteristicFTMSFeature = "00002ACC";
 
   static querySupportedFTMSFeatures(
-      BluetoothDevice device, Function(FTMSCrossTrainer) onData) async {
+      BluetoothDevice device, Function(IndoorBike) onData) async {
     print('querySupportedFTMSFeatures');
 
     var services = await device.discoverServices();
@@ -64,39 +66,26 @@ class Bluetooth {
     await useFeatureCharacteristic(service);
 
     await useDataCharacteristic(service, onData);
-
-    /*List<int> request = [0x04, 0x00];
-  await characteristic.write(request);*/
   }
 
-  static var lastData = "";
-
-  static useDataCharacteristic(
-      ftmsService, Function(FTMSCrossTrainer) onData) async {
+  static useDataCharacteristic(ftmsService, Function(IndoorBike) onData) async {
     var characteristicData = ftmsService.characteristics.firstWhere(
-        (characteristic) =>
-            characteristic.uuid.toString().toUpperCase().startsWith(dataChar));
+        (characteristic) => characteristic.uuid
+            .toString()
+            .toUpperCase()
+            .startsWith(dataCharIndoorBike));
 
     print('Found FTMS characteristic: ${characteristicData.uuid}');
-
-    bool isFirst = true;
 
     StreamSubscription notificationSubscription;
     notificationSubscription =
         characteristicData.value.listen((List<int> ftmsData) {
       if (ftmsData.isEmpty) return;
 
-      FTMSCrossTrainer ftms = FTMSCrossTrainer(ftmsData);
-      if (isFirst) {
-        ftms.getFTMSDataFeatures();
-        isFirst = false;
-      }
-      if (lastData != ftmsData.toString()) {
-        print('ftmsData: ${ftmsData}');
-        lastData = ftmsData.toString();
-      }
+      IndoorBike ftms = IndoorBike(ftmsData);
 
       onData(ftms);
+      print(ftmsData);
     });
     await characteristicData.setNotifyValue(true);
   }
@@ -116,7 +105,7 @@ class Bluetooth {
     });
   }
 
-  static Future<bool> isDeviceFTMSCrossTrainer(BluetoothDevice device) async {
+  static Future<bool> isDeviceFTMSDevice(BluetoothDevice device) async {
     var services = await device.discoverServices();
     return services
         .where((service) =>

@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
+
 int intArrayToLittleEndian(List<int> byteArray) {
   List<int> filledByteArray = [
     ...List.filled(4 - byteArray.length, 0),
@@ -10,4 +12,41 @@ int intArrayToLittleEndian(List<int> byteArray) {
       ByteData.sublistView(Uint8List.fromList(reversedByteArray));
   int intValue = byteData.getInt32(0, Endian.little);
   return intValue;
+}
+
+String dataToBinaryFlags(intArray) {
+  Uint8List byteList = Uint8List.fromList(intArray.getRange(0, 2).toList());
+  ByteData byteData = ByteData.sublistView(byteList);
+  var binary =
+      byteData.getUint16(0, Endian.little).toRadixString(2).padLeft(16, "0");
+  return binary;
+}
+
+int dataToFlags(intArray) {
+  var binary = dataToBinaryFlags(intArray);
+  print(binary);
+  return binaryToInt(binary);
+}
+
+int binaryToInt(String binary) {
+  return int.parse(binary, radix: 2);
+}
+
+bool isNthBitSet(int x, int n) {
+  return (x & (1 << n)) != 0;
+}
+
+int readAndConvertValue(
+    List<int> ftmsData, int ftmsDataOffset, FTMSDataParameter dataParameter) {
+  var data = ftmsData
+      .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
+      .toList();
+  var value = intArrayToLittleEndian(data);
+
+  if (dataParameter.signed &&
+      ((value >> (dataParameter.size * 8 - 1)) & 1) == 1) {
+    // Das Ergebnis ist negativ
+    value = value - (1 << (dataParameter.size * 8));
+  }
+  return value;
 }
