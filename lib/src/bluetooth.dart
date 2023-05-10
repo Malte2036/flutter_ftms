@@ -4,121 +4,124 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'ftms.dart';
 
-FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
+class Bluetooth {
+  static FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
 
-requestBluetoothPermissions() async {
-  print("requestPermissions");
-  await [
-    Permission.location,
-    Permission.storage,
-    Permission.bluetooth,
-    Permission.bluetoothConnect,
-    Permission.bluetoothScan
-  ].request();
-}
+  static requestBluetoothPermissions() async {
+    print("requestPermissions");
+    await [
+      Permission.location,
+      Permission.storage,
+      Permission.bluetooth,
+      Permission.bluetoothConnect,
+      Permission.bluetoothScan
+    ].request();
+  }
 
-scanForBluetoothDevices() async {
-  print("scanForBluetoothDevices");
+  static Stream<bool> isScanningStream = flutterBlue.isScanning;
+  static Stream<List<ScanResult>> scanResultsStream = flutterBlue.scanResults;
 
-  flutterBlue.startScan(timeout: const Duration(seconds: 4));
+  static scanForBluetoothDevices() async {
+    print("scanForBluetoothDevices");
 
-  var subscription = flutterBlue.scanResults.listen((results) async {
-    for (ScanResult r in results) {
-      //print('${r.device.name} found! rssi: ${r.rssi}');
-    }
-  });
-}
+    await requestBluetoothPermissions();
 
-connectToBluetoothDevice(BluetoothDevice device) {
-  //await device.pair();
+    //await flutterBlue.turnOn();
 
-  print('connectToBluetoothDevice: ${device.name}');
-  device.connect();
-}
+    flutterBlue.startScan(timeout: const Duration(seconds: 4));
+  }
 
-disconnectFromBluetoothDevice(BluetoothDevice device) {
-  print('disconnectFromBluetoothDevice: ${device.name}');
-  device.disconnect();
-}
+  static connectToBluetoothDevice(BluetoothDevice device) {
+    //await device.pair();
 
-const ftmsServiceUUID = "00001826";
+    print('connectToBluetoothDevice: ${device.name}');
+    device.connect();
+  }
 
-const statusChar = "00002AD9";
-const dataChar = "00002ACE";
+  static disconnectFromBluetoothDevice(BluetoothDevice device) {
+    print('disconnectFromBluetoothDevice: ${device.name}');
+    device.disconnect();
+  }
 
-const characteristicFTMSFeature = "00002ACC";
+  static const ftmsServiceUUID = "00001826";
 
-querySupportedFTMSFeatures(
-    BluetoothDevice device, Function(FTMSCrossTrainer) onData) async {
-  print('querySupportedFTMSFeatures');
+  static const statusChar = "00002AD9";
+  static const dataChar = "00002ACE";
 
-  var services = await device.discoverServices();
-  // FTMS service starts with 00001826
-  var service = services.firstWhere((service) =>
-      service.uuid.toString().toUpperCase().startsWith(ftmsServiceUUID));
+  static const characteristicFTMSFeature = "00002ACC";
 
-  print('Found FTMS service: ${service.uuid}');
+  static querySupportedFTMSFeatures(
+      BluetoothDevice device, Function(FTMSCrossTrainer) onData) async {
+    print('querySupportedFTMSFeatures');
 
-  await useFeatureCharacteristic(service);
+    var services = await device.discoverServices();
+    // FTMS service starts with 00001826
+    var service = services.firstWhere((service) =>
+        service.uuid.toString().toUpperCase().startsWith(ftmsServiceUUID));
 
-  await useDataCharacteristic(service, onData);
+    print('Found FTMS service: ${service.uuid}');
 
-  /*List<int> request = [0x04, 0x00];
+    await useFeatureCharacteristic(service);
+
+    await useDataCharacteristic(service, onData);
+
+    /*List<int> request = [0x04, 0x00];
   await characteristic.write(request);*/
-}
+  }
 
-var lastData = "";
+  static var lastData = "";
 
-useDataCharacteristic(ftmsService, Function(FTMSCrossTrainer) onData) async {
-  var characteristicData = ftmsService.characteristics.firstWhere(
-      (characteristic) =>
-          characteristic.uuid.toString().toUpperCase().startsWith(dataChar));
+  static useDataCharacteristic(
+      ftmsService, Function(FTMSCrossTrainer) onData) async {
+    var characteristicData = ftmsService.characteristics.firstWhere(
+        (characteristic) =>
+            characteristic.uuid.toString().toUpperCase().startsWith(dataChar));
 
-  print('Found FTMS characteristic: ${characteristicData.uuid}');
+    print('Found FTMS characteristic: ${characteristicData.uuid}');
 
-  bool isFirst = true;
+    bool isFirst = true;
 
-  StreamSubscription notificationSubscription;
-  notificationSubscription =
-      characteristicData.value.listen((List<int> ftmsData) {
-    if (ftmsData.isEmpty) return;
+    StreamSubscription notificationSubscription;
+    notificationSubscription =
+        characteristicData.value.listen((List<int> ftmsData) {
+      if (ftmsData.isEmpty) return;
 
-    FTMSCrossTrainer ftms = FTMSCrossTrainer(ftmsData);
-    if (isFirst) {
-      ftms.getFTMSDataFeatures();
-      isFirst = false;
-    }
-    if (lastData != ftmsData.toString()) {
-      print('ftmsData: ${ftmsData}');
-      lastData = ftmsData.toString();
-    }
+      FTMSCrossTrainer ftms = FTMSCrossTrainer(ftmsData);
+      if (isFirst) {
+        ftms.getFTMSDataFeatures();
+        isFirst = false;
+      }
+      if (lastData != ftmsData.toString()) {
+        print('ftmsData: ${ftmsData}');
+        lastData = ftmsData.toString();
+      }
 
-    onData(ftms);
-  });
-  await characteristicData.setNotifyValue(true);
-}
+      onData(ftms);
+    });
+    await characteristicData.setNotifyValue(true);
+  }
 
-useFeatureCharacteristic(ftmsService) async {
-  var characteristicData = ftmsService.characteristics.firstWhere(
-      (characteristic) => characteristic.uuid
-          .toString()
-          .toUpperCase()
-          .startsWith(characteristicFTMSFeature));
+  static useFeatureCharacteristic(ftmsService) async {
+    var characteristicData = ftmsService.characteristics.firstWhere(
+        (characteristic) => characteristic.uuid
+            .toString()
+            .toUpperCase()
+            .startsWith(characteristicFTMSFeature));
 
-  print('Found Feature characteristic: ${characteristicData.uuid}');
+    print('Found Feature characteristic: ${characteristicData.uuid}');
 
-  StreamSubscription notificationSubscription;
-  notificationSubscription = characteristicData.value.listen((data) {
-    print('featureData: ${data}');
-  });
-}
+    StreamSubscription notificationSubscription;
+    notificationSubscription = characteristicData.value.listen((data) {
+      print('featureData: ${data}');
+    });
+  }
 
-Future<bool> isDeviceFTMSCrossTrainer(BluetoothDevice device) async {
-  return true;
-  var services = await device.discoverServices();
-  return services
-      .where((service) =>
-          service.uuid.toString().toUpperCase().startsWith(ftmsServiceUUID))
-      .toList()
-      .isEmpty;
+  static Future<bool> isDeviceFTMSCrossTrainer(BluetoothDevice device) async {
+    var services = await device.discoverServices();
+    return services
+        .where((service) =>
+            service.uuid.toString().toUpperCase().startsWith(ftmsServiceUUID))
+        .toList()
+        .isNotEmpty;
+  }
 }
