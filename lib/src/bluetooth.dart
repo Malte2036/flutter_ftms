@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
 import 'package:flutter_ftms/src/ftms/devices/indoor_bike.dart';
+import 'package:flutter_ftms/src/ftms/ftms_data.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Bluetooth {
@@ -52,8 +53,8 @@ class Bluetooth {
 
   static const characteristicFTMSFeature = "00002ACC";
 
-  static querySupportedFTMSFeatures(
-      BluetoothDevice device, Function(IndoorBike) onData) async {
+  static querySupportedFTMSFeatures(BluetoothDevice device,
+      FTMSDataType dataType, Function(FTMSData) onData) async {
     print('querySupportedFTMSFeatures');
 
     var services = await device.discoverServices();
@@ -65,10 +66,11 @@ class Bluetooth {
 
     await useFeatureCharacteristic(service);
 
-    await useDataCharacteristic(service, onData);
+    await useDataCharacteristic(service, dataType, onData);
   }
 
-  static useDataCharacteristic(ftmsService, Function(IndoorBike) onData) async {
+  static useDataCharacteristic(
+      ftmsService, FTMSDataType dataType, Function(FTMSData) onData) async {
     var characteristicData = ftmsService.characteristics.firstWhere(
         (characteristic) => characteristic.uuid
             .toString()
@@ -82,12 +84,24 @@ class Bluetooth {
         characteristicData.value.listen((List<int> ftmsData) {
       if (ftmsData.isEmpty) return;
 
-      IndoorBike ftms = IndoorBike(ftmsData);
+      FTMSData ftms = _createFTMSDataByFTMSDataType(dataType, ftmsData);
 
       onData(ftms);
       print(ftmsData);
     });
     await characteristicData.setNotifyValue(true);
+  }
+
+  static FTMSData _createFTMSDataByFTMSDataType(
+      FTMSDataType type, List<int> ftmsData) {
+    switch (type) {
+      case FTMSDataType.crossTrainer:
+        return CrossTrainer(ftmsData);
+      case FTMSDataType.indoorBike:
+        return IndoorBike(ftmsData);
+      default:
+        throw 'FTMSDataType $type is not implemented!';
+    }
   }
 
   static useFeatureCharacteristic(ftmsService) async {

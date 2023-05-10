@@ -5,7 +5,9 @@ import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/bluetooth.dart';
 import 'package:flutter_ftms/src/ftms/devices/indoor_bike.dart';
+import 'package:flutter_ftms/src/ftms/ftms_data.dart';
 
+export 'src/ftms/ftms_data.dart' show FTMSData, FTMSDataType;
 export 'src/ftms/devices/cross_trainer.dart' show CrossTrainer;
 export 'src/ftms/devices/indoor_bike.dart' show IndoorBike;
 
@@ -30,8 +32,12 @@ class FTMS {
     return Bluetooth.isDeviceFTMSDevice(device);
   }
 
-  static Future<void> querySupportedFTMSFeatures(
-      BluetoothDevice device, Function(IndoorBike) onData) async {
-    await Bluetooth.querySupportedFTMSFeatures(device, onData);
+  static Future<void> querySupportedFTMSFeatures(BluetoothDevice device,
+      FTMSDataType dataType, Function(FTMSData) onData) async {
+    await Bluetooth.querySupportedFTMSFeatures(device, dataType, onData);
+  }
+
+  static Future<FTMSDataType> getFTMSDeviceType(BluetoothDevice device) async {
+    return FTMSDataType.indoorBike;
   }
 }

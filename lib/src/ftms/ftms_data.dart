@@ -1,7 +1,7 @@
-import 'dart:typed_data';
-
 import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
 import 'package:flutter_ftms/src/utils.dart';
+
+enum FTMSDataType { crossTrainer, indoorBike }
 
 abstract class FTMSData {
   final List<int> ftmsData;
