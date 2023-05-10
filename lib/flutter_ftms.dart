@@ -4,9 +4,10 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/bluetooth.dart';
-import 'package:flutter_ftms/src/ftms.dart';
+import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
+import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
 
-export 'src/ftms.dart' show FTMSCrossTrainer;
+export 'src/ftms/ftms_patameter.dart' show FTMSCrossTrainer;
 
 class FTMS {
   static Stream<bool> isScanning = Bluetooth.isScanningStream;

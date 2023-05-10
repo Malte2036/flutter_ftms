@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'ftms.dart';
 
 class Bluetooth {
   static FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
