@@ -2,9 +2,6 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
-import 'package:flutter_ftms/src/ftms/devices/indoor_bike.dart';
-import 'package:flutter_ftms/src/ftms/ftms_data.dart';
 
 class FTMSBluetooth {
   static const _ftmsServiceUUID = "00001826";

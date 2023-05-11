@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
-import 'package:flutter_ftms/src/ftms/flag.dart';
 import 'package:flutter_ftms/src/ftms/ftms_data_flag.dart';
 import 'package:flutter_test/flutter_test.dart';
 

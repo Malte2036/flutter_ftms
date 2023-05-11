@@ -4,6 +4,9 @@ class Flag {
   const Flag(this.name);
 
   @override
+  int get hashCode => Object.hash(name, name);
+
+  @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;

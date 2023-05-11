@@ -53,10 +53,6 @@ abstract class FTMSData {
     }
   }
 
-  int _getFlags() {
-    return dataToFlags(ftmsData);
-  }
-
   Map<Flag, bool> getFTMSDataFeatures() {
     return flagsToFeatureMap(ftmsData, _featureBitSize, allFTMSDataFlags);
   }
