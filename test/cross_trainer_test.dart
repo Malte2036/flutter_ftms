@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
+import 'package:flutter_ftms/src/ftms/flag.dart';
+import 'package:flutter_ftms/src/ftms/ftms_flag.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -37,22 +39,22 @@ void main() {
 
     var featureMap = crossTrainer.getFTMSDataFeatures();
 
-    expect(featureMap["More Data"], false);
-    expect(featureMap["Average Speed"], true);
-    expect(featureMap["Total Distance"], true);
-    //expect(featureMap["Step Count"], false);
-    expect(featureMap["Stride Count"], true /* maybe */);
-    expect(featureMap["Elevation Gain"], false);
-    expect(featureMap["Inclination and Ramp Angle Setting"], false);
-    expect(featureMap["Resistance Level"], true);
-    expect(featureMap["Instantaneous Power"], true);
-    expect(featureMap["Average Power"], true);
-    expect(featureMap["Expended Energy"], true);
-    //expect(featureMap["Heart Rate"], true);
-    expect(featureMap["Metabolic Equivalent"], true);
-    expect(featureMap["Elapsed Time"], true);
-    expect(featureMap["Remaining Time"], true);
-    expect(featureMap["Movement Direction"], false /* maybe */);
+    expect(featureMap[FTMSFlag.moreDataFlag], false);
+    expect(featureMap[FTMSFlag.avgSpeedFlag], true);
+    expect(featureMap[FTMSFlag.totalDistanceFlag], true);
+    //expect(featureMap[FTMSFlag.stepCountFlag], false);
+    expect(featureMap[FTMSFlag.strideCountFlag], true /* maybe */);
+    expect(featureMap[FTMSFlag.elevationGainFlag], false);
+    expect(featureMap[FTMSFlag.inclinationAndRampAngleFlag], false);
+    expect(featureMap[FTMSFlag.resistanceLevelFlag], true);
+    expect(featureMap[FTMSFlag.instPowerFlag], true);
+    expect(featureMap[FTMSFlag.avgPowerFlag], true);
+    expect(featureMap[FTMSFlag.expendedEnergyFlag], true);
+    //expect(featureMap[FTMSFlag.heartRateFlag], true);
+    expect(featureMap[FTMSFlag.metabolicEquivalentFlag], true);
+    expect(featureMap[FTMSFlag.elapsedTimeFlag], true);
+    expect(featureMap[FTMSFlag.remainingTimeFlag], true);
+    expect(featureMap[FTMSFlag.movementDirectionFlag], false /* maybe */);
   });
 
   test('cross trainer parse average speed correct', () {

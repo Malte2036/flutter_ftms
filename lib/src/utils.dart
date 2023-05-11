@@ -60,7 +60,7 @@ Map<Flag, bool> flagsToFeatureMap(
   for (var i = 0; i < allFeatureFlags.length; i++) {
     var flag = allFeatureFlags[i];
     var isEnabled = isNthBitSet(flags, i);
-    if (isEnabled) print('${flag.name}: $isEnabled');
+    //if (isEnabled) print('${flag.name}: $isEnabled');
 
     featureMap.putIfAbsent(flag, () => isEnabled);
   }

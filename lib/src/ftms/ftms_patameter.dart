@@ -1,6 +1,8 @@
+import 'package:flutter_ftms/src/ftms/flag.dart';
+
 class FTMSDataParameter {
   final String name;
-  final String? flag;
+  final Flag? flag;
   final String unit;
   final num factor;
   final int size;
@@ -20,7 +22,7 @@ class FTMSDataParameterValue extends FTMSDataParameter {
   final int value;
   const FTMSDataParameterValue(
     String name,
-    String? flag,
+    Flag? flag,
     int size,
     String unit,
     num factor,

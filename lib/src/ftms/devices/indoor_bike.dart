@@ -1,3 +1,4 @@
+import 'package:flutter_ftms/src/ftms/flag.dart';
 import 'package:flutter_ftms/src/ftms/ftms_data.dart';
 import 'package:flutter_ftms/src/ftms/ftms_flag.dart';
 import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
@@ -7,7 +8,7 @@ class IndoorBike extends FTMSData {
   FTMSDataType get ftmsDataType => FTMSDataType.indoorBike;
 
   @override
-  List<String> get allFTMSDataFlags => [
+  List<Flag> get allFTMSDataFlags => [
         FTMSFlag.moreDataFlag,
         FTMSFlag.avgSpeedFlag,
         FTMSFlag.instCadenceFlag,

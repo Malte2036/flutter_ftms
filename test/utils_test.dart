@@ -23,11 +23,11 @@ void main() {
 
   test("readAndConvertLittleEndianValue", () {
     const parameterNotSigned =
-        FTMSDataParameter("test", "", 1, "", 0, signed: false);
+        FTMSDataParameter("test", null, 1, "", 0, signed: false);
     expect(readAndConvertLittleEndianValue([92], parameterNotSigned), 92);
 
     const parameterSigned =
-        FTMSDataParameter("test", "", 1, "", 0, signed: true);
+        FTMSDataParameter("test", null, 1, "", 0, signed: true);
     expect(readAndConvertLittleEndianValue([-92], parameterSigned), -92);
   });
 }

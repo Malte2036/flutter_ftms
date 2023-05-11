@@ -1,3 +1,4 @@
+import 'package:flutter_ftms/src/ftms/flag.dart';
 import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
 import 'package:flutter_ftms/src/utils.dart';
 
@@ -10,8 +11,10 @@ abstract class FTMSData {
 
   FTMSDataType get ftmsDataType;
 
-  List<String> get allFTMSDataFlags;
+  List<Flag> get allFTMSDataFlags;
   List<FTMSDataParameter> get allFTMSDataParameters;
+
+  static const _featureBitSize = 16;
 
   FTMSData(this.ftmsData) {
     var features = getFTMSDataFeatures();
@@ -33,7 +36,7 @@ abstract class FTMSData {
             data = List<int>.from(data.reversed);
           }
 
-          if (dataParameter.name == "Total Distance") print(data);
+          //if (dataParameter.name == "Total Distance") print(data);
         } catch (e) {
           //print('Data is missing!');
           break;
@@ -54,19 +57,8 @@ abstract class FTMSData {
     return dataToFlags(ftmsData);
   }
 
-  Map<String, bool> getFTMSDataFeatures() {
-    var flags = _getFlags();
-
-    Map<String, bool> featureMap = {};
-
-    for (var i = 0; i < allFTMSDataFlags.length; i++) {
-      var flag = allFTMSDataFlags[i];
-      var isEnabled = isNthBitSet(flags, i);
-      //if (isEnabled) print('$flag: $isEnabled');
-
-      featureMap.putIfAbsent(flag, () => isEnabled);
-    }
-    return featureMap;
+  Map<Flag, bool> getFTMSDataFeatures() {
+    return flagsToFeatureMap(ftmsData, _featureBitSize, allFTMSDataFlags);
   }
 
   List<FTMSDataParameterValue> getFTMSDataParameterValues() {

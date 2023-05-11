@@ -1,22 +1,24 @@
-class FTMSFlag {
-  static const String moreDataFlag = "More Data";
-  static const String avgSpeedFlag = "Average Speed";
-  static const String totalDistanceFlag = "Total Distance";
-  static const String stepCountFlag = "Step Count";
-  static const String strideCountFlag = "Stride Count";
-  static const String elevationGainFlag = "Elevation Gain";
-  static const String inclinationAndRampAngleFlag =
-      "Inclination and Ramp Angle Setting";
-  static const String resistanceLevelFlag = "Resistance Level";
-  static const String instPowerFlag = "Instantaneous Power";
-  static const String avgPowerFlag = "Average Power";
-  static const String expendedEnergyFlag = "Expended Energy";
-  static const String heartRateFlag = "Heart Rate";
-  static const String metabolicEquivalentFlag = "Metabolic Equivalent";
-  static const String elapsedTimeFlag = "Elapsed Time";
-  static const String remainingTimeFlag = "Remaining Time";
-  static const String movementDirectionFlag = "Movement Direction";
+import 'package:flutter_ftms/src/ftms/flag.dart';
 
-  static const String instCadenceFlag = "Instantaneous Cadence";
-  static const String avgCadenceFlag = "Average Cadence";
+class FTMSFlag {
+  static const Flag moreDataFlag = Flag("More Data");
+  static const Flag avgSpeedFlag = Flag("Average Speed");
+  static const Flag totalDistanceFlag = Flag("Total Distance");
+  static const Flag stepCountFlag = Flag("Step Count");
+  static const Flag strideCountFlag = Flag("Stride Count");
+  static const Flag elevationGainFlag = Flag("Elevation Gain");
+  static const Flag inclinationAndRampAngleFlag =
+      Flag("Inclination and Ramp Angle Setting");
+  static const Flag resistanceLevelFlag = Flag("Resistance Level");
+  static const Flag instPowerFlag = Flag("Instantaneous Power");
+  static const Flag avgPowerFlag = Flag("Average Power");
+  static const Flag expendedEnergyFlag = Flag("Expended Energy");
+  static const Flag heartRateFlag = Flag("Heart Rate");
+  static const Flag metabolicEquivalentFlag = Flag("Metabolic Equivalent");
+  static const Flag elapsedTimeFlag = Flag("Elapsed Time");
+  static const Flag remainingTimeFlag = Flag("Remaining Time");
+  static const Flag movementDirectionFlag = Flag("Movement Direction");
+
+  static const Flag instCadenceFlag = Flag("Instantaneous Cadence");
+  static const Flag avgCadenceFlag = Flag("Average Cadence");
 }
