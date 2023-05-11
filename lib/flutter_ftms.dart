@@ -32,12 +32,21 @@ class FTMS {
     return Bluetooth.isDeviceFTMSDevice(device);
   }
 
-  static Future<void> querySupportedFTMSFeatures(BluetoothDevice device,
-      FTMSDataType dataType, Function(FTMSData) onData) async {
+  static Future<void> querySupportedFTMSFeatures(
+      BluetoothDevice device, Function(FTMSData) onData) async {
+    var dataType = await getFTMSDeviceType(device);
+    if (dataType == null) return;
+
     await Bluetooth.querySupportedFTMSFeatures(device, dataType, onData);
   }
 
-  static Future<FTMSDataType> getFTMSDeviceType(BluetoothDevice device) async {
-    return FTMSDataType.indoorBike;
+  static Future<FTMSDataType?> getFTMSDeviceType(BluetoothDevice device) async {
+    var service = await Bluetooth.getFTMSService(device);
+    if (service == null) {
+      print("No FTMS Service found!");
+      return null;
+    }
+
+    return Bluetooth.getFTMSDataType(service);
   }
 }

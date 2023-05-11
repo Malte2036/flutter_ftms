@@ -57,20 +57,18 @@ class Bluetooth {
       FTMSDataType dataType, Function(FTMSData) onData) async {
     print('querySupportedFTMSFeatures');
 
-    var services = await device.discoverServices();
-    // FTMS service starts with 00001826
-    var service = services.firstWhere((service) =>
-        service.uuid.toString().toUpperCase().startsWith(ftmsServiceUUID));
-
-    print('Found FTMS service: ${service.uuid}');
+    var service = await getFTMSService(device);
+    if (service == null) {
+      throw "No FTMSService found!";
+    }
 
     await useFeatureCharacteristic(service);
 
     await useDataCharacteristic(service, dataType, onData);
   }
 
-  static useDataCharacteristic(
-      ftmsService, FTMSDataType dataType, Function(FTMSData) onData) async {
+  static useDataCharacteristic(BluetoothService ftmsService,
+      FTMSDataType dataType, Function(FTMSData) onData) async {
     var characteristicData = ftmsService.characteristics.firstWhere(
         (characteristic) => characteristic.uuid
             .toString()
@@ -104,7 +102,7 @@ class Bluetooth {
     }
   }
 
-  static useFeatureCharacteristic(ftmsService) async {
+  static useFeatureCharacteristic(BluetoothService ftmsService) async {
     var characteristicData = ftmsService.characteristics.firstWhere(
         (characteristic) => characteristic.uuid
             .toString()
@@ -119,12 +117,52 @@ class Bluetooth {
     });
   }
 
-  static Future<bool> isDeviceFTMSDevice(BluetoothDevice device) async {
+  static Future<BluetoothService?> getFTMSService(
+      BluetoothDevice device) async {
     var services = await device.discoverServices();
-    return services
-        .where((service) =>
-            service.uuid.toString().toUpperCase().startsWith(ftmsServiceUUID))
-        .toList()
-        .isNotEmpty;
+    // FTMS service starts with 00001826
+    var service = services.firstWhere((service) =>
+        service.uuid.toString().toUpperCase().startsWith(ftmsServiceUUID));
+
+    print('Found FTMS service: ${service.uuid}');
+    return service;
+  }
+
+  static Future<bool> isDeviceFTMSDevice(BluetoothDevice device) async {
+    var service = await getFTMSService(device);
+
+    return service != null;
+  }
+
+  static bool _characteristicStartWith(
+      BluetoothCharacteristic characteristic, String startsWithValue) {
+    return characteristic.uuid
+        .toString()
+        .toUpperCase()
+        .startsWith(startsWithValue.toUpperCase());
+  }
+
+  static BluetoothCharacteristic? _getBluetoothCharacteristic(
+      BluetoothService ftmsService, String startsWithUUID) {
+    var chars = ftmsService.characteristics
+        .where((element) => _characteristicStartWith(element, startsWithUUID))
+        .toList();
+
+    return chars.isNotEmpty ? chars[0] : null;
+  }
+
+  static Future<FTMSDataType?> getFTMSDataType(
+      BluetoothService ftmsService) async {
+    if (_getBluetoothCharacteristic(ftmsService, dataCharCrossTrainer) !=
+        null) {
+      return FTMSDataType.crossTrainer;
+    }
+
+    if (_getBluetoothCharacteristic(ftmsService, dataCharIndoorBike) != null) {
+      return FTMSDataType.indoorBike;
+    }
+
+    print("No FTMSDataType found");
+    return null;
   }
 }
