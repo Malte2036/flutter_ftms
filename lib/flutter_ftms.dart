@@ -49,4 +49,16 @@ class FTMS {
 
     return Bluetooth.getFTMSDataType(service);
   }
+
+  static String ftmsDataTypeToString(FTMSDataType dataType) {
+    switch (dataType) {
+      case FTMSDataType.crossTrainer:
+        return "Cross Trainer";
+      case FTMSDataType.indoorBike:
+        return "Indoor Bike";
+    }
+
+    // ignore: dead_code
+    throw 'FTMSDataType $dataType does not exists';
+  }
 }

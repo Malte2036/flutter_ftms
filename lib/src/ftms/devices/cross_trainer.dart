@@ -4,6 +4,9 @@ import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
 
 class CrossTrainer extends FTMSData {
   @override
+  FTMSDataType get ftmsDataType => FTMSDataType.crossTrainer;
+
+  @override
   List<String> get allFTMSDataFlags => [
         FTMSFlag.moreDataFlag,
         FTMSFlag.avgSpeedFlag,

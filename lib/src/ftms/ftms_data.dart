@@ -8,6 +8,8 @@ abstract class FTMSData {
   late final parameterValues =
       List<FTMSDataParameterValue>.empty(growable: true);
 
+  FTMSDataType get ftmsDataType;
+
   List<String> get allFTMSDataFlags;
   List<FTMSDataParameter> get allFTMSDataParameters;
 
