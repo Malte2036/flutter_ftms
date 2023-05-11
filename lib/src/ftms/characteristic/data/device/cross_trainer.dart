@@ -1,7 +1,7 @@
+import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_flag.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_parameter.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
-import 'package:flutter_ftms/src/ftms/ftms_data.dart';
-import 'package:flutter_ftms/src/ftms/ftms_data_flag.dart';
-import 'package:flutter_ftms/src/ftms/ftms_parameter.dart';
 
 class CrossTrainer extends FTMSData {
   @override

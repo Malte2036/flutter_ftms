@@ -1,5 +1,5 @@
+import 'package:flutter_ftms/src/ftms/characteristic/feature/ftms_feature_flag.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
-import 'package:flutter_ftms/src/ftms/ftms_feature_flag.dart';
 import 'package:flutter_ftms/src/utils.dart';
 
 class FTMSFeature {

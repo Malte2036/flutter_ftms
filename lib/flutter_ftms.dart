@@ -4,15 +4,23 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/bluetooth.dart';
-import 'package:flutter_ftms/src/ftms/ftms_data.dart';
-import 'package:flutter_ftms/src/ftms/ftms_feature.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/feature/ftms_feature.dart';
 import 'package:flutter_ftms/src/ftms_bluetooth.dart';
 
-export 'src/ftms/ftms_data.dart' show FTMSData, FTMSDataType;
-export 'src/ftms/ftms_feature.dart' show FTMSFeature;
-export 'src/ftms/ftms_feature_flag.dart' show FTMSFeatureFlag;
-export 'src/ftms/devices/cross_trainer.dart' show CrossTrainer;
-export 'src/ftms/devices/indoor_bike.dart' show IndoorBike;
+export 'src/ftms/characteristic/data/ftms_data.dart'
+    show FTMSData, FTMSDataType;
+export 'src/ftms/characteristic/data/ftms_data_parameter.dart'
+    show FTMSDataParameter, FTMSDataParameterValue;
+export 'src/ftms/characteristic/data/ftms_data_flag.dart' show FTMSDataFlag;
+
+export 'src/ftms/characteristic/data/device/cross_trainer.dart'
+    show CrossTrainer;
+export 'src/ftms/characteristic/data/device/indoor_bike.dart' show IndoorBike;
+
+export 'src/ftms/characteristic/feature/ftms_feature.dart' show FTMSFeature;
+export 'src/ftms/characteristic/feature/ftms_feature_flag.dart'
+    show FTMSFeatureFlag;
 
 class FTMS {
   static Stream<bool> get isScanning => Bluetooth.isScanningStream;

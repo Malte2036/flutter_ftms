@@ -1,5 +1,4 @@
-import 'package:flutter_ftms/src/ftms/ftms_feature.dart';
-import 'package:flutter_ftms/src/ftms/ftms_feature_flag.dart';
+import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

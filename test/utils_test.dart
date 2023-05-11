@@ -1,4 +1,4 @@
-import 'package:flutter_ftms/src/ftms/ftms_parameter.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_parameter.dart';
 import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
