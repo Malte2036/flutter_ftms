@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
 import 'package:flutter_ftms/src/ftms/devices/indoor_bike.dart';
 import 'package:flutter_ftms/src/ftms/ftms_data.dart';
@@ -35,6 +36,8 @@ class FTMSBluetooth {
       print(ftmsData);
     });
     await characteristicData.setNotifyValue(true);
+
+    await readFeatureCharacteristic(ftmsService);
   }
 
   static FTMSData _createFTMSDataByFTMSDataType(
@@ -49,7 +52,8 @@ class FTMSBluetooth {
     }
   }
 
-  /*static useFeatureCharacteristic(BluetoothService ftmsService) async {
+  static Future<FTMSFeature?> readFeatureCharacteristic(
+      BluetoothService ftmsService) async {
     var characteristicData = ftmsService.characteristics.firstWhere(
         (characteristic) => characteristic.uuid
             .toString()
@@ -58,11 +62,15 @@ class FTMSBluetooth {
 
     print('Found Feature characteristic: ${characteristicData.uuid}');
 
-    StreamSubscription notificationSubscription;
-    notificationSubscription = characteristicData.value.listen((data) {
-      print('featureData: ${data}');
-    });
-  }*/
+    var data = await characteristicData.read();
+    print('featureData: $data');
+
+    if (data.isEmpty) {
+      return null;
+    }
+
+    return FTMSFeature(data);
+  }
 
   static Future<BluetoothService?> getFTMSService(
       BluetoothDevice device) async {

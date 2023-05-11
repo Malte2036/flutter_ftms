@@ -5,9 +5,12 @@ import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/bluetooth.dart';
 import 'package:flutter_ftms/src/ftms/ftms_data.dart';
+import 'package:flutter_ftms/src/ftms/ftms_feature.dart';
 import 'package:flutter_ftms/src/ftms_bluetooth.dart';
 
 export 'src/ftms/ftms_data.dart' show FTMSData, FTMSDataType;
+export 'src/ftms/ftms_feature.dart' show FTMSFeature;
+export 'src/ftms/ftms_feature_flag.dart' show FTMSFeatureFlag;
 export 'src/ftms/devices/cross_trainer.dart' show CrossTrainer;
 export 'src/ftms/devices/indoor_bike.dart' show IndoorBike;
 
@@ -63,5 +66,16 @@ class FTMS {
 
     // ignore: dead_code
     throw 'FTMSDataType $dataType does not exists';
+  }
+
+  static Future<FTMSFeature?> readFeatureCharacteristic(
+      BluetoothDevice device) async {
+    var service = await FTMSBluetooth.getFTMSService(device);
+    if (service == null) {
+      print("No FTMS Service found!");
+      return null;
+    }
+
+    return await FTMSBluetooth.readFeatureCharacteristic(service);
   }
 }

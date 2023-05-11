@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter_ftms/src/ftms/flag.dart';
 import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
 
 int intArrayToLittleEndian(List<int> byteArray) {
@@ -14,16 +15,19 @@ int intArrayToLittleEndian(List<int> byteArray) {
   return intValue;
 }
 
-String dataToBinaryFlags(intArray) {
-  Uint8List byteList = Uint8List.fromList(intArray.getRange(0, 2).toList());
+String dataToBinaryFlags(intArray, {int count = 2}) {
+  Uint8List byteList = Uint8List.fromList(intArray.getRange(0, count).toList());
   ByteData byteData = ByteData.sublistView(byteList);
-  var binary =
-      byteData.getUint16(0, Endian.little).toRadixString(2).padLeft(16, "0");
+  var binary = byteData
+      .getUint16(0, Endian.little)
+      .toRadixString(2)
+      .padLeft(count * 8, "0");
   return binary;
 }
 
-int dataToFlags(intArray) {
-  var binary = dataToBinaryFlags(intArray);
+int dataToFlags(intArray, {int count = 2}) {
+  var binary = dataToBinaryFlags(intArray, count: count);
+  //print(binary);
   return binaryToInt(binary);
 }
 
@@ -46,4 +50,20 @@ int readAndConvertLittleEndianValue(
     value = value - (1 << (dataParameter.size * 8));
   }
   return value;
+}
+
+Map<Flag, bool> flagsToFeatureMap(
+    List<int> data, int featureBitCount, List<Flag> allFeatureFlags) {
+  var flags = dataToFlags(data, count: featureBitCount ~/ 8);
+
+  Map<Flag, bool> featureMap = {};
+  for (var i = 0; i < allFeatureFlags.length; i++) {
+    var flag = allFeatureFlags[i];
+    var isEnabled = isNthBitSet(flags, i);
+    if (isEnabled) print('${flag.name}: $isEnabled');
+
+    featureMap.putIfAbsent(flag, () => isEnabled);
+  }
+
+  return featureMap;
 }
