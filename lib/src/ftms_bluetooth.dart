@@ -8,10 +8,12 @@ import 'package:flutter_ftms/src/ftms/ftms_data.dart';
 class FTMSBluetooth {
   static const _ftmsServiceUUID = "00001826";
 
+  // ignore: unused_field
   static const _statusChar = "00002AD9";
   static const _dataCrossTrainerChar = "00002ACE";
   static const _dataIndoorBikeChar = "00002AD2";
 
+  // ignore: unused_field
   static const _featureChar = "00002ACC";
 
   static useDataCharacteristic(BluetoothService ftmsService,
@@ -24,9 +26,7 @@ class FTMSBluetooth {
 
     print('Found FTMS characteristic: ${characteristicData.uuid}');
 
-    StreamSubscription notificationSubscription;
-    notificationSubscription =
-        characteristicData.value.listen((List<int> ftmsData) {
+    characteristicData.value.listen((List<int> ftmsData) {
       if (ftmsData.isEmpty) return;
 
       FTMSData ftms = _createFTMSDataByFTMSDataType(dataType, ftmsData);
@@ -76,6 +76,10 @@ class FTMSBluetooth {
   }
 
   static Future<bool> isDeviceFTMSDevice(BluetoothDevice device) async {
+    if (await device.state.first == BluetoothDeviceState.disconnected) {
+      return false;
+    }
+
     var service = await getFTMSService(device);
 
     return service != null;

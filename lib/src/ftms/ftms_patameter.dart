@@ -25,7 +25,7 @@ class FTMSDataParameterValue extends FTMSDataParameter {
     String unit,
     num factor,
     bool signed,
-    int this.value,
+    this.value,
   ) : super(name, flag, size, unit, factor, signed: signed);
 
   @override

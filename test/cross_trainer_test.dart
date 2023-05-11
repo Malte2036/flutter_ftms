@@ -1,10 +1,5 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
-import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
 
 void main() {
   const List<List<int>> data = [
