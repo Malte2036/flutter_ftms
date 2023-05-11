@@ -37,9 +37,7 @@ bool isNthBitSet(int x, int n) {
 
 int readAndConvertLittleEndianValue(
     List<int> data, FTMSDataParameter dataParameter) {
-  var reversedData = List<int>.from(data.reversed);
-
-  var value = intArrayToLittleEndian(reversedData);
+  var value = intArrayToLittleEndian(data);
   //print('value: $value');
 
   if (dataParameter.signed &&

@@ -27,8 +27,15 @@ abstract class FTMSData {
           data = ftmsData
               .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
               .toList();
+
+          // WHY?
+          if (ftmsDataType == FTMSDataType.indoorBike) {
+            data = List<int>.from(data.reversed);
+          }
+
+          if (dataParameter.name == "Total Distance") print(data);
         } catch (e) {
-          print('Data is missing!');
+          //print('Data is missing!');
           break;
         }
 

@@ -18,6 +18,7 @@ void main() {
     expect(intArrayToLittleEndian([1, 0, 0]), 65536);
     expect(intArrayToLittleEndian([255, 255, 255]), 16777215);
     expect(intArrayToLittleEndian([4, 1]), 1025);
+    expect(intArrayToLittleEndian([1, 83]), 339);
   });
 
   test("readAndConvertLittleEndianValue", () {

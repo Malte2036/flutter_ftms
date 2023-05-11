@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_ftms/src/ftms/devices/cross_trainer.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -54,21 +55,58 @@ void main() {
     expect(featureMap["Movement Direction"], false /* maybe */);
   });
 
-  /*test('cross trainer parse simple data correct', () {
+  test('cross trainer parse average speed correct', () {
+    var averageSpeedResults = List<num>.empty(growable: true);
     for (var d in data) {
-      //var d = data[0];
-
       var crossTrainer = CrossTrainer(d);
 
-      var v = crossTrainer
+      var averageSpeed = crossTrainer
           .getFTMSDataParameterValues()
-          .firstWhere((element) => element.name == "Instantaneous Power");
-      print('$v: ${(v.value * v.factor).toStringAsFixed(2)}${v.unit}');
+          .firstWhere((element) => element.name == "Average Speed");
 
-      /*var instantaneousCadence = crossTrainer.parameterValues
-          .firstWhere((value) => value.name == "Instantaneous Cadence");
+      averageSpeedResults.add(averageSpeed.value * averageSpeed.factor);
+    }
 
-      expect(instantaneousCadence.value, 180);*/
+    expect(
+        listEquals(averageSpeedResults, [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          2.56,
+          3.39,
+          3.96,
+          4.39,
+          4.75,
+          7.63,
+          5.34,
+          5.57,
+          5.76,
+          5.92,
+          6.07,
+          6.19,
+          6.3,
+          6.4,
+          6.49,
+          1.17,
+          0.99,
+          0.8300000000000001,
+          0.68,
+          0.55
+        ]),
+        true);
+  });
+
+  /*test('cross trainer parse total distance data correct', () {
+    for (var d in data) {
+      var crossTrainer = CrossTrainer(d);
+
+      var totalDistance = crossTrainer
+          .getFTMSDataParameterValues()
+          .firstWhere((element) => element.name == "Total Distance");
+      print(totalDistance);
+
+      //expect(totalDistance.value * totalDistance.factor, 5.34);
     }
   });*/
 }
