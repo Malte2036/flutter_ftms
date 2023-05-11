@@ -15,11 +15,12 @@ class FTMSBluetooth {
 
   static useDataCharacteristic(BluetoothService ftmsService,
       FTMSDataType dataType, void Function(FTMSData) onData) async {
+    var dataCharUuid = _getBluetoothCharacteristicUUID(dataType);
     var characteristicData = ftmsService.characteristics.firstWhere(
         (characteristic) => characteristic.uuid
             .toString()
             .toUpperCase()
-            .startsWith(_dataIndoorBikeChar));
+            .startsWith(dataCharUuid));
 
     print('Found FTMS characteristic: ${characteristicData.uuid}');
 
@@ -120,5 +121,16 @@ class FTMSBluetooth {
 
     print("No FTMSDataType found");
     return null;
+  }
+
+  static String _getBluetoothCharacteristicUUID(FTMSDataType dataType) {
+    switch (dataType) {
+      case FTMSDataType.crossTrainer:
+        return _dataCrossTrainerChar;
+      case FTMSDataType.indoorBike:
+        return _dataIndoorBikeChar;
+      default:
+        throw 'FTMSDataType $dataType not found!';
+    }
   }
 }
