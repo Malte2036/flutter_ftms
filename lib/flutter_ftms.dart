@@ -31,12 +31,13 @@ class FTMS {
     await Bluetooth.disconnectFromBluetoothDevice(device);
   }
 
-  static Future<bool> isDeviceFTMSDevice(BluetoothDevice device) async {
-    return FTMSBluetooth.isDeviceFTMSDevice(device);
+  static Future<bool> isBluetoothDeviceFTMSDevice(
+      BluetoothDevice device) async {
+    return FTMSBluetooth.isBluetoothDeviceFTMSDevice(device);
   }
 
   static Future<void> useDataCharacteristic(
-      BluetoothDevice device, Function(FTMSData) onData) async {
+      BluetoothDevice device, void Function(FTMSData) onData) async {
     var dataType = await getFTMSDeviceType(device);
     if (dataType == null) return;
 
@@ -56,7 +57,7 @@ class FTMS {
     return FTMSBluetooth.getFTMSDataType(service);
   }
 
-  static String ftmsDataTypeToString(FTMSDataType dataType) {
+  static String convertFTMSDataTypeToString(FTMSDataType dataType) {
     switch (dataType) {
       case FTMSDataType.crossTrainer:
         return "Cross Trainer";

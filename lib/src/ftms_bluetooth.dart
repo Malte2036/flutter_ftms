@@ -15,7 +15,7 @@ class FTMSBluetooth {
   static const _featureChar = "00002ACC";
 
   static useDataCharacteristic(BluetoothService ftmsService,
-      FTMSDataType dataType, Function(FTMSData) onData) async {
+      FTMSDataType dataType, void Function(FTMSData) onData) async {
     var characteristicData = ftmsService.characteristics.firstWhere(
         (characteristic) => characteristic.uuid
             .toString()
@@ -80,7 +80,8 @@ class FTMSBluetooth {
     return service;
   }
 
-  static Future<bool> isDeviceFTMSDevice(BluetoothDevice device) async {
+  static Future<bool> isBluetoothDeviceFTMSDevice(
+      BluetoothDevice device) async {
     if (await device.state.first == BluetoothDeviceState.disconnected) {
       return false;
     }
