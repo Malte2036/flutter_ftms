@@ -12,14 +12,14 @@ class FTMSBluetooth {
   // ignore: unused_field
   static const _featureChar = "00002ACC";
 
-  static useDataCharacteristic(BluetoothService ftmsService,
+  static Future<void> useDataCharacteristic(BluetoothService ftmsService,
       FTMSDataType dataType, void Function(FTMSData) onData) async {
     var dataCharUuid = _getBluetoothCharacteristicUUID(dataType);
-    var characteristicData = ftmsService.characteristics.firstWhere(
-        (characteristic) => characteristic.uuid
-            .toString()
-            .toUpperCase()
-            .startsWith(dataCharUuid));
+    var characteristicData =
+        _getBluetoothCharacteristic(ftmsService, dataCharUuid);
+    if (characteristicData == null) {
+      return;
+    }
 
     print('Found FTMS characteristic: ${characteristicData.uuid}');
 
@@ -50,11 +50,11 @@ class FTMSBluetooth {
 
   static Future<FTMSFeature?> readFeatureCharacteristic(
       BluetoothService ftmsService) async {
-    var characteristicData = ftmsService.characteristics.firstWhere(
-        (characteristic) => characteristic.uuid
-            .toString()
-            .toUpperCase()
-            .startsWith(_featureChar));
+    var characteristicData =
+        _getBluetoothCharacteristic(ftmsService, _featureChar);
+    if (characteristicData == null) {
+      return null;
+    }
 
     print('Found Feature characteristic: ${characteristicData.uuid}');
 
@@ -70,11 +70,11 @@ class FTMSBluetooth {
 
   static Future<void> useStatusCharacteristic(
       BluetoothService ftmsService) async {
-    var characteristicData = ftmsService.characteristics.firstWhere(
-        (characteristic) => characteristic.uuid
-            .toString()
-            .toUpperCase()
-            .startsWith(_statusChar));
+    var characteristicData =
+        _getBluetoothCharacteristic(ftmsService, _statusChar);
+    if (characteristicData == null) {
+      return;
+    }
 
     if (!characteristicData.properties.notify) {
       throw 'notify not supported on status char';
