@@ -4,15 +4,15 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/bluetooth.dart';
-import 'package:flutter_ftms/src/ftms/devices/indoor_bike.dart';
 import 'package:flutter_ftms/src/ftms/ftms_data.dart';
+import 'package:flutter_ftms/src/ftms_bluetooth.dart';
 
 export 'src/ftms/ftms_data.dart' show FTMSData, FTMSDataType;
 export 'src/ftms/devices/cross_trainer.dart' show CrossTrainer;
 export 'src/ftms/devices/indoor_bike.dart' show IndoorBike;
 
 class FTMS {
-  static Stream<bool> isScanning = Bluetooth.isScanningStream;
+  static Stream<bool> get isScanning => Bluetooth.isScanningStream;
   static Stream<List<ScanResult>> get scanResults =>
       Bluetooth.scanResultsStream;
 
@@ -29,25 +29,28 @@ class FTMS {
   }
 
   static Future<bool> isDeviceFTMSDevice(BluetoothDevice device) async {
-    return Bluetooth.isDeviceFTMSDevice(device);
+    return FTMSBluetooth.isDeviceFTMSDevice(device);
   }
 
-  static Future<void> querySupportedFTMSFeatures(
+  static Future<void> useDataCharacteristic(
       BluetoothDevice device, Function(FTMSData) onData) async {
     var dataType = await getFTMSDeviceType(device);
     if (dataType == null) return;
 
-    await Bluetooth.querySupportedFTMSFeatures(device, dataType, onData);
+    var service = await FTMSBluetooth.getFTMSService(device);
+    if (service == null) return;
+
+    await FTMSBluetooth.useDataCharacteristic(service, dataType, onData);
   }
 
   static Future<FTMSDataType?> getFTMSDeviceType(BluetoothDevice device) async {
-    var service = await Bluetooth.getFTMSService(device);
+    var service = await FTMSBluetooth.getFTMSService(device);
     if (service == null) {
       print("No FTMS Service found!");
       return null;
     }
 
-    return Bluetooth.getFTMSDataType(service);
+    return FTMSBluetooth.getFTMSDataType(service);
   }
 
   static String ftmsDataTypeToString(FTMSDataType dataType) {
