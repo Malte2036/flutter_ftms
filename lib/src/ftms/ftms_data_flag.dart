@@ -1,6 +1,6 @@
 import 'package:flutter_ftms/src/ftms/flag.dart';
 
-class FTMSFlag {
+class FTMSDataFlag {
   static const Flag moreDataFlag = Flag("More Data");
   static const Flag avgSpeedFlag = Flag("Average Speed");
   static const Flag totalDistanceFlag = Flag("Total Distance");

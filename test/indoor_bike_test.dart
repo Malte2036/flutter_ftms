@@ -1,5 +1,5 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/ftms/ftms_flag.dart';
+import 'package:flutter_ftms/src/ftms/ftms_data_flag.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -23,8 +23,8 @@ void main() {
     var featureMap = indoorBike.getFTMSDataFeatures();
 
     const availableFeatures = [
-      FTMSFlag.instCadenceFlag,
-      FTMSFlag.instPowerFlag
+      FTMSDataFlag.instCadenceFlag,
+      FTMSDataFlag.instPowerFlag
     ];
 
     for (var featureFlag in availableFeatures) {

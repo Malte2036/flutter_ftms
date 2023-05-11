@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter_ftms/src/ftms/flag.dart';
-import 'package:flutter_ftms/src/ftms/ftms_patameter.dart';
+import 'package:flutter_ftms/src/ftms/ftms_parameter.dart';
 
 int intArrayToLittleEndian(List<int> byteArray) {
   List<int> filledByteArray = [
