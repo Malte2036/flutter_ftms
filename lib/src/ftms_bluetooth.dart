@@ -5,11 +5,10 @@ import 'package:flutter_ftms/flutter_ftms.dart';
 class FTMSBluetooth {
   static const _ftmsServiceUUID = "00001826";
 
-  // ignore: unused_field
-  static const _statusChar = "00002AD9";
   static const _dataCrossTrainerChar = "00002ACE";
   static const _dataIndoorBikeChar = "00002AD2";
 
+  static const _statusChar = "00002ADA";
   // ignore: unused_field
   static const _featureChar = "00002ACC";
 
@@ -67,6 +66,26 @@ class FTMSBluetooth {
     }
 
     return FTMSFeature(data);
+  }
+
+  static Future<void> useStatusCharacteristic(
+      BluetoothService ftmsService) async {
+    var characteristicData = ftmsService.characteristics.firstWhere(
+        (characteristic) => characteristic.uuid
+            .toString()
+            .toUpperCase()
+            .startsWith(_statusChar));
+
+    if (!characteristicData.properties.notify) {
+      throw 'notify not supported on status char';
+    }
+
+    print('Found Status characteristic: ${characteristicData.uuid}');
+
+    characteristicData.value.listen((data) {
+      print('statusData: $data');
+    });
+    await characteristicData.setNotifyValue(true);
   }
 
   static Future<BluetoothService?> getFTMSService(
