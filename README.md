@@ -20,9 +20,9 @@ You don't need to manually install the `flutter_blue_plus` package as it is incl
 
 After completing the `flutter_blue_plus` setup, you can add the following dependency to your `pubspec.yaml` file:
 
-```
+```yaml
 dependencies:
-    flutter_ftms: 0.1.1
+  flutter_ftms: 0.1.1
 ```
 
 Then, run `flutter pub get` to install the package.
@@ -35,7 +35,7 @@ Import the `flutter_ftms` package and use the `FTMS` class to interact with FTMS
 
 You can scan for available FTMS devices using the `scanForBluetoothDevices()` function. This will start a scan and return a stream of `ScanResult` objects.
 
-```
+```dart
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 await FTMS.scanForBluetoothDevices();
@@ -46,18 +46,29 @@ Stream<List<ScanResult>> scanResults = FTMS.scanResults;
 
 You can check if a given Bluetooth device is an FTMS device using the `isBluetoothDeviceFTMSDevice()` function. This function returns a bool indicating whether or not the device supports the FTMS service.
 
-```
+```dart
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 BluetoothDevice device = // obtain a BluetoothDevice object
 bool isFTMSDevice = await FTMS.isBluetoothDeviceFTMSDevice(device);
 ```
 
+### Connecting to a device
+
+Once you have a `BluetoothDevice` object, you can connect to it using the `connectToFTMSDevice()` function.
+
+```dart
+import 'package:flutter_ftms/flutter_ftms.dart';
+
+BluetoothDevice device = // obtain a BluetoothDevice object
+await FTMS.connectToFTMSDevice(device);
+```
+
 ### Getting device type
 
 You can get the FTMS data type of a connected device using the `getFTMSDeviceType()` function. This function returns an `FTMSDataType` enum value indicating whether the device is an indoor bike or cross trainer.
 
-```
+```dart
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 BluetoothDevice device = // obtain a BluetoothDevice object
@@ -68,22 +79,11 @@ if (dataType != null) {
 }
 ```
 
-### Connecting to a device
-
-Once you have a `BluetoothDevice` object, you can connect to it using the `connectToFTMSDevice()` function.
-
-```
-import 'package:flutter_ftms/flutter_ftms.dart';
-
-BluetoothDevice device = // obtain a BluetoothDevice object
-await FTMS.connectToFTMSDevice(device);
-```
-
 ### Reading data from a device
 
 You can read data from an FTMS device using the `useDataCharacteristic()` function. This function takes a callback that will be called with an `FTMSData` object every time new data is received from the device.
 
-```
+```dart
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 BluetoothDevice device = // obtain a BluetoothDevice object
@@ -96,7 +96,7 @@ await FTMS.useDataCharacteristic(device, (FTMSData data) {
 
 You can read feature information from an FTMS device using the `readFeatureCharacteristic()` function.
 
-```
+```dart
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 BluetoothDevice device = // obtain a BluetoothDevice object
