@@ -6,3 +6,8 @@
 ## 0.1.1
 
 - update README
+
+# 0.1.2
+
+- remove unused dependency
+- update README
