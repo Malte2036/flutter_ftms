@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 class FTMSBluetooth {

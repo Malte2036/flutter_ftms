@@ -22,7 +22,8 @@ export 'src/ftms/characteristic/feature/ftms_feature.dart' show FTMSFeature;
 export 'src/ftms/characteristic/feature/ftms_feature_flag.dart'
     show FTMSFeatureFlag;
 
-export 'package:flutter_blue_plus/flutter_blue_plus.dart';
+export 'package:flutter_blue_plus/flutter_blue_plus.dart'
+    show BluetoothDevice, BluetoothDeviceState, ScanResult;
 
 class FTMS {
   static Stream<bool> get isScanning => Bluetooth.isScanningStream;
