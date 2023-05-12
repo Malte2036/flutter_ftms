@@ -2,3 +2,7 @@
 
 - implemented: Indoor Bike
 - under development: Cross Trainer
+
+## 0.1.1
+
+- update README
