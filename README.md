@@ -13,14 +13,16 @@ This Flutter package allows you to connect to FTMS (Fitness Machine Service) dev
 
 ## Installation
 
-Add the following dependency to your `pubspec.yaml` file:
+To use the FTMS Flutter Plugin, you need to follow the "Getting Started" guide for `flutter_blue_plus`, as this package is based on it.
+You can find the guide here: https://pub.dev/packages/flutter_blue_plus#getting-started
+
+You don't need to manually install the `flutter_blue_plus` package as it is included as a dependency of `flutter_ftms`.
+
+After completing the `flutter_blue_plus` setup, you can add the following dependency to your `pubspec.yaml` file:
 
 ```
 dependencies:
-  flutter_ftms:
-    git:
-      url: https://github.com/Malte2036/flutter_ftms.git
-      ref: main
+    flutter_ftms: 0.1.0
 ```
 
 Then, run `flutter pub get` to install the package.
