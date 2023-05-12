@@ -2,7 +2,7 @@ import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
 import 'package:flutter_ftms/src/utils.dart';
 
-enum FTMSDataType { crossTrainer, indoorBike }
+enum FTMSDataType { crossTrainer, indoorBike, treadmill }
 
 abstract class FTMSData {
   final List<int> ftmsData;
@@ -32,7 +32,7 @@ abstract class FTMSData {
               .toList();
 
           // WHY?
-          if (ftmsDataType == FTMSDataType.indoorBike) {
+          if (ftmsDataType != FTMSDataType.crossTrainer) {
             data = List<int>.from(data.reversed);
           }
 

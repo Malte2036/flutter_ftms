@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/flutter_ftms.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/data/device/treadmill.dart';
 
 class FTMSBluetooth {
   static const _ftmsServiceUUID = "00001826";
 
   static const _dataCrossTrainerChar = "00002ACE";
   static const _dataIndoorBikeChar = "00002AD2";
+  static const _dataTreadmillChar = "00002ACD";
 
   static const _statusChar = "00002ADA";
   // ignore: unused_field
@@ -44,6 +46,10 @@ class FTMSBluetooth {
         return CrossTrainer(ftmsData);
       case FTMSDataType.indoorBike:
         return IndoorBike(ftmsData);
+      case FTMSDataType.treadmill:
+        print("Treadmill:");
+        print(ftmsData);
+        return Treadmill(ftmsData);
       default:
         throw 'FTMSDataType $type is not implemented!';
     }
@@ -139,6 +145,10 @@ class FTMSBluetooth {
       return FTMSDataType.indoorBike;
     }
 
+    if (_getBluetoothCharacteristic(ftmsService, _dataTreadmillChar) != null) {
+      return FTMSDataType.treadmill;
+    }
+
     print("No FTMSDataType found");
     return null;
   }
@@ -149,6 +159,8 @@ class FTMSBluetooth {
         return _dataCrossTrainerChar;
       case FTMSDataType.indoorBike:
         return _dataIndoorBikeChar;
+      case FTMSDataType.treadmill:
+        return _dataTreadmillChar;
       default:
         throw 'FTMSDataType $dataType not found!';
     }

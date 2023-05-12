@@ -15,3 +15,7 @@
 ## 0.1.3
 
 - only export necessary parts of flutter_blue_plus
+
+## 0.1.4
+
+- under development: Treadmill

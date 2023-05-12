@@ -21,4 +21,9 @@ class FTMSDataFlag {
 
   static const Flag instCadenceFlag = Flag("Instantaneous Cadence");
   static const Flag avgCadenceFlag = Flag("Average Cadence");
+
+  static const Flag instPaceFlag = Flag("Instantaneous Pace");
+  static const Flag avgPaceFlag = Flag("Average Pace");
+  static const Flag forceOnBeltAndPowerOutputFlag =
+      Flag("Force on Belt and Power Output");
 }

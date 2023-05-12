@@ -84,6 +84,8 @@ class FTMS {
         return "Cross Trainer";
       case FTMSDataType.indoorBike:
         return "Indoor Bike";
+      case FTMSDataType.treadmill:
+        return "Treadmill";
     }
 
     // ignore: dead_code
