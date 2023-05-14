@@ -35,3 +35,7 @@
 ## 0.3.0
 
 - implemented: Cross Trainer
+
+## 0.3.1
+
+- set Treadmill to "implemented"

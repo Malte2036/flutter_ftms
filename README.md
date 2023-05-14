@@ -2,16 +2,14 @@
 
 This Flutter package allows you to connect to FTMS (Fitness Machine Service) devices via Bluetooth Low Energy (BLE). It provides functions for scanning for available devices, connecting to a specific device, and reading data and status information from the device.
 
-⚠️ _**This Flutter package is currently under development.**_ ⚠️
-
 ## Supported Devices
 
-| Device        | Implemented?           |
-| ------------- | ---------------------- |
-| Indoor Bike   | ✅ (implemented)       |
-| Rower         | ✅ (implemented)       |
-| Cross Trainer | ✅ (implemented)       |
-| Treadmill     | 🚧 (under development) |
+| Device        | Implemented?     |
+| ------------- | ---------------- |
+| Indoor Bike   | ✅ (implemented) |
+| Rower         | ✅ (implemented) |
+| Cross Trainer | ✅ (implemented) |
+| Treadmill     | ✅ (implemented) |
 
 ## Installation
 
@@ -24,7 +22,7 @@ After completing the `flutter_blue_plus` setup, you can add the following depend
 
 ```yaml
 dependencies:
-  flutter_ftms: 0.3.0
+  flutter_ftms: 0.3.1
 ```
 
 Then, run `flutter pub get` to install the package.
