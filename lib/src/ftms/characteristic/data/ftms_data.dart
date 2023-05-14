@@ -31,12 +31,7 @@ abstract class FTMSData {
               .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
               .toList();
 
-          // WHY?
-          if (ftmsDataType != FTMSDataType.crossTrainer) {
-            data = List<int>.from(data.reversed);
-          }
-
-          //if (dataParameter.name == "Total Distance") print(data);
+          data = List<int>.from(data.reversed);
         } catch (e) {
           //print('Data is missing!');
           break;

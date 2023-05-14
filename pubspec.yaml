@@ -1,6 +1,6 @@
 name: flutter_ftms
 description: A Flutter package that allows you to connect to FTMS (Fitness Machine Service) devices via Bluetooth Low Energy (BLE).
-version: 0.2.0
+version: 0.3.0
 repository: https://github.com/Malte2036/flutter_ftms
 
 environment:

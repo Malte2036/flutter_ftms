@@ -31,3 +31,7 @@
 ## 0.2.0
 
 - implemented: Rower
+
+## 0.3.0
+
+- implemented: Cross Trainer

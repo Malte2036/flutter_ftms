@@ -10,7 +10,7 @@ This Flutter package allows you to connect to FTMS (Fitness Machine Service) dev
 | ------------- | ---------------------- |
 | Indoor Bike   | ✅ (implemented)       |
 | Rower         | ✅ (implemented)       |
-| Cross Trainer | 🚧 (under development) |
+| Cross Trainer | ✅ (implemented)       |
 | Treadmill     | 🚧 (under development) |
 
 ## Installation
@@ -24,7 +24,7 @@ After completing the `flutter_blue_plus` setup, you can add the following depend
 
 ```yaml
 dependencies:
-  flutter_ftms: 0.2.0
+  flutter_ftms: 0.3.0
 ```
 
 Then, run `flutter pub get` to install the package.

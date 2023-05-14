@@ -29,6 +29,7 @@ class CrossTrainer extends FTMSData {
 
   @override
   List<FTMSDataParameter> get allFTMSDataParameters => [
+        const FTMSDataParameter("placeholder" /* WHY? */, null, 1, "", 1),
         const FTMSDataParameter("Instantaneous Speed", null, 2, "Km/h", 0.01),
         const FTMSDataParameter(
             "Average Speed", FTMSDataFlag.avgSpeedFlag, 2, "Km/h", 0.01),
