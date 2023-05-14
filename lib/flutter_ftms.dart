@@ -17,6 +17,7 @@ export 'src/ftms/characteristic/data/ftms_data_flag.dart' show FTMSDataFlag;
 export 'src/ftms/characteristic/data/device/cross_trainer.dart'
     show CrossTrainer;
 export 'src/ftms/characteristic/data/device/indoor_bike.dart' show IndoorBike;
+export 'src/ftms/characteristic/data/device/treadmill.dart' show Treadmill;
 
 export 'src/ftms/characteristic/feature/ftms_feature.dart' show FTMSFeature;
 export 'src/ftms/characteristic/feature/ftms_feature_flag.dart'

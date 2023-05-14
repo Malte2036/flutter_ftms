@@ -39,13 +39,14 @@ void main() {
     var d = data[0];
 
     var indoorBike = IndoorBike(d);
+    var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence = indoorBike.parameterValues
+    var instantaneousCadence = parameterValues
         .firstWhere((value) => value.name == "Instantaneous Cadence");
 
     expect(instantaneousCadence.value, 180);
 
-    var instantaneousPower = indoorBike.parameterValues
+    var instantaneousPower = parameterValues
         .firstWhere((value) => value.name == "Instantaneous Power");
 
     expect(instantaneousPower.value, 102);
@@ -55,13 +56,14 @@ void main() {
     var d = data[1];
 
     var indoorBike = IndoorBike(d);
+    var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence = indoorBike.parameterValues
+    var instantaneousCadence = parameterValues
         .firstWhere((value) => value.name == "Instantaneous Cadence");
 
     expect(instantaneousCadence.value, 360);
 
-    var instantaneousPower = indoorBike.parameterValues
+    var instantaneousPower = parameterValues
         .firstWhere((value) => value.name == "Instantaneous Power");
 
     expect(instantaneousPower.value, 100);
@@ -71,13 +73,14 @@ void main() {
     var d = data[2];
 
     var indoorBike = IndoorBike(d);
+    var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence = indoorBike.parameterValues
+    var instantaneousCadence = parameterValues
         .firstWhere((value) => value.name == "Instantaneous Cadence");
 
     expect(instantaneousCadence.value, 260);
 
-    var instantaneousPower = indoorBike.parameterValues
+    var instantaneousPower = parameterValues
         .firstWhere((value) => value.name == "Instantaneous Power");
 
     expect(instantaneousPower.value, 101);

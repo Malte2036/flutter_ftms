@@ -19,3 +19,7 @@
 ## 0.1.4
 
 - under development: Treadmill
+
+## 0.1.5
+
+- refactor: change FTMSData visibility

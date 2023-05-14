@@ -5,8 +5,8 @@ import 'package:flutter_ftms/src/utils.dart';
 enum FTMSDataType { crossTrainer, indoorBike, treadmill }
 
 abstract class FTMSData {
-  final List<int> ftmsData;
-  late final parameterValues =
+  final List<int> _ftmsData;
+  late final _parameterValues =
       List<FTMSDataParameterValue>.empty(growable: true);
 
   FTMSDataType get ftmsDataType;
@@ -16,7 +16,7 @@ abstract class FTMSData {
 
   static const _featureBitSize = 16;
 
-  FTMSData(this.ftmsData) {
+  FTMSData(this._ftmsData) {
     var features = getFTMSDataFeatures();
 
     int ftmsDataOffset = 2;
@@ -27,7 +27,7 @@ abstract class FTMSData {
       if (parameterIsEnabled) {
         List<int> data;
         try {
-          data = ftmsData
+          data = _ftmsData
               .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
               .toList();
 
@@ -48,16 +48,16 @@ abstract class FTMSData {
 
         ftmsDataOffset += dataParameter.size;
 
-        parameterValues.add(dataParameter.toFTMSDataParameterValue(value));
+        _parameterValues.add(dataParameter.toFTMSDataParameterValue(value));
       }
     }
   }
 
   Map<Flag, bool> getFTMSDataFeatures() {
-    return flagsToFeatureMap(ftmsData, _featureBitSize, allFTMSDataFlags);
+    return flagsToFeatureMap(_ftmsData, _featureBitSize, allFTMSDataFlags);
   }
 
   List<FTMSDataParameterValue> getFTMSDataParameterValues() {
-    return parameterValues;
+    return _parameterValues;
   }
 }
