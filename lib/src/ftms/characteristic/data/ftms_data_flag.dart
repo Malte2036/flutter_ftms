@@ -26,4 +26,6 @@ class FTMSDataFlag {
   static const Flag avgPaceFlag = Flag("Average Pace");
   static const Flag forceOnBeltAndPowerOutputFlag =
       Flag("Force on Belt and Power Output");
+
+  static const Flag avgStrokeFlag = Flag("Average Stroke");
 }

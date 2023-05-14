@@ -2,7 +2,7 @@ import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
 import 'package:flutter_ftms/src/utils.dart';
 
-enum FTMSDataType { crossTrainer, indoorBike, treadmill }
+enum FTMSDataType { crossTrainer, indoorBike, treadmill, rower }
 
 abstract class FTMSData {
   final List<int> _ftmsData;

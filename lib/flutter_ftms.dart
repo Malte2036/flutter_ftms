@@ -18,6 +18,7 @@ export 'src/ftms/characteristic/data/device/cross_trainer.dart'
     show CrossTrainer;
 export 'src/ftms/characteristic/data/device/indoor_bike.dart' show IndoorBike;
 export 'src/ftms/characteristic/data/device/treadmill.dart' show Treadmill;
+export 'src/ftms/characteristic/data/device/rower.dart' show Rower;
 
 export 'src/ftms/characteristic/feature/ftms_feature.dart' show FTMSFeature;
 export 'src/ftms/characteristic/feature/ftms_feature_flag.dart'
@@ -87,6 +88,8 @@ class FTMS {
         return "Indoor Bike";
       case FTMSDataType.treadmill:
         return "Treadmill";
+      case FTMSDataType.rower:
+        return "Rower";
     }
 
     // ignore: dead_code

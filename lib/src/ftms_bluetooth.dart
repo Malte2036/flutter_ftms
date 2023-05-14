@@ -9,6 +9,7 @@ class FTMSBluetooth {
   static const _dataCrossTrainerChar = "00002ACE";
   static const _dataIndoorBikeChar = "00002AD2";
   static const _dataTreadmillChar = "00002ACD";
+  static const _dataRowerChar = "00002AD1";
 
   static const _statusChar = "00002ADA";
   // ignore: unused_field
@@ -46,9 +47,9 @@ class FTMSBluetooth {
       case FTMSDataType.indoorBike:
         return IndoorBike(ftmsData);
       case FTMSDataType.treadmill:
-        print("Treadmill:");
-        print(ftmsData);
         return Treadmill(ftmsData);
+      case FTMSDataType.rower:
+        return Rower(ftmsData);
       default:
         throw 'FTMSDataType $type is not implemented!';
     }
@@ -148,6 +149,10 @@ class FTMSBluetooth {
       return FTMSDataType.treadmill;
     }
 
+    if (_getBluetoothCharacteristic(ftmsService, _dataRowerChar) != null) {
+      return FTMSDataType.rower;
+    }
+
     print("No FTMSDataType found");
     return null;
   }
@@ -160,6 +165,8 @@ class FTMSBluetooth {
         return _dataIndoorBikeChar;
       case FTMSDataType.treadmill:
         return _dataTreadmillChar;
+      case FTMSDataType.rower:
+        return _dataRowerChar;
       default:
         throw 'FTMSDataType $dataType not found!';
     }

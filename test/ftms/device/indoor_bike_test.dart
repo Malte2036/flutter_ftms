@@ -1,4 +1,5 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
+import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -41,13 +42,13 @@ void main() {
     var indoorBike = IndoorBike(d);
     var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence = parameterValues
-        .firstWhere((value) => value.name == "Instantaneous Cadence");
+    var instantaneousCadence =
+        getParameterValueByName(parameterValues, "Instantaneous Cadence");
 
     expect(instantaneousCadence.value, 180);
 
-    var instantaneousPower = parameterValues
-        .firstWhere((value) => value.name == "Instantaneous Power");
+    var instantaneousPower =
+        getParameterValueByName(parameterValues, "Instantaneous Power");
 
     expect(instantaneousPower.value, 102);
   });
@@ -58,13 +59,13 @@ void main() {
     var indoorBike = IndoorBike(d);
     var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence = parameterValues
-        .firstWhere((value) => value.name == "Instantaneous Cadence");
+    var instantaneousCadence =
+        getParameterValueByName(parameterValues, "Instantaneous Cadence");
 
     expect(instantaneousCadence.value, 360);
 
-    var instantaneousPower = parameterValues
-        .firstWhere((value) => value.name == "Instantaneous Power");
+    var instantaneousPower =
+        getParameterValueByName(parameterValues, "Instantaneous Power");
 
     expect(instantaneousPower.value, 100);
   });
@@ -75,13 +76,13 @@ void main() {
     var indoorBike = IndoorBike(d);
     var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence = parameterValues
-        .firstWhere((value) => value.name == "Instantaneous Cadence");
+    var instantaneousCadence =
+        getParameterValueByName(parameterValues, "Instantaneous Cadence");
 
     expect(instantaneousCadence.value, 260);
 
-    var instantaneousPower = parameterValues
-        .firstWhere((value) => value.name == "Instantaneous Power");
+    var instantaneousPower =
+        getParameterValueByName(parameterValues, "Instantaneous Power");
 
     expect(instantaneousPower.value, 101);
   });

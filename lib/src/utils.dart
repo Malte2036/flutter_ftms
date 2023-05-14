@@ -67,3 +67,12 @@ Map<Flag, bool> flagsToFeatureMap(
 
   return featureMap;
 }
+
+FTMSDataParameterValue getParameterValueByName(
+    List<FTMSDataParameterValue> parameterValues, String name) {
+  try {
+    return parameterValues.firstWhere((parameter) => parameter.name == name);
+  } catch (e) {
+    throw 'ParameterValue $name not found!';
+  }
+}

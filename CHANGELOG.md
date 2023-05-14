@@ -27,3 +27,7 @@
 ## 0.1.6
 
 - update README
+
+## 0.2.0
+
+- implemented: Rower

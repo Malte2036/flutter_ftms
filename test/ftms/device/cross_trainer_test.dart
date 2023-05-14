@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_ftms/flutter_ftms.dart';
+import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -60,9 +61,8 @@ void main() {
     for (var d in data) {
       var crossTrainer = CrossTrainer(d);
 
-      var averageSpeed = crossTrainer
-          .getFTMSDataParameterValues()
-          .firstWhere((element) => element.name == "Average Speed");
+      var averageSpeed = getParameterValueByName(
+          crossTrainer.getFTMSDataParameterValues(), "Average Speed");
 
       averageSpeedResults.add(averageSpeed.value * averageSpeed.factor);
     }
