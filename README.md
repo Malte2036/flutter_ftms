@@ -23,7 +23,7 @@ After completing the `flutter_blue_plus` setup, you can add the following depend
 
 ```yaml
 dependencies:
-  flutter_ftms: 0.1.5
+  flutter_ftms: 0.1.6
 ```
 
 Then, run `flutter pub get` to install the package.
@@ -43,17 +43,6 @@ await FTMS.scanForBluetoothDevices();
 Stream<List<ScanResult>> scanResults = FTMS.scanResults;
 ```
 
-### Checking device type
-
-You can check if a given Bluetooth device is an FTMS device using the `isBluetoothDeviceFTMSDevice()` function. This function returns a bool indicating whether or not the device supports the FTMS service.
-
-```dart
-import 'package:flutter_ftms/flutter_ftms.dart';
-
-BluetoothDevice device = // obtain a BluetoothDevice object
-bool isFTMSDevice = await FTMS.isBluetoothDeviceFTMSDevice(device);
-```
-
 ### Connecting to a device
 
 Once you have a `BluetoothDevice` object, you can connect to it using the `connectToFTMSDevice()` function.
@@ -63,6 +52,17 @@ import 'package:flutter_ftms/flutter_ftms.dart';
 
 BluetoothDevice device = // obtain a BluetoothDevice object
 await FTMS.connectToFTMSDevice(device);
+```
+
+### Checking device type
+
+You can check if a given Bluetooth device is an FTMS device using the `isBluetoothDeviceFTMSDevice()` function. This function returns a bool indicating whether or not the device supports the FTMS service.
+
+```dart
+import 'package:flutter_ftms/flutter_ftms.dart';
+
+BluetoothDevice device = // obtain a BluetoothDevice object
+bool isFTMSDevice = await FTMS.isBluetoothDeviceFTMSDevice(device);
 ```
 
 ### Getting device type
