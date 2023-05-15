@@ -1,5 +1,4 @@
-import 'package:flutter_ftms/src/ftms/characteristic/data/device/rower.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_flag.dart';
+import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -38,9 +37,9 @@ void main() {
   test('rower features', () {
     var d = data[0];
 
-    var crossTrainer = Rower(d);
+    var rower = Rower(d);
 
-    var featureMap = crossTrainer.getFTMSDataFeatures();
+    var featureMap = rower.getFTMSDataFeatures();
 
     expect(featureMap[FTMSDataFlag.moreDataFlag], false);
     expect(featureMap[FTMSDataFlag.avgStrokeFlag], true);

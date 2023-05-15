@@ -41,7 +41,7 @@ void main() {
     expect(featureMap[FTMSDataFlag.moreDataFlag], false);
     expect(featureMap[FTMSDataFlag.avgSpeedFlag], true);
     expect(featureMap[FTMSDataFlag.totalDistanceFlag], true);
-    //expect(featureMap[FTMSFlag.stepCountFlag], false);
+    //expect(featureMap[FTMSDataFlag.stepCountFlag], false);
     expect(featureMap[FTMSDataFlag.strideCountFlag], true /* maybe */);
     expect(featureMap[FTMSDataFlag.elevationGainFlag], false);
     expect(featureMap[FTMSDataFlag.inclinationAndRampAngleFlag], false);
@@ -49,7 +49,7 @@ void main() {
     expect(featureMap[FTMSDataFlag.instPowerFlag], true);
     expect(featureMap[FTMSDataFlag.avgPowerFlag], true);
     expect(featureMap[FTMSDataFlag.expendedEnergyFlag], true);
-    //expect(featureMap[FTMSFlag.heartRateFlag], true);
+    //expect(featureMap[FTMSDataFlag.heartRateFlag], true);
     expect(featureMap[FTMSDataFlag.metabolicEquivalentFlag], true);
     expect(featureMap[FTMSDataFlag.elapsedTimeFlag], true);
     expect(featureMap[FTMSDataFlag.remainingTimeFlag], true);
@@ -97,16 +97,44 @@ void main() {
         true);
   });
 
-  /*test('cross trainer parse total distance data correct', () {
+  test('cross trainer parse total distance data correct', () {
+    var totalDistanceResults = List<num>.empty(growable: true);
     for (var d in data) {
       var crossTrainer = CrossTrainer(d);
 
-      var totalDistance = crossTrainer
-          .getFTMSDataParameterValues()
-          .firstWhere((element) => element.name == "Total Distance");
-      print(totalDistance);
+      var totalDistance = getParameterValueByName(
+          crossTrainer.getFTMSDataParameterValues(), "Total Distance");
 
-      //expect(totalDistance.value * totalDistance.factor, 5.34);
+      totalDistanceResults.add(totalDistance.value * totalDistance.factor);
     }
-  });*/
+
+    expect(
+        listEquals(totalDistanceResults, [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          4,
+          5,
+          6,
+          8,
+          10,
+          11,
+          13,
+          14,
+          16,
+          17,
+          19,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ]),
+        true);
+  });
 }
