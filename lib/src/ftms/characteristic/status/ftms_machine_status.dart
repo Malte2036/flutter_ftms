@@ -45,7 +45,7 @@ class FTMSMachineStatus {
       parameterData = List.from(parameterData.reversed);
       //print(data.getRange(1, 1 + p.size + 1).toList());
       var value = Utils.readAndConvertLittleEndianValue(parameterData, p);
-      parameter = p.toFTMSDataParameterValue(value);
+      parameter = p.toFTMSMachineStatusParameterValue(value);
     }
   }
 }

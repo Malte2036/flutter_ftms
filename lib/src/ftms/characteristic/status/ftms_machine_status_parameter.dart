@@ -5,7 +5,7 @@ class FTMSMachineStatusParameter extends Parameter {
   const FTMSMachineStatusParameter(size, unit, factor, {signed = false})
       : super(size, unit, factor, signed: signed);
 
-  FTMSMachineStatusParameterValue toFTMSDataParameterValue(int value) {
+  FTMSMachineStatusParameterValue toFTMSMachineStatusParameterValue(int value) {
     return FTMSMachineStatusParameterValue(size, unit, factor, signed, value);
   }
 }
