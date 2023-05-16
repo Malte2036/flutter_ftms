@@ -60,27 +60,67 @@ void main() {
     var rower = Rower(data[0]);
     var parameterValues = rower.getFTMSDataParameterValues();
 
-    expect(getParameterValueByName(parameterValues, "Stroke Rate").value, 0);
-    expect(getParameterValueByName(parameterValues, "Stroke Count").value, 39);
     expect(
-        getParameterValueByName(parameterValues, "Average Stroke Rate").value,
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.strokeRate)
+            .value,
+        0);
+    expect(
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.strokeCount)
+            .value,
+        39);
+    expect(
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.avgStrokeRate)
+            .value,
         214);
     expect(
-        getParameterValueByName(parameterValues, "Total Distance").value, 156);
-    expect(getParameterValueByName(parameterValues, "Instantaneous Pace").value,
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.totalDistance)
+            .value,
+        156);
+    expect(
+        getParameterValueByName(parameterValues, FTMSDataParameterName.instPace)
+            .value,
         0);
-    expect(getParameterValueByName(parameterValues, "Average Pace").value, 97);
     expect(
-        getParameterValueByName(parameterValues, "Instantaneous Power").value,
+        getParameterValueByName(parameterValues, FTMSDataParameterName.avgPace)
+            .value,
+        97);
+    expect(
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.instPower)
+            .value,
         0);
     expect(
-        getParameterValueByName(parameterValues, "Average Power").value, 228);
-    expect(getParameterValueByName(parameterValues, "Total Energy").value, 13);
+        getParameterValueByName(parameterValues, FTMSDataParameterName.avgPower)
+            .value,
+        228);
     expect(
-        getParameterValueByName(parameterValues, "Energy Per Hour").value, 0);
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.totalEnergy)
+            .value,
+        13);
     expect(
-        getParameterValueByName(parameterValues, "Energy Per Minute").value, 0);
-    expect(getParameterValueByName(parameterValues, "Elapsed Time").value, 36);
-    expect(getParameterValueByName(parameterValues, "Remaining Time").value, 0);
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.energyPerHour)
+            .value,
+        0);
+    expect(
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.energyPerMinute)
+            .value,
+        0);
+    expect(
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.elapsedTime)
+            .value,
+        36);
+    expect(
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.remainingTime)
+            .value,
+        0);
   });
 }

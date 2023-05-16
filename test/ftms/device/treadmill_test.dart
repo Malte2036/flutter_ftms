@@ -34,11 +34,19 @@ void main() {
     var parameterValues = treadmill.getFTMSDataParameterValues();
 
     expect(
-        getParameterValueByName(parameterValues, "Instantaneous Speed").value,
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.instSpeed)
+            .value,
         345);
     expect(
-        getParameterValueByName(parameterValues, "Total Distance").value, 1234);
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.totalDistance)
+            .value,
+        1234);
     expect(
-        getParameterValueByName(parameterValues, "Remaining Time").value, 100);
+        getParameterValueByName(
+                parameterValues, FTMSDataParameterName.remainingTime)
+            .value,
+        100);
   });
 }

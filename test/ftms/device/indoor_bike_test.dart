@@ -42,13 +42,13 @@ void main() {
     var indoorBike = IndoorBike(d);
     var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence =
-        getParameterValueByName(parameterValues, "Instantaneous Cadence");
+    var instantaneousCadence = getParameterValueByName(
+        parameterValues, FTMSDataParameterName.instCadence);
 
     expect(instantaneousCadence.value, 180);
 
-    var instantaneousPower =
-        getParameterValueByName(parameterValues, "Instantaneous Power");
+    var instantaneousPower = getParameterValueByName(
+        parameterValues, FTMSDataParameterName.instPower);
 
     expect(instantaneousPower.value, 102);
   });
@@ -59,13 +59,13 @@ void main() {
     var indoorBike = IndoorBike(d);
     var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence =
-        getParameterValueByName(parameterValues, "Instantaneous Cadence");
+    var instantaneousCadence = getParameterValueByName(
+        parameterValues, FTMSDataParameterName.instCadence);
 
     expect(instantaneousCadence.value, 360);
 
-    var instantaneousPower =
-        getParameterValueByName(parameterValues, "Instantaneous Power");
+    var instantaneousPower = getParameterValueByName(
+        parameterValues, FTMSDataParameterName.instPower);
 
     expect(instantaneousPower.value, 100);
   });
@@ -76,13 +76,13 @@ void main() {
     var indoorBike = IndoorBike(d);
     var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence =
-        getParameterValueByName(parameterValues, "Instantaneous Cadence");
+    var instantaneousCadence = getParameterValueByName(
+        parameterValues, FTMSDataParameterName.instCadence);
 
     expect(instantaneousCadence.value, 260);
 
-    var instantaneousPower =
-        getParameterValueByName(parameterValues, "Instantaneous Power");
+    var instantaneousPower = getParameterValueByName(
+        parameterValues, FTMSDataParameterName.instPower);
 
     expect(instantaneousPower.value, 101);
   });

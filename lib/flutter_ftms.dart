@@ -11,8 +11,12 @@ import 'package:flutter_ftms/src/ftms_bluetooth.dart';
 export 'src/ftms/characteristic/data/ftms_data.dart'
     show FTMSData, FTMSDataType;
 export 'src/ftms/characteristic/data/ftms_data_parameter.dart'
-    show FTMSDataParameter, FTMSDataParameterValue;
+    show FTMSDataParameter;
+export 'src/ftms/characteristic/data/ftms_data_parameter_value.dart'
+    show FTMSDataParameterValue;
 export 'src/ftms/characteristic/data/ftms_data_flag.dart' show FTMSDataFlag;
+export 'src/ftms/characteristic/data/ftms_data_parameter_name.dart'
+    show FTMSDataParameterName;
 
 export 'src/ftms/characteristic/data/device/cross_trainer.dart'
     show CrossTrainer;

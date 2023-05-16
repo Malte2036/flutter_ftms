@@ -1,4 +1,4 @@
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_parameter.dart';
+import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -22,12 +22,14 @@ void main() {
   });
 
   test("readAndConvertLittleEndianValue", () {
-    const parameterNotSigned =
-        FTMSDataParameter("test", null, 1, "", 0, signed: false);
+    const parameterNotSigned = FTMSDataParameter(
+        FTMSDataParameterName.instSpeed, null, 1, "", 0,
+        signed: false);
     expect(readAndConvertLittleEndianValue([92], parameterNotSigned), 92);
 
-    const parameterSigned =
-        FTMSDataParameter("test", null, 1, "", 0, signed: true);
+    const parameterSigned = FTMSDataParameter(
+        FTMSDataParameterName.instSpeed, null, 1, "", 0,
+        signed: true);
     expect(readAndConvertLittleEndianValue([-92], parameterSigned), -92);
   });
 }

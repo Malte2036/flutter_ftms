@@ -1,7 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_parameter.dart';
+import 'package:flutter_ftms/src/ftms/parameter_name.dart';
 
 int intArrayToLittleEndian(List<int> byteArray) {
   List<int> filledByteArray = [
@@ -69,7 +70,7 @@ Map<Flag, bool> flagsToFeatureMap(
 }
 
 FTMSDataParameterValue getParameterValueByName(
-    List<FTMSDataParameterValue> parameterValues, String name) {
+    List<FTMSDataParameterValue> parameterValues, ParameterName name) {
   try {
     return parameterValues.firstWhere((parameter) => parameter.name == name);
   } catch (e) {

@@ -62,7 +62,8 @@ void main() {
       var crossTrainer = CrossTrainer(d);
 
       var averageSpeed = getParameterValueByName(
-          crossTrainer.getFTMSDataParameterValues(), "Average Speed");
+          crossTrainer.getFTMSDataParameterValues(),
+          FTMSDataParameterName.avgSpeed);
 
       averageSpeedResults.add(averageSpeed.value * averageSpeed.factor);
     }
@@ -103,7 +104,8 @@ void main() {
       var crossTrainer = CrossTrainer(d);
 
       var totalDistance = getParameterValueByName(
-          crossTrainer.getFTMSDataParameterValues(), "Total Distance");
+          crossTrainer.getFTMSDataParameterValues(),
+          FTMSDataParameterName.totalDistance);
 
       totalDistanceResults.add(totalDistance.value * totalDistance.factor);
     }
