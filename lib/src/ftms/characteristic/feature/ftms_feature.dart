@@ -30,6 +30,6 @@ class FTMSFeature {
   FTMSFeature(this.data);
 
   Map<Flag, bool> getFeatureFlags() {
-    return flagsToFeatureMap(data, _featureBitSize, allFTMSFeatureFlags);
+    return Utils.flagsToFeatureMap(data, _featureBitSize, allFTMSFeatureFlags);
   }
 }

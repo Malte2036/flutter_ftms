@@ -61,7 +61,7 @@ void main() {
     for (var d in data) {
       var crossTrainer = CrossTrainer(d);
 
-      var averageSpeed = getParameterValueByName(
+      var averageSpeed = Utils.getParameterValueByName(
           crossTrainer.getFTMSDataParameterValues(),
           FTMSDataParameterName.avgSpeed);
 
@@ -103,7 +103,7 @@ void main() {
     for (var d in data) {
       var crossTrainer = CrossTrainer(d);
 
-      var totalDistance = getParameterValueByName(
+      var totalDistance = Utils.getParameterValueByName(
           crossTrainer.getFTMSDataParameterValues(),
           FTMSDataParameterName.totalDistance);
 

@@ -37,7 +37,7 @@ abstract class FTMSData {
           break;
         }
 
-        var value = readAndConvertLittleEndianValue(data, dataParameter);
+        var value = Utils.readAndConvertLittleEndianValue(data, dataParameter);
         //print(
         //    '${dataParameter.name}: ${value} [${(value * dataParameter.factor).toInt()}${dataParameter.unit}]');
 
@@ -49,7 +49,8 @@ abstract class FTMSData {
   }
 
   Map<Flag, bool> getFTMSDataFeatures() {
-    return flagsToFeatureMap(_ftmsData, _featureBitSize, allFTMSDataFlags);
+    return Utils.flagsToFeatureMap(
+        _ftmsData, _featureBitSize, allFTMSDataFlags);
   }
 
   List<FTMSDataParameterValue> getFTMSDataParameterValues() {

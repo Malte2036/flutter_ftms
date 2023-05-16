@@ -61,64 +61,67 @@ void main() {
     var parameterValues = rower.getFTMSDataParameterValues();
 
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.strokeRate)
             .value,
         0);
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.strokeCount)
             .value,
         39);
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.avgStrokeRate)
             .value,
         214);
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.totalDistance)
             .value,
         156);
     expect(
-        getParameterValueByName(parameterValues, FTMSDataParameterName.instPace)
+        Utils.getParameterValueByName(
+                parameterValues, FTMSDataParameterName.instPace)
             .value,
         0);
     expect(
-        getParameterValueByName(parameterValues, FTMSDataParameterName.avgPace)
+        Utils.getParameterValueByName(
+                parameterValues, FTMSDataParameterName.avgPace)
             .value,
         97);
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.instPower)
             .value,
         0);
     expect(
-        getParameterValueByName(parameterValues, FTMSDataParameterName.avgPower)
+        Utils.getParameterValueByName(
+                parameterValues, FTMSDataParameterName.avgPower)
             .value,
         228);
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.totalEnergy)
             .value,
         13);
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.energyPerHour)
             .value,
         0);
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.energyPerMinute)
             .value,
         0);
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.elapsedTime)
             .value,
         36);
     expect(
-        getParameterValueByName(
+        Utils.getParameterValueByName(
                 parameterValues, FTMSDataParameterName.remainingTime)
             .value,
         0);
