@@ -1,5 +1,4 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/status/ftms_machine_status_opcode.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/status/ftms_machine_status_parameter.dart';
 import 'package:flutter_ftms/src/utils.dart';
 
@@ -35,7 +34,7 @@ class FTMSMachineStatus {
 
   FTMSMachineStatus(List<int> data) {
     if (data.isEmpty) {
-      throw 'FTMSMachineStatus should not be empty!';
+      throw 'FTMSMachineStatus data should not be empty!';
     }
     opCode = FTMSMachineStatusOpcode(data[0]);
 

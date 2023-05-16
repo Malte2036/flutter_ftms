@@ -20,10 +20,10 @@ class FTMSMachineStatusOpcode {
   late final FTMSMachineStatusOpcodeType type;
 
   FTMSMachineStatusOpcode(this.value) {
-    type = valueToOpcodeType(value);
+    type = _valueToOpcodeType(value);
   }
 
-  static FTMSMachineStatusOpcodeType valueToOpcodeType(int value) {
+  static FTMSMachineStatusOpcodeType _valueToOpcodeType(int value) {
     switch (value) {
       case 0x1:
         return FTMSMachineStatusOpcodeType.reset;

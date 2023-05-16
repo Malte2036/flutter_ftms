@@ -1,6 +1,4 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/status/ftms_machine_status.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/status/ftms_machine_status_opcode.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

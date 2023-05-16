@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/bluetooth.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/control_point/ftms_control_point.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/feature/ftms_feature.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/status/ftms_machine_status.dart';
@@ -32,9 +33,14 @@ export 'src/ftms/characteristic/feature/ftms_feature_flag.dart'
 export 'src/ftms/characteristic/status/ftms_machine_status.dart'
     show FTMSMachineStatus;
 export 'src/ftms/characteristic/status/ftms_machine_status_opcode.dart'
-    show FTMSMachineStatusOpcode;
+    show FTMSMachineStatusOpcode, FTMSMachineStatusOpcodeType;
 export 'src/ftms/characteristic/status/ftms_machine_status_parameter_value.dart'
     show FTMSMachineStatusParameterValue;
+
+export 'src/ftms/characteristic/control_point/ftms_control_point.dart'
+    show FTMSControlPoint;
+export 'src/ftms/characteristic/control_point/ftms_control_point_opcode.dart'
+    show FTMSControlPointOpcode, FTMSControlPointOpcodeType;
 
 export 'package:flutter_blue_plus/flutter_blue_plus.dart'
     show BluetoothDevice, BluetoothDeviceState, ScanResult;
@@ -74,13 +80,19 @@ class FTMS {
 
   static Future<void> useMachineStatusCharacteristic(
       BluetoothDevice device, void Function(FTMSMachineStatus) onData) async {
-    var dataType = await getFTMSDeviceType(device);
-    if (dataType == null) return;
-
     var service = await FTMSBluetooth.getFTMSService(device);
     if (service == null) return;
 
     await FTMSBluetooth.useMachineStatusCharacteristic(service, onData);
+  }
+
+  static Future<void> writeMachineControlPointCharacteristic(
+      BluetoothDevice device, FTMSControlPoint controlPoint) async {
+    var service = await FTMSBluetooth.getFTMSService(device);
+    if (service == null) return;
+
+    await FTMSBluetooth.writeMachineControlPointCharacteristic(
+        service, controlPoint);
   }
 
   static Future<FTMSDataType?> getFTMSDeviceType(BluetoothDevice device) async {

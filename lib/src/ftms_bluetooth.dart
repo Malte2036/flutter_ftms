@@ -11,9 +11,9 @@ class FTMSBluetooth {
   static const _dataTreadmillChar = "00002ACD";
   static const _dataRowerChar = "00002AD1";
 
-  static const _statusChar = "00002ADA";
-  // ignore: unused_field
   static const _featureChar = "00002ACC";
+  static const _machineStatusChar = "00002ADA";
+  static const _machineControlPointChar = "00002AD9";
 
   static Future<void> useDataCharacteristic(BluetoothService ftmsService,
       FTMSDataType dataType, void Function(FTMSData) onData) async {
@@ -79,7 +79,7 @@ class FTMSBluetooth {
       BluetoothService ftmsService,
       void Function(FTMSMachineStatus) onData) async {
     var characteristicData =
-        _getBluetoothCharacteristic(ftmsService, _statusChar);
+        _getBluetoothCharacteristic(ftmsService, _machineStatusChar);
     if (characteristicData == null) {
       return;
     }
@@ -99,6 +99,21 @@ class FTMSBluetooth {
       onData(status);
     });
     await characteristicData.setNotifyValue(true);
+  }
+
+  static Future<void> writeMachineControlPointCharacteristic(
+      BluetoothService ftmsService, FTMSControlPoint controlPoint) async {
+    var characteristicData =
+        _getBluetoothCharacteristic(ftmsService, _machineControlPointChar);
+    if (characteristicData == null) {
+      return;
+    }
+
+    if (!characteristicData.properties.write) {
+      throw 'write not supported on machine control point char';
+    }
+
+    await characteristicData.write([controlPoint.opCode.value]);
   }
 
   static Future<BluetoothService?> getFTMSService(
