@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
-import 'package:flutter_ftms/src/ftms/parameter_name.dart';
 
 class Utils {
   static int intArrayToLittleEndian(List<int> byteArray) {
@@ -69,14 +68,5 @@ class Utils {
     }
 
     return featureMap;
-  }
-
-  static FTMSDataParameterValue getParameterValueByName(
-      List<FTMSDataParameterValue> parameterValues, ParameterName name) {
-    try {
-      return parameterValues.firstWhere((parameter) => parameter.name == name);
-    } catch (e) {
-      throw 'ParameterValue $name not found!';
-    }
   }
 }

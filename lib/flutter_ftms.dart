@@ -5,11 +5,8 @@ import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/bluetooth.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_parameter_value.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/feature/ftms_feature.dart';
-import 'package:flutter_ftms/src/ftms/parameter_name.dart';
 import 'package:flutter_ftms/src/ftms_bluetooth.dart';
-import 'package:flutter_ftms/src/utils.dart';
 
 export 'src/ftms/characteristic/data/ftms_data.dart'
     show FTMSData, FTMSDataType;
@@ -112,15 +109,5 @@ class FTMS {
     }
 
     return await FTMSBluetooth.readFeatureCharacteristic(service);
-  }
-
-  static FTMSDataParameterValue? getParameterValueByName(
-      List<FTMSDataParameterValue> parameterValues, ParameterName name) {
-    try {
-      return Utils.getParameterValueByName(parameterValues, name);
-    } catch (e) {
-      print(e);
-      return null;
-    }
   }
 }

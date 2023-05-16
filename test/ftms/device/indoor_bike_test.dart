@@ -1,5 +1,4 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -40,15 +39,14 @@ void main() {
     var d = data[0];
 
     var indoorBike = IndoorBike(d);
-    var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence = Utils.getParameterValueByName(
-        parameterValues, FTMSDataParameterName.instCadence);
+    var instantaneousCadence =
+        indoorBike.getParameterValueByName(FTMSDataParameterName.instCadence)!;
 
     expect(instantaneousCadence.value, 180);
 
-    var instantaneousPower = Utils.getParameterValueByName(
-        parameterValues, FTMSDataParameterName.instPower);
+    var instantaneousPower =
+        indoorBike.getParameterValueByName(FTMSDataParameterName.instPower)!;
 
     expect(instantaneousPower.value, 102);
   });
@@ -57,15 +55,14 @@ void main() {
     var d = data[1];
 
     var indoorBike = IndoorBike(d);
-    var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence = Utils.getParameterValueByName(
-        parameterValues, FTMSDataParameterName.instCadence);
+    var instantaneousCadence =
+        indoorBike.getParameterValueByName(FTMSDataParameterName.instCadence)!;
 
     expect(instantaneousCadence.value, 360);
 
-    var instantaneousPower = Utils.getParameterValueByName(
-        parameterValues, FTMSDataParameterName.instPower);
+    var instantaneousPower =
+        indoorBike.getParameterValueByName(FTMSDataParameterName.instPower)!;
 
     expect(instantaneousPower.value, 100);
   });
@@ -74,15 +71,14 @@ void main() {
     var d = data[2];
 
     var indoorBike = IndoorBike(d);
-    var parameterValues = indoorBike.getFTMSDataParameterValues();
 
-    var instantaneousCadence = Utils.getParameterValueByName(
-        parameterValues, FTMSDataParameterName.instCadence);
+    var instantaneousCadence =
+        indoorBike.getParameterValueByName(FTMSDataParameterName.instCadence)!;
 
     expect(instantaneousCadence.value, 260);
 
-    var instantaneousPower = Utils.getParameterValueByName(
-        parameterValues, FTMSDataParameterName.instPower);
+    var instantaneousPower =
+        indoorBike.getParameterValueByName(FTMSDataParameterName.instPower)!;
 
     expect(instantaneousPower.value, 101);
   });

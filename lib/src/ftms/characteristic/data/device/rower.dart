@@ -1,8 +1,5 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_flag.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_parameter.dart';
 
 class Rower extends FTMSData {
   Rower(super.ftmsData);

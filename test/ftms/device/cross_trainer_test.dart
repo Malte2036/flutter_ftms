@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -61,9 +60,8 @@ void main() {
     for (var d in data) {
       var crossTrainer = CrossTrainer(d);
 
-      var averageSpeed = Utils.getParameterValueByName(
-          crossTrainer.getFTMSDataParameterValues(),
-          FTMSDataParameterName.avgSpeed);
+      var averageSpeed =
+          crossTrainer.getParameterValueByName(FTMSDataParameterName.avgSpeed)!;
 
       averageSpeedResults.add(averageSpeed.value * averageSpeed.factor);
     }
@@ -103,9 +101,8 @@ void main() {
     for (var d in data) {
       var crossTrainer = CrossTrainer(d);
 
-      var totalDistance = Utils.getParameterValueByName(
-          crossTrainer.getFTMSDataParameterValues(),
-          FTMSDataParameterName.totalDistance);
+      var totalDistance = crossTrainer
+          .getParameterValueByName(FTMSDataParameterName.totalDistance)!;
 
       totalDistanceResults.add(totalDistance.value * totalDistance.factor);
     }

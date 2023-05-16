@@ -1,5 +1,4 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -58,71 +57,51 @@ void main() {
 
   test('rower parse correctly', () {
     var rower = Rower(data[0]);
-    var parameterValues = rower.getFTMSDataParameterValues();
 
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.strokeRate)
-            .value,
+        rower.getParameterValueByName(FTMSDataParameterName.strokeRate)!.value,
         0);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.strokeCount)
-            .value,
+        rower.getParameterValueByName(FTMSDataParameterName.strokeCount)!.value,
         39);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.avgStrokeRate)
+        rower
+            .getParameterValueByName(FTMSDataParameterName.avgStrokeRate)!
             .value,
         214);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.totalDistance)
+        rower
+            .getParameterValueByName(FTMSDataParameterName.totalDistance)!
             .value,
         156);
-    expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.instPace)
-            .value,
+    expect(rower.getParameterValueByName(FTMSDataParameterName.instPace)!.value,
         0);
-    expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.avgPace)
-            .value,
+    expect(rower.getParameterValueByName(FTMSDataParameterName.avgPace)!.value,
         97);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.instPower)
-            .value,
+        rower.getParameterValueByName(FTMSDataParameterName.instPower)!.value,
         0);
-    expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.avgPower)
-            .value,
+    expect(rower.getParameterValueByName(FTMSDataParameterName.avgPower)!.value,
         228);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.totalEnergy)
-            .value,
+        rower.getParameterValueByName(FTMSDataParameterName.totalEnergy)!.value,
         13);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.energyPerHour)
+        rower
+            .getParameterValueByName(FTMSDataParameterName.energyPerHour)!
             .value,
         0);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.energyPerMinute)
+        rower
+            .getParameterValueByName(FTMSDataParameterName.energyPerMinute)!
             .value,
         0);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.elapsedTime)
-            .value,
+        rower.getParameterValueByName(FTMSDataParameterName.elapsedTime)!.value,
         36);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.remainingTime)
+        rower
+            .getParameterValueByName(FTMSDataParameterName.remainingTime)!
             .value,
         0);
   });

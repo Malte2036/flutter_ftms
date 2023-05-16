@@ -1,5 +1,4 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -31,21 +30,20 @@ void main() {
 
   test('treadmill parse correctly', () {
     var treadmill = Treadmill(data[0]);
-    var parameterValues = treadmill.getFTMSDataParameterValues();
 
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.instSpeed)
+        treadmill
+            .getParameterValueByName(FTMSDataParameterName.instSpeed)!
             .value,
         345);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.totalDistance)
+        treadmill
+            .getParameterValueByName(FTMSDataParameterName.totalDistance)!
             .value,
         1234);
     expect(
-        Utils.getParameterValueByName(
-                parameterValues, FTMSDataParameterName.remainingTime)
+        treadmill
+            .getParameterValueByName(FTMSDataParameterName.remainingTime)!
             .value,
         100);
   });

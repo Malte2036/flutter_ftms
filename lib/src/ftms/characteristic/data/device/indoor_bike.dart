@@ -1,7 +1,4 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_flag.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data.dart';
-import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data_parameter.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
 
 class IndoorBike extends FTMSData {

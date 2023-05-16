@@ -1,5 +1,6 @@
 import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
+import 'package:flutter_ftms/src/ftms/parameter_name.dart';
 import 'package:flutter_ftms/src/utils.dart';
 
 enum FTMSDataType { crossTrainer, indoorBike, treadmill, rower }
@@ -55,5 +56,14 @@ abstract class FTMSData {
 
   List<FTMSDataParameterValue> getFTMSDataParameterValues() {
     return _parameterValues;
+  }
+
+  FTMSDataParameterValue? getParameterValueByName(ParameterName name) {
+    try {
+      return _parameterValues.firstWhere((parameter) => parameter.name == name);
+    } catch (e) {
+      print('ParameterValue $name not found!');
+      return null;
+    }
   }
 }
