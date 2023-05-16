@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:flutter_ftms/flutter_ftms.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/parameter.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
 
 class Utils {
@@ -42,14 +42,13 @@ class Utils {
   }
 
   static int readAndConvertLittleEndianValue(
-      List<int> data, FTMSDataParameter dataParameter) {
+      List<int> data, Parameter parameter) {
     var value = intArrayToLittleEndian(data);
     //print('value: $value');
 
-    if (dataParameter.signed &&
-        ((value >> (dataParameter.size * 8 - 1)) & 1) == 1) {
+    if (parameter.signed && ((value >> (parameter.size * 8 - 1)) & 1) == 1) {
       // Das Ergebnis ist negativ
-      value = value - (1 << (dataParameter.size * 8));
+      value = value - (1 << (parameter.size * 8));
     }
     return value;
   }

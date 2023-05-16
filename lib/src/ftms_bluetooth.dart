@@ -75,8 +75,9 @@ class FTMSBluetooth {
     return FTMSFeature(data);
   }
 
-  static Future<void> useStatusCharacteristic(
-      BluetoothService ftmsService) async {
+  static Future<void> useMachineStatusCharacteristic(
+      BluetoothService ftmsService,
+      void Function(FTMSMachineStatus) onData) async {
     var characteristicData =
         _getBluetoothCharacteristic(ftmsService, _statusChar);
     if (characteristicData == null) {
@@ -90,7 +91,12 @@ class FTMSBluetooth {
     print('Found Status characteristic: ${characteristicData.uuid}');
 
     characteristicData.value.listen((data) {
-      print('statusData: $data');
+      if (data.isEmpty) {
+        return;
+      }
+      print(data);
+      var status = FTMSMachineStatus(data);
+      onData(status);
     });
     await characteristicData.setNotifyValue(true);
   }

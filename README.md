@@ -105,3 +105,16 @@ if (feature != null) {
     // handle feature object
 }
 ```
+
+### Reading machine status information from a device
+
+You can read the machine status from an FTMS device using the `useMachineStatusCharacteristic()` function. This function takes a callback that will be called with an `FTMSMachineStatus` object every time a new status is received from the device.
+
+```dart
+import 'package:flutter_ftms/flutter_ftms.dart';
+
+BluetoothDevice device = // obtain a BluetoothDevice object
+await FTMS.useMachineStatusCharacteristic(device, (FTMSMachineStatus status) {
+    // handle new machine status
+});
+```

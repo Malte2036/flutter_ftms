@@ -6,6 +6,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/bluetooth.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/data/ftms_data.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/feature/ftms_feature.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/status/ftms_machine_status.dart';
 import 'package:flutter_ftms/src/ftms_bluetooth.dart';
 
 export 'src/ftms/characteristic/data/ftms_data.dart'
@@ -27,6 +28,13 @@ export 'src/ftms/characteristic/data/device/rower.dart' show Rower;
 export 'src/ftms/characteristic/feature/ftms_feature.dart' show FTMSFeature;
 export 'src/ftms/characteristic/feature/ftms_feature_flag.dart'
     show FTMSFeatureFlag;
+
+export 'src/ftms/characteristic/status/ftms_machine_status.dart'
+    show FTMSMachineStatus;
+export 'src/ftms/characteristic/status/ftms_machine_status_opcode.dart'
+    show FTMSMachineStatusOpcode;
+export 'src/ftms/characteristic/status/ftms_machine_status_parameter_value.dart'
+    show FTMSMachineStatusParameterValue;
 
 export 'package:flutter_blue_plus/flutter_blue_plus.dart'
     show BluetoothDevice, BluetoothDeviceState, ScanResult;
@@ -64,14 +72,15 @@ class FTMS {
     await FTMSBluetooth.useDataCharacteristic(service, dataType, onData);
   }
 
-  static Future<void> useStatusCharacteristic(BluetoothDevice device) async {
+  static Future<void> useMachineStatusCharacteristic(
+      BluetoothDevice device, void Function(FTMSMachineStatus) onData) async {
     var dataType = await getFTMSDeviceType(device);
     if (dataType == null) return;
 
     var service = await FTMSBluetooth.getFTMSService(device);
     if (service == null) return;
 
-    await FTMSBluetooth.useStatusCharacteristic(service);
+    await FTMSBluetooth.useMachineStatusCharacteristic(service, onData);
   }
 
   static Future<FTMSDataType?> getFTMSDeviceType(BluetoothDevice device) async {
