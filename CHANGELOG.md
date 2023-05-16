@@ -1,7 +1,6 @@
 ## 0.4.0
 
-- implement machine status
-
+- implement machine status characteristic
 - add getParameterValueByName to FTMSData
 
 ## 0.3.0
