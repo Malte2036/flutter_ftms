@@ -47,7 +47,5 @@ class FTMSMachineStatus {
       var value = Utils.readAndConvertLittleEndianValue(parameterData, p);
       parameter = p.toFTMSDataParameterValue(value);
     }
-
-    print('${opCode.type} ${parameter?.value}');
   }
 }
