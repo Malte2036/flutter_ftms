@@ -16,6 +16,6 @@ class FTMSDataParameterValue extends FTMSDataParameter {
 
   @override
   String toString() {
-    return '$name: ${(value * factor).toStringAsFixed(2)} $unit';
+    return '${name.name}: ${(value * factor).toStringAsFixed(2)} $unit';
   }
 }
