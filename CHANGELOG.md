@@ -1,3 +1,7 @@
+## 0.5.0
+
+- implement basic Control Point characteristic
+
 ## 0.4.1
 
 - fix wrong function name
