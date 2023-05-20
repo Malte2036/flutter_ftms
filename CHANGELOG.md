@@ -1,3 +1,7 @@
+## 0.6.0
+
+- change project structure
+
 ## 0.5.0
 
 - implement basic Control Point characteristic

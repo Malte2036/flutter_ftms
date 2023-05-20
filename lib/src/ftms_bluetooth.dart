@@ -14,48 +14,32 @@ class FTMSBluetooth {
   static const _featureChar = "00002ACC";
   static const _machineStatusChar = "00002ADA";
   static const _machineControlPointChar = "00002AD9";
+  // ignore: unused_field
+  static const _trainingStatusChar = "00002AD3";
 
-  static Future<void> useDataCharacteristic(BluetoothService ftmsService,
-      FTMSDataType dataType, void Function(FTMSData) onData) async {
-    var dataCharUuid = _getBluetoothCharacteristicUUID(dataType);
-    var characteristicData =
-        _getBluetoothCharacteristic(ftmsService, dataCharUuid);
+  static Future<void> useDeviceDataCharacteristic(BluetoothService ftmsService,
+      DeviceDataType dataType, void Function(DeviceData) onData) async {
+    var dataChar = _getBluetoothCharacteristicUUID(dataType);
+    var characteristicData = _getBluetoothCharacteristic(ftmsService, dataChar);
     if (characteristicData == null) {
       return;
     }
 
     print('Found FTMS characteristic: ${characteristicData.uuid}');
 
-    characteristicData.value.listen((List<int> ftmsData) {
-      if (ftmsData.isEmpty) return;
+    characteristicData.value.listen((List<int> data) {
+      if (data.isEmpty) return;
+      print(data);
 
-      FTMSData ftms = _createFTMSDataByFTMSDataType(dataType, ftmsData);
-
-      onData(ftms);
-      print(ftmsData);
+      DeviceData deviceData = _createDeviceDataByDeviceDataType(dataType, data);
+      onData(deviceData);
     });
     await characteristicData.setNotifyValue(true);
 
-    await readFeatureCharacteristic(ftmsService);
+    await readMachineFeatureCharacteristic(ftmsService);
   }
 
-  static FTMSData _createFTMSDataByFTMSDataType(
-      FTMSDataType type, List<int> ftmsData) {
-    switch (type) {
-      case FTMSDataType.crossTrainer:
-        return CrossTrainer(ftmsData);
-      case FTMSDataType.indoorBike:
-        return IndoorBike(ftmsData);
-      case FTMSDataType.treadmill:
-        return Treadmill(ftmsData);
-      case FTMSDataType.rower:
-        return Rower(ftmsData);
-      default:
-        throw 'FTMSDataType $type is not implemented!';
-    }
-  }
-
-  static Future<FTMSFeature?> readFeatureCharacteristic(
+  static Future<MachineFeature?> readMachineFeatureCharacteristic(
       BluetoothService ftmsService) async {
     var characteristicData =
         _getBluetoothCharacteristic(ftmsService, _featureChar);
@@ -72,12 +56,11 @@ class FTMSBluetooth {
       return null;
     }
 
-    return FTMSFeature(data);
+    return MachineFeature(data);
   }
 
   static Future<void> useMachineStatusCharacteristic(
-      BluetoothService ftmsService,
-      void Function(FTMSMachineStatus) onData) async {
+      BluetoothService ftmsService, void Function(MachineStatus) onData) async {
     var characteristicData =
         _getBluetoothCharacteristic(ftmsService, _machineStatusChar);
     if (characteristicData == null) {
@@ -85,24 +68,25 @@ class FTMSBluetooth {
     }
 
     if (!characteristicData.properties.notify) {
-      throw 'notify not supported on status char';
+      throw 'notify not supported on machine status char';
     }
 
-    print('Found Status characteristic: ${characteristicData.uuid}');
+    print('Found Machine Status characteristic: ${characteristicData.uuid}');
 
     characteristicData.value.listen((data) {
       if (data.isEmpty) {
         return;
       }
       print(data);
-      var status = FTMSMachineStatus(data);
+
+      var status = MachineStatus(data);
       onData(status);
     });
     await characteristicData.setNotifyValue(true);
   }
 
   static Future<void> writeMachineControlPointCharacteristic(
-      BluetoothService ftmsService, FTMSControlPoint controlPoint) async {
+      BluetoothService ftmsService, MachineControlPoint controlPoint) async {
     var characteristicData =
         _getBluetoothCharacteristic(ftmsService, _machineControlPointChar);
     if (characteristicData == null) {
@@ -155,41 +139,57 @@ class FTMSBluetooth {
     return chars.isNotEmpty ? chars[0] : null;
   }
 
-  static Future<FTMSDataType?> getFTMSDataType(
+  static Future<DeviceDataType?> getDeviceDataType(
       BluetoothService ftmsService) async {
     if (_getBluetoothCharacteristic(ftmsService, _dataCrossTrainerChar) !=
         null) {
-      return FTMSDataType.crossTrainer;
+      return DeviceDataType.crossTrainer;
     }
 
     if (_getBluetoothCharacteristic(ftmsService, _dataIndoorBikeChar) != null) {
-      return FTMSDataType.indoorBike;
+      return DeviceDataType.indoorBike;
     }
 
     if (_getBluetoothCharacteristic(ftmsService, _dataTreadmillChar) != null) {
-      return FTMSDataType.treadmill;
+      return DeviceDataType.treadmill;
     }
 
     if (_getBluetoothCharacteristic(ftmsService, _dataRowerChar) != null) {
-      return FTMSDataType.rower;
+      return DeviceDataType.rower;
     }
 
-    print("No FTMSDataType found");
+    print("No DeviceDataType found");
     return null;
   }
 
-  static String _getBluetoothCharacteristicUUID(FTMSDataType dataType) {
+  static String _getBluetoothCharacteristicUUID(DeviceDataType dataType) {
     switch (dataType) {
-      case FTMSDataType.crossTrainer:
+      case DeviceDataType.crossTrainer:
         return _dataCrossTrainerChar;
-      case FTMSDataType.indoorBike:
+      case DeviceDataType.indoorBike:
         return _dataIndoorBikeChar;
-      case FTMSDataType.treadmill:
+      case DeviceDataType.treadmill:
         return _dataTreadmillChar;
-      case FTMSDataType.rower:
+      case DeviceDataType.rower:
         return _dataRowerChar;
       default:
-        throw 'FTMSDataType $dataType not found!';
+        throw 'DeviceDataType $dataType not found!';
+    }
+  }
+
+  static DeviceData _createDeviceDataByDeviceDataType(
+      DeviceDataType type, List<int> deviceData) {
+    switch (type) {
+      case DeviceDataType.crossTrainer:
+        return CrossTrainer(deviceData);
+      case DeviceDataType.indoorBike:
+        return IndoorBike(deviceData);
+      case DeviceDataType.treadmill:
+        return Treadmill(deviceData);
+      case DeviceDataType.rower:
+        return Rower(deviceData);
+      default:
+        throw 'DeviceDataType $type is not implemented!';
     }
   }
 }

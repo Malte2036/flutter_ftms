@@ -3,16 +3,16 @@ import 'package:flutter_ftms/src/ftms/characteristic/parameter.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
 import 'package:flutter_ftms/src/ftms/parameter_name.dart';
 
-class FTMSDataParameter extends Parameter {
+class DeviceDataParameter extends Parameter {
   final ParameterName name;
   final Flag? flag;
 
-  const FTMSDataParameter(this.name, this.flag, size, unit, factor,
+  const DeviceDataParameter(this.name, this.flag, size, unit, factor,
       {signed = false})
       : super(size, unit, factor, signed: signed);
 
-  FTMSDataParameterValue toFTMSDataParameterValue(int value) {
-    return FTMSDataParameterValue(
+  DeviceDataParameterValue toDeviceDataParameterValue(int value) {
+    return DeviceDataParameterValue(
         name, flag, size, unit, factor, signed, value);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter_ftms/src/ftms/parameter_name.dart';
 
-class FTMSDataParameterName {
+class DeviceDataParameterName {
   static const ParameterName placeholder = ParameterName("placeholder");
 
   static const ParameterName instSpeed = ParameterName("Instantaneous Speed");

@@ -11,21 +11,21 @@ void main() {
 
     var treadmill = Treadmill(d);
 
-    var featureMap = treadmill.getFTMSDataFeatures();
+    var featureMap = treadmill.getDeviceDataFeatures();
 
-    expect(featureMap[FTMSDataFlag.moreDataFlag], false);
-    expect(featureMap[FTMSDataFlag.avgSpeedFlag], false);
-    expect(featureMap[FTMSDataFlag.totalDistanceFlag], true);
-    expect(featureMap[FTMSDataFlag.inclinationAndRampAngleFlag], false);
-    expect(featureMap[FTMSDataFlag.elevationGainFlag], false);
-    expect(featureMap[FTMSDataFlag.instPaceFlag], false);
-    expect(featureMap[FTMSDataFlag.avgPaceFlag], false);
-    expect(featureMap[FTMSDataFlag.expendedEnergyFlag], false);
-    expect(featureMap[FTMSDataFlag.heartRateFlag], false);
-    expect(featureMap[FTMSDataFlag.metabolicEquivalentFlag], false);
-    expect(featureMap[FTMSDataFlag.elapsedTimeFlag], false);
-    expect(featureMap[FTMSDataFlag.remainingTimeFlag], true);
-    expect(featureMap[FTMSDataFlag.forceOnBeltAndPowerOutputFlag], false);
+    expect(featureMap[DeviceDataFlag.moreDataFlag], false);
+    expect(featureMap[DeviceDataFlag.avgSpeedFlag], false);
+    expect(featureMap[DeviceDataFlag.totalDistanceFlag], true);
+    expect(featureMap[DeviceDataFlag.inclinationAndRampAngleFlag], false);
+    expect(featureMap[DeviceDataFlag.elevationGainFlag], false);
+    expect(featureMap[DeviceDataFlag.instPaceFlag], false);
+    expect(featureMap[DeviceDataFlag.avgPaceFlag], false);
+    expect(featureMap[DeviceDataFlag.expendedEnergyFlag], false);
+    expect(featureMap[DeviceDataFlag.heartRateFlag], false);
+    expect(featureMap[DeviceDataFlag.metabolicEquivalentFlag], false);
+    expect(featureMap[DeviceDataFlag.elapsedTimeFlag], false);
+    expect(featureMap[DeviceDataFlag.remainingTimeFlag], true);
+    expect(featureMap[DeviceDataFlag.forceOnBeltAndPowerOutputFlag], false);
   });
 
   test('treadmill parse correctly', () {
@@ -33,17 +33,17 @@ void main() {
 
     expect(
         treadmill
-            .getParameterValueByName(FTMSDataParameterName.instSpeed)!
+            .getParameterValueByName(DeviceDataParameterName.instSpeed)!
             .value,
         345);
     expect(
         treadmill
-            .getParameterValueByName(FTMSDataParameterName.totalDistance)!
+            .getParameterValueByName(DeviceDataParameterName.totalDistance)!
             .value,
         1234);
     expect(
         treadmill
-            .getParameterValueByName(FTMSDataParameterName.remainingTime)!
+            .getParameterValueByName(DeviceDataParameterName.remainingTime)!
             .value,
         100);
   });

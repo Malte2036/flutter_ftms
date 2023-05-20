@@ -19,18 +19,18 @@ void main() {
 
     var indoorBike = IndoorBike(d);
 
-    var featureMap = indoorBike.getFTMSDataFeatures();
+    var featureMap = indoorBike.getDeviceDataFeatures();
 
     const availableFeatures = [
-      FTMSDataFlag.instCadenceFlag,
-      FTMSDataFlag.instPowerFlag
+      DeviceDataFlag.instCadenceFlag,
+      DeviceDataFlag.instPowerFlag
     ];
 
     for (var featureFlag in availableFeatures) {
       expect(featureMap[featureFlag], true);
     }
 
-    indoorBike.allFTMSDataFlags
+    indoorBike.allDeviceDataFlags
         .where((feature) => !availableFeatures.contains(feature))
         .forEach((feature) => expect(featureMap[feature], false));
   });
@@ -40,13 +40,13 @@ void main() {
 
     var indoorBike = IndoorBike(d);
 
-    var instantaneousCadence =
-        indoorBike.getParameterValueByName(FTMSDataParameterName.instCadence)!;
+    var instantaneousCadence = indoorBike
+        .getParameterValueByName(DeviceDataParameterName.instCadence)!;
 
     expect(instantaneousCadence.value, 180);
 
     var instantaneousPower =
-        indoorBike.getParameterValueByName(FTMSDataParameterName.instPower)!;
+        indoorBike.getParameterValueByName(DeviceDataParameterName.instPower)!;
 
     expect(instantaneousPower.value, 102);
   });
@@ -56,13 +56,13 @@ void main() {
 
     var indoorBike = IndoorBike(d);
 
-    var instantaneousCadence =
-        indoorBike.getParameterValueByName(FTMSDataParameterName.instCadence)!;
+    var instantaneousCadence = indoorBike
+        .getParameterValueByName(DeviceDataParameterName.instCadence)!;
 
     expect(instantaneousCadence.value, 360);
 
     var instantaneousPower =
-        indoorBike.getParameterValueByName(FTMSDataParameterName.instPower)!;
+        indoorBike.getParameterValueByName(DeviceDataParameterName.instPower)!;
 
     expect(instantaneousPower.value, 100);
   });
@@ -72,13 +72,13 @@ void main() {
 
     var indoorBike = IndoorBike(d);
 
-    var instantaneousCadence =
-        indoorBike.getParameterValueByName(FTMSDataParameterName.instCadence)!;
+    var instantaneousCadence = indoorBike
+        .getParameterValueByName(DeviceDataParameterName.instCadence)!;
 
     expect(instantaneousCadence.value, 260);
 
     var instantaneousPower =
-        indoorBike.getParameterValueByName(FTMSDataParameterName.instPower)!;
+        indoorBike.getParameterValueByName(DeviceDataParameterName.instPower)!;
 
     expect(instantaneousPower.value, 101);
   });

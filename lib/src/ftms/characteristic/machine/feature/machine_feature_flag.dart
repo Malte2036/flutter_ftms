@@ -1,6 +1,6 @@
 import 'package:flutter_ftms/src/ftms/flag.dart';
 
-class FTMSFeatureFlag {
+class MachineFeatureFlag {
   static const Flag averageSpeedFlag = Flag("Average Speed Supported");
   static const Flag cadenceFlag = Flag("Cadence Supported");
   static const Flag totalDistanceFlag = Flag("Total Distance Supported");

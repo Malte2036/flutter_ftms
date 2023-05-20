@@ -22,7 +22,7 @@ After completing the `flutter_blue_plus` setup, you can add the following depend
 
 ```yaml
 dependencies:
-  flutter_ftms: 0.5.0
+  flutter_ftms: 0.6.0
 ```
 
 Then, run `flutter pub get` to install the package.
@@ -66,55 +66,70 @@ bool isFTMSDevice = await FTMS.isBluetoothDeviceFTMSDevice(device);
 
 ### Getting device type
 
-You can get the FTMS data type of a connected device using the `getFTMSDeviceType()` function. This function returns an `FTMSDataType` enum value indicating whether the device is an indoor bike or cross trainer.
+You can get the FTMS data type of a connected device using the `getDeviceDataType()` function. This function returns a `DeviceDataType` enum value indicating whether the device is an indoor bike, cross trainer, treadmill, or rower.
 
 ```dart
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 BluetoothDevice device = // obtain a BluetoothDevice object
-FTMSDataType? dataType = await FTMS.getFTMSDeviceType(device);
+DeviceDataType? dataType = await FTMS.getDeviceDataType(device);
 if (dataType != null) {
-    String deviceTypeString = FTMS.convertFTMSDataTypeToString(dataType);
+    String deviceTypeString = FTMS.convertDeviceDataTypeToString(dataType);
     // handle device type
 }
 ```
 
 ### Reading data from a device
 
-You can read data from an FTMS device using the `useDataCharacteristic()` function. This function takes a callback that will be called with an `FTMSData` object every time new data is received from the device.
+You can read data from an FTMS device using the `useDeviceDataCharacteristic()` function. This function takes a callback that will be called with a `DeviceData` object every time new data is received from the device.
 
 ```dart
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 BluetoothDevice device = // obtain a BluetoothDevice object
-await FTMS.useDataCharacteristic(device, (FTMSData data) {
+await FTMS.useDeviceDataCharacteristic(device, (DeviceData data) {
     // handle new data
 });
 ```
 
-### Reading feature information from a device
+### Reading machine feature information from a device
 
-You can read feature information from an FTMS device using the `readFeatureCharacteristic()` function.
+You can read machine feature information from an FTMS device using the `readMachineFeatureCharacteristic()` function. This function takes a `BluetoothDevice` object and returns a `MachineFeature` object.
 
 ```dart
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 BluetoothDevice device = // obtain a BluetoothDevice object
-FTMSFeature? feature = await FTMS.readFeatureCharacteristic(device);
+MachineFeature? feature = await FTMS.readMachineFeatureCharacteristic(device);
 if (feature != null) {
     // handle feature object
 }
+
 ```
 
 ### Reading machine status information from a device
 
-You can read the machine status from an FTMS device using the `useMachineStatusCharacteristic()` function. This function takes a callback that will be called with an `FTMSMachineStatus` object every time a new status is received from the device.
+You can read the machine status from an FTMS device using the `useMachineStatusCharacteristic()` function. This function takes a callback that will be called with a `MachineStatus` object every time a new status is received from the device.
 
 ```dart
 import 'package:flutter_ftms/flutter_ftms.dart';
 
 BluetoothDevice device = // obtain a BluetoothDevice object
-await FTMS.useMachineStatusCharacteristic(device, (FTMSMachineStatus status) {
+await FTMS.useMachineStatusCharacteristic(device, (MachineStatus status) {
     // handle new machine status
 });
+
+```
+
+### Writing machine control point characteristic
+
+You can write to the machine control point characteristic of an FTMS device using the `writeMachineControlPointCharacteristic()` function. This function takes a `BluetoothDevice` object and a `MachineControlPoint` object as parameters.
+
+```dart
+import 'package:flutter_ftms/flutter_ftms.dart';
+
+BluetoothDevice device = // obtain a BluetoothDevice object
+MachineControlPoint controlPoint = // create a MachineControlPoint object
+await FTMS.writeMachineControlPointCharacteristic(device, controlPoint);
+
 ```

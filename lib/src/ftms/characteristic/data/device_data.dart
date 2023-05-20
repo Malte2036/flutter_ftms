@@ -3,32 +3,32 @@ import 'package:flutter_ftms/src/ftms/flag.dart';
 import 'package:flutter_ftms/src/ftms/parameter_name.dart';
 import 'package:flutter_ftms/src/utils.dart';
 
-enum FTMSDataType { crossTrainer, indoorBike, treadmill, rower }
+enum DeviceDataType { crossTrainer, indoorBike, treadmill, rower }
 
-abstract class FTMSData {
-  final List<int> _ftmsData;
+abstract class DeviceData {
+  final List<int> _deviceData;
   late final _parameterValues =
-      List<FTMSDataParameterValue>.empty(growable: true);
+      List<DeviceDataParameterValue>.empty(growable: true);
 
-  FTMSDataType get ftmsDataType;
+  DeviceDataType get deviceDataType;
 
-  List<Flag> get allFTMSDataFlags;
-  List<FTMSDataParameter> get allFTMSDataParameters;
+  List<Flag> get allDeviceDataFlags;
+  List<DeviceDataParameter> get allDeviceDataParameters;
 
   static const _featureBitSize = 16;
 
-  FTMSData(this._ftmsData) {
-    var features = getFTMSDataFeatures();
+  DeviceData(this._deviceData) {
+    var features = getDeviceDataFeatures();
 
     int ftmsDataOffset = 2;
-    for (var dataParameter in allFTMSDataParameters) {
+    for (var dataParameter in allDeviceDataParameters) {
       var parameterIsEnabled =
           dataParameter.flag == null || features[dataParameter.flag] == true;
 
       if (parameterIsEnabled) {
         List<int> data;
         try {
-          data = _ftmsData
+          data = _deviceData
               .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
               .toList();
 
@@ -44,21 +44,21 @@ abstract class FTMSData {
 
         ftmsDataOffset += dataParameter.size;
 
-        _parameterValues.add(dataParameter.toFTMSDataParameterValue(value));
+        _parameterValues.add(dataParameter.toDeviceDataParameterValue(value));
       }
     }
   }
 
-  Map<Flag, bool> getFTMSDataFeatures() {
+  Map<Flag, bool> getDeviceDataFeatures() {
     return Utils.flagsToFeatureMap(
-        _ftmsData, _featureBitSize, allFTMSDataFlags);
+        _deviceData, _featureBitSize, allDeviceDataFlags);
   }
 
-  List<FTMSDataParameterValue> getFTMSDataParameterValues() {
+  List<DeviceDataParameterValue> getDeviceDataParameterValues() {
     return _parameterValues;
   }
 
-  FTMSDataParameterValue? getParameterValueByName(ParameterName name) {
+  DeviceDataParameterValue? getParameterValueByName(ParameterName name) {
     try {
       return _parameterValues.firstWhere((parameter) => parameter.name == name);
     } catch (e) {

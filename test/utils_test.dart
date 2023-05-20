@@ -22,13 +22,13 @@ void main() {
   });
 
   test("readAndConvertLittleEndianValue", () {
-    const parameterNotSigned = FTMSDataParameter(
-        FTMSDataParameterName.instSpeed, null, 1, "", 0,
+    const parameterNotSigned = DeviceDataParameter(
+        DeviceDataParameterName.instSpeed, null, 1, "", 0,
         signed: false);
     expect(Utils.readAndConvertLittleEndianValue([92], parameterNotSigned), 92);
 
-    const parameterSigned = FTMSDataParameter(
-        FTMSDataParameterName.instSpeed, null, 1, "", 0,
+    const parameterSigned = DeviceDataParameter(
+        DeviceDataParameterName.instSpeed, null, 1, "", 0,
         signed: true);
     expect(Utils.readAndConvertLittleEndianValue([-92], parameterSigned), -92);
   });

@@ -5,9 +5,9 @@ void main() {
   List<int> data = [8, 230, 3];
 
   test("machine status target power", () {
-    var status = FTMSMachineStatus(data);
+    var status = MachineStatus(data);
 
-    expect(status.opCode.type, FTMSMachineStatusOpcodeType.targetPowerChanged);
+    expect(status.opCode.type, MachineStatusOpcodeType.targetPowerChanged);
     expect(status.opCode.value, 0x8);
 
     expect(status.parameter, isNotNull);

@@ -38,70 +38,81 @@ void main() {
 
     var rower = Rower(d);
 
-    var featureMap = rower.getFTMSDataFeatures();
+    var featureMap = rower.getDeviceDataFeatures();
 
-    expect(featureMap[FTMSDataFlag.moreDataFlag], false);
-    expect(featureMap[FTMSDataFlag.avgStrokeFlag], true);
-    expect(featureMap[FTMSDataFlag.totalDistanceFlag], true);
-    expect(featureMap[FTMSDataFlag.instPaceFlag], true);
-    expect(featureMap[FTMSDataFlag.avgPaceFlag], true);
-    expect(featureMap[FTMSDataFlag.instPowerFlag], true);
-    expect(featureMap[FTMSDataFlag.avgPowerFlag], true);
-    expect(featureMap[FTMSDataFlag.resistanceLevelFlag], false);
-    expect(featureMap[FTMSDataFlag.expendedEnergyFlag], true);
-    expect(featureMap[FTMSDataFlag.heartRateFlag], false);
-    expect(featureMap[FTMSDataFlag.metabolicEquivalentFlag], false);
-    expect(featureMap[FTMSDataFlag.elapsedTimeFlag], true);
-    expect(featureMap[FTMSDataFlag.remainingTimeFlag], true);
+    expect(featureMap[DeviceDataFlag.moreDataFlag], false);
+    expect(featureMap[DeviceDataFlag.avgStrokeFlag], true);
+    expect(featureMap[DeviceDataFlag.totalDistanceFlag], true);
+    expect(featureMap[DeviceDataFlag.instPaceFlag], true);
+    expect(featureMap[DeviceDataFlag.avgPaceFlag], true);
+    expect(featureMap[DeviceDataFlag.instPowerFlag], true);
+    expect(featureMap[DeviceDataFlag.avgPowerFlag], true);
+    expect(featureMap[DeviceDataFlag.resistanceLevelFlag], false);
+    expect(featureMap[DeviceDataFlag.expendedEnergyFlag], true);
+    expect(featureMap[DeviceDataFlag.heartRateFlag], false);
+    expect(featureMap[DeviceDataFlag.metabolicEquivalentFlag], false);
+    expect(featureMap[DeviceDataFlag.elapsedTimeFlag], true);
+    expect(featureMap[DeviceDataFlag.remainingTimeFlag], true);
   });
 
   test('rower parse correctly', () {
     var rower = Rower(data[0]);
 
     expect(
-        rower.getParameterValueByName(FTMSDataParameterName.strokeRate)!.value,
+        rower
+            .getParameterValueByName(DeviceDataParameterName.strokeRate)!
+            .value,
         0);
     expect(
-        rower.getParameterValueByName(FTMSDataParameterName.strokeCount)!.value,
+        rower
+            .getParameterValueByName(DeviceDataParameterName.strokeCount)!
+            .value,
         39);
     expect(
         rower
-            .getParameterValueByName(FTMSDataParameterName.avgStrokeRate)!
+            .getParameterValueByName(DeviceDataParameterName.avgStrokeRate)!
             .value,
         214);
     expect(
         rower
-            .getParameterValueByName(FTMSDataParameterName.totalDistance)!
+            .getParameterValueByName(DeviceDataParameterName.totalDistance)!
             .value,
         156);
-    expect(rower.getParameterValueByName(FTMSDataParameterName.instPace)!.value,
+    expect(
+        rower.getParameterValueByName(DeviceDataParameterName.instPace)!.value,
         0);
-    expect(rower.getParameterValueByName(FTMSDataParameterName.avgPace)!.value,
+    expect(
+        rower.getParameterValueByName(DeviceDataParameterName.avgPace)!.value,
         97);
     expect(
-        rower.getParameterValueByName(FTMSDataParameterName.instPower)!.value,
+        rower.getParameterValueByName(DeviceDataParameterName.instPower)!.value,
         0);
-    expect(rower.getParameterValueByName(FTMSDataParameterName.avgPower)!.value,
+    expect(
+        rower.getParameterValueByName(DeviceDataParameterName.avgPower)!.value,
         228);
     expect(
-        rower.getParameterValueByName(FTMSDataParameterName.totalEnergy)!.value,
+        rower
+            .getParameterValueByName(DeviceDataParameterName.totalEnergy)!
+            .value,
         13);
     expect(
         rower
-            .getParameterValueByName(FTMSDataParameterName.energyPerHour)!
+            .getParameterValueByName(DeviceDataParameterName.energyPerHour)!
             .value,
         0);
     expect(
         rower
-            .getParameterValueByName(FTMSDataParameterName.energyPerMinute)!
+            .getParameterValueByName(DeviceDataParameterName.energyPerMinute)!
             .value,
         0);
     expect(
-        rower.getParameterValueByName(FTMSDataParameterName.elapsedTime)!.value,
+        rower
+            .getParameterValueByName(DeviceDataParameterName.elapsedTime)!
+            .value,
         36);
     expect(
         rower
-            .getParameterValueByName(FTMSDataParameterName.remainingTime)!
+            .getParameterValueByName(DeviceDataParameterName.remainingTime)!
             .value,
         0);
   });

@@ -2,9 +2,9 @@ import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/ftms/flag.dart';
 import 'package:flutter_ftms/src/ftms/parameter_name.dart';
 
-class FTMSDataParameterValue extends FTMSDataParameter {
+class DeviceDataParameterValue extends DeviceDataParameter {
   final int value;
-  const FTMSDataParameterValue(
+  const DeviceDataParameterValue(
     ParameterName name,
     Flag? flag,
     int size,

@@ -35,24 +35,24 @@ void main() {
 
     var crossTrainer = CrossTrainer(d);
 
-    var featureMap = crossTrainer.getFTMSDataFeatures();
+    var featureMap = crossTrainer.getDeviceDataFeatures();
 
-    expect(featureMap[FTMSDataFlag.moreDataFlag], false);
-    expect(featureMap[FTMSDataFlag.avgSpeedFlag], true);
-    expect(featureMap[FTMSDataFlag.totalDistanceFlag], true);
-    //expect(featureMap[FTMSDataFlag.stepCountFlag], false);
-    expect(featureMap[FTMSDataFlag.strideCountFlag], true /* maybe */);
-    expect(featureMap[FTMSDataFlag.elevationGainFlag], false);
-    expect(featureMap[FTMSDataFlag.inclinationAndRampAngleFlag], false);
-    expect(featureMap[FTMSDataFlag.resistanceLevelFlag], true);
-    expect(featureMap[FTMSDataFlag.instPowerFlag], true);
-    expect(featureMap[FTMSDataFlag.avgPowerFlag], true);
-    expect(featureMap[FTMSDataFlag.expendedEnergyFlag], true);
-    //expect(featureMap[FTMSDataFlag.heartRateFlag], true);
-    expect(featureMap[FTMSDataFlag.metabolicEquivalentFlag], true);
-    expect(featureMap[FTMSDataFlag.elapsedTimeFlag], true);
-    expect(featureMap[FTMSDataFlag.remainingTimeFlag], true);
-    expect(featureMap[FTMSDataFlag.movementDirectionFlag], false /* maybe */);
+    expect(featureMap[DeviceDataFlag.moreDataFlag], false);
+    expect(featureMap[DeviceDataFlag.avgSpeedFlag], true);
+    expect(featureMap[DeviceDataFlag.totalDistanceFlag], true);
+    //expect(featureMap[DeviceDataFlag.stepCountFlag], false);
+    expect(featureMap[DeviceDataFlag.strideCountFlag], true /* maybe */);
+    expect(featureMap[DeviceDataFlag.elevationGainFlag], false);
+    expect(featureMap[DeviceDataFlag.inclinationAndRampAngleFlag], false);
+    expect(featureMap[DeviceDataFlag.resistanceLevelFlag], true);
+    expect(featureMap[DeviceDataFlag.instPowerFlag], true);
+    expect(featureMap[DeviceDataFlag.avgPowerFlag], true);
+    expect(featureMap[DeviceDataFlag.expendedEnergyFlag], true);
+    //expect(featureMap[DeviceDataFlag.heartRateFlag], true);
+    expect(featureMap[DeviceDataFlag.metabolicEquivalentFlag], true);
+    expect(featureMap[DeviceDataFlag.elapsedTimeFlag], true);
+    expect(featureMap[DeviceDataFlag.remainingTimeFlag], true);
+    expect(featureMap[DeviceDataFlag.movementDirectionFlag], false /* maybe */);
   });
 
   test('cross trainer parse average speed correct', () {
@@ -60,8 +60,8 @@ void main() {
     for (var d in data) {
       var crossTrainer = CrossTrainer(d);
 
-      var averageSpeed =
-          crossTrainer.getParameterValueByName(FTMSDataParameterName.avgSpeed)!;
+      var averageSpeed = crossTrainer
+          .getParameterValueByName(DeviceDataParameterName.avgSpeed)!;
 
       averageSpeedResults.add(averageSpeed.value * averageSpeed.factor);
     }
@@ -102,7 +102,7 @@ void main() {
       var crossTrainer = CrossTrainer(d);
 
       var totalDistance = crossTrainer
-          .getParameterValueByName(FTMSDataParameterName.totalDistance)!;
+          .getParameterValueByName(DeviceDataParameterName.totalDistance)!;
 
       totalDistanceResults.add(totalDistance.value * totalDistance.factor);
     }
