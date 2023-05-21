@@ -15,36 +15,38 @@ class MachineControlPointOpcode {
   late final int value;
   late final MachineControlPointOpcodeType type;
 
+  static const Map<int, MachineControlPointOpcodeType> _opcodeToOpcodeType = {
+    0x0: MachineControlPointOpcodeType.requestControl,
+    0x1: MachineControlPointOpcodeType.reset,
+    //0x2: MachineControlPointOpcodeType.setTargetSpeed,
+    //0x3: MachineControlPointOpcodeType.setTargetInclination,
+    //0x4: MachineControlPointOpcodeType.setTargetResistanceLevel,
+    //0x5: MachineControlPointOpcodeType.setTargetPower,
+    //0x6: MachineControlPointOpcodeType.setTargetHearthRate,
+    0x7: MachineControlPointOpcodeType.startOrResume,
+    0x8: MachineControlPointOpcodeType.stopOrPause,
+  };
+
   MachineControlPointOpcode.fromValue(this.value) {
     type = _valueToOpcodeType(value);
   }
 
   MachineControlPointOpcode(this.type) {
-    value = 1;
+    value = _opcodeTypeToValue(type);
   }
 
   static MachineControlPointOpcodeType _valueToOpcodeType(int value) {
-    switch (value) {
-      case 0x0:
-        return MachineControlPointOpcodeType.requestControl;
-      case 0x1:
-        return MachineControlPointOpcodeType.reset;
-      //case 0x2:
-      //  return MachineControlPointOpcodeType.setTargetSpeed;
-      //case 0x3:
-      //  return MachineControlPointOpcodeType.setTargetInclination;
-      //case 0x4:
-      //  return MachineControlPointOpcodeType.setTargetResistanceLevel;
-      //case 0x5:
-      //  return MachineControlPointOpcodeType.setTargetPower;
-      //case 0x6:
-      //  return MachineControlPointOpcodeType.setTargetHearthRate;
-      case 0x7:
-        return MachineControlPointOpcodeType.startOrResume;
-      case 0x8:
-        return MachineControlPointOpcodeType.stopOrPause;
-      default:
-        throw 'MachineControlPointOpcodeType for value $value not found!';
+    if (!_opcodeToOpcodeType.containsKey(value)) {
+      throw 'MachineControlPointOpcodeType for value $value not found!';
     }
+    return _opcodeToOpcodeType[value]!;
+  }
+
+  static int _opcodeTypeToValue(MachineControlPointOpcodeType opcodeType) {
+    if (!_opcodeToOpcodeType.containsValue(opcodeType)) {
+      throw 'MachineControlPointOpcodeType for opcodeType $opcodeType not found!';
+    }
+    return _opcodeToOpcodeType.keys
+        .firstWhere((k) => _opcodeToOpcodeType[k] == opcodeType);
   }
 }
