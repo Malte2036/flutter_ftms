@@ -1,3 +1,7 @@
+## 0.6.1
+
+- fix control point opcode value
+
 ## 0.6.0
 
 - change project structure
