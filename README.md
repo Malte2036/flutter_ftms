@@ -4,12 +4,23 @@ This Flutter package allows you to connect to FTMS (Fitness Machine Service) dev
 
 ## Supported Devices
 
-| Device        | Implemented?     |
-| ------------- | ---------------- |
-| Indoor Bike   | ✅ (implemented) |
-| Rower         | ✅ (implemented) |
-| Cross Trainer | ✅ (implemented) |
-| Treadmill     | ✅ (implemented) |
+| Device        | Implemented?         |
+| ------------- | -------------------- |
+| Treadmill     | ✅ (implemented)     |
+| Cross Trainer | ✅ (implemented)     |
+| Step Climber  | ❌ (not implemented) |
+| Stair Climber | ❌ (not implemented) |
+| Rower         | ✅ (implemented)     |
+| Indoor Bike   | ✅ (implemented)     |
+
+## Supported Characteristics
+
+| Characteristic                    | Functions                                                                                          | Device Type                                                                             | Description                                                     | Implemented?     |
+| --------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------- |
+| DeviceDataCharacteristic          | `useDeviceDataCharacteristic(BluetoothDevice device, void Function(DeviceData) onData)`            | Treadmill, cross trainer, step climber, stair climber, rower and indoor bike            | Reports real-time workout data.                                 | ✅ (implemented) |
+| MachineFeatureCharacteristic      | `readMachineFeatureCharacteristic(BluetoothDevice device)`                                         | Treadmill, cross trainer, step climber, stair climber, rower and indoor bike            | Describes the capabilities supported by the device.             | ✅ (implemented) |
+| MachineStatusCharacteristic       | `useMachineStatusCharacteristic(BluetoothDevice device, void Function(MachineStatus) onData)`      | Treadmill, cross trainer, step climber, stair climber, rower and indoor bike            | Reports the device status data.                                 | ✅ (implemented) |
+| MachineControlPointCharacteristic | `writeMachineControlPointCharacteristic(BluetoothDevice device, MachineControlPoint controlPoint)` | Optional support for treadmills. Mandatory for cross trainers, rowers, and indoor bikes | Controls the status (paused or resumed) of the fitness machine. | ✅ (implemented) |
 
 ## Installation
 
@@ -22,7 +33,7 @@ After completing the `flutter_blue_plus` setup, you can add the following depend
 
 ```yaml
 dependencies:
-  flutter_ftms: 0.6.1
+  flutter_ftms: 0.6.2
 ```
 
 Then, run `flutter pub get` to install the package.
