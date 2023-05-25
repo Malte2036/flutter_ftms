@@ -83,10 +83,7 @@ Widget getButtonForBluetoothDevice(
                     initialData: false,
                     builder: (c, snapshot) => (snapshot.data ?? false)
                         ? ElevatedButton(
-                            child: const Text(
-                              "FTMS",
-                              style: TextStyle(fontSize: 10),
-                            ),
+                            child: const Text("FTMS"),
                             onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -98,10 +95,7 @@ Widget getButtonForBluetoothDevice(
                         : Container(),
                   ),
                   OutlinedButton(
-                    child: const Text(
-                      "Disconnect",
-                      style: TextStyle(fontSize: 10),
-                    ),
+                    child: const Text("Disconnect"),
                     onPressed: () => FTMS.disconnectFromFTMSDevice(device),
                   )
                 ],

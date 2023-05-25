@@ -10,6 +10,14 @@ class FTMSBloc {
       _ftmsDeviceDataController.sink;
   Stream<DeviceData?> get ftmsDeviceDataControllerStream =>
       _ftmsDeviceDataController.stream;
+
+  final StreamController<MachineFeature?> _ftmsMachineFeaturesController =
+      StreamController<MachineFeature?>.broadcast();
+
+  StreamSink<MachineFeature?> get ftmsMachineFeaturesControllerSink =>
+      _ftmsMachineFeaturesController.sink;
+  Stream<MachineFeature?> get ftmsMachineFeaturesControllerStream =>
+      _ftmsMachineFeaturesController.stream;
 }
 
 final FTMSBloc ftmsBloc = FTMSBloc();
