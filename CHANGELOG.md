@@ -1,3 +1,7 @@
+## 0.6.3
+
+- add example project
+
 ## 0.6.2
 
 - add characteristics overview to README.md
