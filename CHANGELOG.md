@@ -1,3 +1,7 @@
+## 0.6.4
+
+- detect device type before connecting
+
 ## 0.6.3
 
 - add example project

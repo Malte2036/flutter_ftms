@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/flutter_ftms.dart';
+import 'package:flutter_ftms/src/utils.dart';
 
 class FTMSBluetooth {
   static const _ftmsServiceUUID = "00001826";
@@ -159,6 +160,30 @@ class FTMSBluetooth {
     }
 
     print("No DeviceDataType found");
+    return null;
+  }
+
+  static DeviceDataType? getDeviceDataTypeByBluetoothId(String id) {
+    var data = List<int>.from(id
+        .split(":")
+        .getRange(4, 6)
+        .map((s) => int.parse(s, radix: 16))
+        .toList()
+        .reversed);
+    var typeNum = Utils.intArrayToLittleEndian(data);
+
+    if (Utils.isNthBitSet(typeNum, 0)) {
+      return DeviceDataType.treadmill;
+    }
+    if (Utils.isNthBitSet(typeNum, 1)) {
+      return DeviceDataType.crossTrainer;
+    }
+    if (Utils.isNthBitSet(typeNum, 4)) {
+      return DeviceDataType.rower;
+    }
+    if (Utils.isNthBitSet(typeNum, 5)) {
+      return DeviceDataType.indoorBike;
+    }
     return null;
   }
 

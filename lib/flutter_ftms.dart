@@ -118,6 +118,11 @@ class FTMS {
     return FTMSBluetooth.getDeviceDataType(service);
   }
 
+  static DeviceDataType? getDeviceDataTypeWithoutConnecting(
+      BluetoothDevice device) {
+    return FTMSBluetooth.getDeviceDataTypeByBluetoothId(device.id.id);
+  }
+
   static String convertDeviceDataTypeToString(DeviceDataType dataType) {
     switch (dataType) {
       case DeviceDataType.crossTrainer:
