@@ -95,7 +95,8 @@ class _FTMSPageState extends State<FTMSPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.ftmsDevice.name),
+          title: Text(
+              '${widget.ftmsDevice.name} (${FTMS.getDeviceDataTypeWithoutConnecting(widget.ftmsDevice)})'),
         ),
         body: SingleChildScrollView(
           child: Column(

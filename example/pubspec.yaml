@@ -28,7 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter_ftms: "0.6.3"
+  flutter_ftms: "0.6.4"
   flutter:
     sdk: flutter
 
