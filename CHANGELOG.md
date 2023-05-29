@@ -1,3 +1,8 @@
+## 0.7.0
+
+- fix MachineControlPoint stopOrPause
+- change MachineControlPoint architecture
+
 ## 0.6.4
 
 - detect device type before connecting
