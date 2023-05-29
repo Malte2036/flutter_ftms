@@ -42,8 +42,6 @@ export 'src/ftms/characteristic/machine/control_point/machine_control_point.dart
     show MachineControlPoint;
 export 'src/ftms/characteristic/machine/control_point/machine_control_point_opcode.dart'
     show MachineControlPointOpcode, MachineControlPointOpcodeType;
-export 'src/ftms/characteristic/machine/control_point/machine_control_point_parameter.dart'
-    show MachineControlPointParameter;
 
 export 'package:flutter_blue_plus/flutter_blue_plus.dart'
     show BluetoothDevice, BluetoothDeviceState, ScanResult;

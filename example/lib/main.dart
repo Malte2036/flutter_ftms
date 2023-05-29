@@ -86,16 +86,17 @@ class FTMSPage extends StatefulWidget {
 
 class _FTMSPageState extends State<FTMSPage> {
   void writeCommand(MachineControlPointOpcodeType opcodeType) async {
-    MachineControlPointParameter? parameter;
+    MachineControlPoint? controlPoint;
     switch (opcodeType) {
+      case MachineControlPointOpcodeType.startOrResume:
+        controlPoint = MachineControlPoint.startOrResume();
+        break;
       case MachineControlPointOpcodeType.stopOrPause:
-        parameter = MachineControlPointParameter.stopOrPause(stop: true);
+        controlPoint = MachineControlPoint.stopOrPause(pause: true);
         break;
       default:
-        parameter = null;
+        throw 'MachineControlPointOpcodeType $opcodeType is not implemented in this example';
     }
-
-    var controlPoint = MachineControlPoint(opcodeType, parameter);
 
     await FTMS.writeMachineControlPointCharacteristic(
         widget.ftmsDevice, controlPoint);

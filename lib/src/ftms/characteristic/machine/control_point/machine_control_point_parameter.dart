@@ -6,8 +6,8 @@ class MachineControlPointParameter {
 
   /// MachineControlPointParameter.stopOrPause
   ///
-  /// @stop true if you want stop. false if you want to pause.
-  factory MachineControlPointParameter.stopOrPause({required bool stop}) {
-    return MachineControlPointParameter._internal(1, stop ? 0x1 : 0x2);
+  /// @pause true if you want pause. false if you want to stop.
+  factory MachineControlPointParameter.stopOrPause({required bool pause}) {
+    return MachineControlPointParameter._internal(1, pause ? 0x2 : 0x1);
   }
 }
