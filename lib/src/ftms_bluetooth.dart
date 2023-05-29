@@ -15,7 +15,6 @@ class FTMSBluetooth {
   static const _featureChar = "00002ACC";
   static const _machineStatusChar = "00002ADA";
   static const _machineControlPointChar = "00002AD9";
-  // ignore: unused_field
   static const _trainingStatusChar = "00002AD3";
 
   static Future<void> useDeviceDataCharacteristic(BluetoothService ftmsService,
@@ -99,6 +98,52 @@ class FTMSBluetooth {
     }
 
     await characteristicData.write(controlPoint.getWriteData());
+  }
+
+  static Future<TrainingStatus?> readTrainingStatusCharacteristic(
+      BluetoothService ftmsService) async {
+    var characteristicData =
+        _getBluetoothCharacteristic(ftmsService, _trainingStatusChar);
+    if (characteristicData == null) {
+      return null;
+    }
+
+    print('Found Training Status characteristic: ${characteristicData.uuid}');
+
+    var data = await characteristicData.read();
+
+    if (data.isEmpty) {
+      return null;
+    }
+
+    return TrainingStatus(data);
+  }
+
+  static Future<void> useTrainingStatusCharacteristic(
+      BluetoothService ftmsService,
+      void Function(TrainingStatus) onData) async {
+    var characteristicData =
+        _getBluetoothCharacteristic(ftmsService, _trainingStatusChar);
+    if (characteristicData == null) {
+      return;
+    }
+
+    if (!characteristicData.properties.notify) {
+      throw 'notify not supported on training status char';
+    }
+
+    print('Found Training Status characteristic: ${characteristicData.uuid}');
+
+    characteristicData.value.listen((data) {
+      if (data.isEmpty) {
+        return;
+      }
+      print(data);
+
+      var status = TrainingStatus(data);
+      onData(status);
+    });
+    await characteristicData.setNotifyValue(true);
   }
 
   static Future<BluetoothService?> getFTMSService(

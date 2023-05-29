@@ -8,6 +8,7 @@ import 'package:flutter_ftms/src/ftms/characteristic/machine/control_point/machi
 import 'package:flutter_ftms/src/ftms/characteristic/data/device_data.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/machine/feature/machine_feature.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/machine/status/machine_status.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/training/status/training_status.dart';
 import 'package:flutter_ftms/src/ftms_bluetooth.dart';
 
 export 'src/ftms/characteristic/data/device_data.dart'
@@ -42,6 +43,13 @@ export 'src/ftms/characteristic/machine/control_point/machine_control_point.dart
     show MachineControlPoint;
 export 'src/ftms/characteristic/machine/control_point/machine_control_point_opcode.dart'
     show MachineControlPointOpcode, MachineControlPointOpcodeType;
+
+export "src/ftms/characteristic/training/status/training_status.dart"
+    show TrainingStatus;
+export "src/ftms/characteristic/training/status/training_status_flag.dart"
+    show TrainingStatusFlag;
+export "src/ftms/characteristic/training/status/training_status_type.dart"
+    show TrainingStatusType;
 
 export 'package:flutter_blue_plus/flutter_blue_plus.dart'
     show BluetoothDevice, BluetoothDeviceState, ScanResult;
@@ -105,6 +113,25 @@ class FTMS {
 
     await FTMSBluetooth.writeMachineControlPointCharacteristic(
         service, controlPoint);
+  }
+
+  static Future<TrainingStatus?> readTrainingStatusCharacteristic(
+      BluetoothDevice device) async {
+    var service = await FTMSBluetooth.getFTMSService(device);
+    if (service == null) {
+      print("No FTMS Service found!");
+      return null;
+    }
+
+    return await FTMSBluetooth.readTrainingStatusCharacteristic(service);
+  }
+
+  static Future<void> useTrainingStatusCharacteristic(
+      BluetoothDevice device, void Function(TrainingStatus) onData) async {
+    var service = await FTMSBluetooth.getFTMSService(device);
+    if (service == null) return;
+
+    await FTMSBluetooth.useTrainingStatusCharacteristic(service, onData);
   }
 
   static Future<DeviceDataType?> getDeviceDataType(

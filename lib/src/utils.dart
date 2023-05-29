@@ -23,9 +23,16 @@ class Utils {
     return List<int>.from(byteArray.getRange(0, length).toList().reversed);
   }
 
-  static String dataToBinaryFlags(intArray, {int count = 2}) {
-    Uint8List byteList =
-        Uint8List.fromList(intArray.getRange(0, count).toList());
+  static String dataToBinaryFlags(List<int> intArray, {int count = 2}) {
+    if (intArray.isEmpty || intArray.length < count) {
+      throw ArgumentError('Invalid intArray: Not enough elements');
+    }
+    intArray = intArray.getRange(0, count).toList();
+    if (count == 1) {
+      intArray.add(0);
+    }
+
+    Uint8List byteList = Uint8List.fromList(intArray);
     ByteData byteData = ByteData.sublistView(byteList);
     var binary = byteData
         .getUint16(0, Endian.little)
