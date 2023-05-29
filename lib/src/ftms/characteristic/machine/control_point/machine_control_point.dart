@@ -35,6 +35,39 @@ class MachineControlPoint {
         MachineControlPointParameter.stopOrPause(pause: pause));
   }
 
+  factory MachineControlPoint.setTargetSpeed({required int speed}) {
+    return MachineControlPoint._internal(
+        MachineControlPointOpcodeType.setTargetSpeed,
+        MachineControlPointParameter.setTargetSpeed(speed: speed));
+  }
+
+  factory MachineControlPoint.setTargetInclination({required int inclination}) {
+    return MachineControlPoint._internal(
+        MachineControlPointOpcodeType.setTargetInclination,
+        MachineControlPointParameter.setTargetInclination(
+            inclination: inclination));
+  }
+
+  factory MachineControlPoint.setTargetResistanceLevel(
+      {required int resistanceLevel}) {
+    return MachineControlPoint._internal(
+        MachineControlPointOpcodeType.setTargetResistanceLevel,
+        MachineControlPointParameter.setTargetResistanceLevel(
+            resistanceLevel: resistanceLevel));
+  }
+
+  factory MachineControlPoint.setTargetPower({required int power}) {
+    return MachineControlPoint._internal(
+        MachineControlPointOpcodeType.setTargetPower,
+        MachineControlPointParameter.setTargetPower(power: power));
+  }
+
+  factory MachineControlPoint.setTargetHeartRate({required int heartRate}) {
+    return MachineControlPoint._internal(
+        MachineControlPointOpcodeType.setTargetHeartRate,
+        MachineControlPointParameter.setTargetHeartRate(heartRate: heartRate));
+  }
+
   List<int> getWriteData() {
     List<int> writeData = [opCode.value];
     if (parameter != null) {

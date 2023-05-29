@@ -1,11 +1,11 @@
 enum MachineControlPointOpcodeType {
   requestControl,
   reset,
-  //setTargetSpeed,
-  //setTargetInclination,
-  //setTargetResistanceLevel,
-  //setTargetPower,
-  //setTargetHearthRate,
+  setTargetSpeed,
+  setTargetInclination,
+  setTargetResistanceLevel,
+  setTargetPower,
+  setTargetHeartRate,
   startOrResume,
   stopOrPause,
   /* TODO: add more */
@@ -18,11 +18,11 @@ class MachineControlPointOpcode {
   static const Map<int, MachineControlPointOpcodeType> _opcodeToOpcodeType = {
     0x0: MachineControlPointOpcodeType.requestControl,
     0x1: MachineControlPointOpcodeType.reset,
-    //0x2: MachineControlPointOpcodeType.setTargetSpeed,
-    //0x3: MachineControlPointOpcodeType.setTargetInclination,
-    //0x4: MachineControlPointOpcodeType.setTargetResistanceLevel,
-    //0x5: MachineControlPointOpcodeType.setTargetPower,
-    //0x6: MachineControlPointOpcodeType.setTargetHearthRate,
+    0x2: MachineControlPointOpcodeType.setTargetSpeed,
+    0x3: MachineControlPointOpcodeType.setTargetInclination,
+    0x4: MachineControlPointOpcodeType.setTargetResistanceLevel,
+    0x5: MachineControlPointOpcodeType.setTargetPower,
+    0x6: MachineControlPointOpcodeType.setTargetHeartRate,
     0x7: MachineControlPointOpcodeType.startOrResume,
     0x8: MachineControlPointOpcodeType.stopOrPause,
   };

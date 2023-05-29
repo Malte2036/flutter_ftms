@@ -1,3 +1,7 @@
+## 0.7.1
+
+- implement more MachineControlPoints
+
 ## 0.7.0
 
 - fix MachineControlPoint stopOrPause
