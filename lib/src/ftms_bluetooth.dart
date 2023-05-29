@@ -98,7 +98,7 @@ class FTMSBluetooth {
       throw 'write not supported on machine control point char';
     }
 
-    await characteristicData.write([controlPoint.opCode.value]);
+    await characteristicData.write(controlPoint.getWriteData());
   }
 
   static Future<BluetoothService?> getFTMSService(

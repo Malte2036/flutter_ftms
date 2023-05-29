@@ -81,10 +81,9 @@ packages:
   flutter_ftms:
     dependency: "direct main"
     description:
-      name: flutter_ftms
-      sha256: "7ec8721fb63347bf1077d4e23a7e9a95272fd45935aaa7830ef1c1538ec793d6"
-      url: "https://pub.dev"
-    source: hosted
+      path: ".."
+      relative: true
+    source: path
     version: "0.6.4"
   flutter_lints:
     dependency: "direct dev"

@@ -21,6 +21,20 @@ void main() {
     expect(Utils.intArrayToLittleEndian([1, 83]), 339);
   });
 
+  test("intToLittleEndianArray", () {
+    expect(Utils.intToLittleEndianArray(78, 1), [78]);
+    expect(Utils.intToLittleEndianArray(23, 2), [0, 23]);
+    expect(Utils.intToLittleEndianArray(255, 2), [0, 255]);
+    expect(Utils.intToLittleEndianArray(256, 2), [1, 0]);
+    expect(Utils.intToLittleEndianArray(3072, 2), [12, 0]);
+    expect(Utils.intToLittleEndianArray(257, 2), [1, 1]);
+    expect(Utils.intToLittleEndianArray(65535, 2), [255, 255]);
+    expect(Utils.intToLittleEndianArray(65536, 3), [1, 0, 0]);
+    expect(Utils.intToLittleEndianArray(16777215, 3), [255, 255, 255]);
+    expect(Utils.intToLittleEndianArray(1025, 2), [4, 1]);
+    expect(Utils.intToLittleEndianArray(339, 2), [1, 83]);
+  });
+
   test("readAndConvertLittleEndianValue", () {
     const parameterNotSigned = DeviceDataParameter(
         DeviceDataParameterName.instSpeed, null, 1, "", 0,
