@@ -22,29 +22,36 @@ abstract class DeviceData {
 
     int ftmsDataOffset = 2;
     for (var dataParameter in allDeviceDataParameters) {
-      var parameterIsEnabled =
-          dataParameter.flag == null || features[dataParameter.flag] == true;
+      if (dataParameter.flag == null &&
+          features[DeviceDataFlag.moreDataFlag] == true) {
+        print(
+            'More Data is not implemented. Skipping ${dataParameter.name.name}');
+      } else {
+        var parameterIsEnabled =
+            dataParameter.flag == null || features[dataParameter.flag] == true;
 
-      if (parameterIsEnabled) {
-        List<int> data;
-        try {
-          data = _deviceData
-              .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
-              .toList();
+        if (parameterIsEnabled) {
+          List<int> data;
+          try {
+            data = _deviceData
+                .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
+                .toList();
 
-          data = List<int>.from(data.reversed);
-        } catch (e) {
-          //print('Data is missing!');
-          break;
+            data = List<int>.from(data.reversed);
+          } catch (e) {
+            //print('Data is missing!');
+            break;
+          }
+
+          var value =
+              Utils.readAndConvertLittleEndianValue(data, dataParameter);
+          //print(
+          //    '${dataParameter.name}: ${value} [${(value * dataParameter.factor).toInt()}${dataParameter.unit}]');
+
+          ftmsDataOffset += dataParameter.size;
+
+          _parameterValues.add(dataParameter.toDeviceDataParameterValue(value));
         }
-
-        var value = Utils.readAndConvertLittleEndianValue(data, dataParameter);
-        //print(
-        //    '${dataParameter.name}: ${value} [${(value * dataParameter.factor).toInt()}${dataParameter.unit}]');
-
-        ftmsDataOffset += dataParameter.size;
-
-        _parameterValues.add(dataParameter.toDeviceDataParameterValue(value));
       }
     }
   }
