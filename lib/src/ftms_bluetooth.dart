@@ -26,11 +26,11 @@ class FTMSBluetooth {
       return;
     }
 
-    print('Found FTMS characteristic: ${characteristicData.uuid}');
+    print('Found FTMS device data characteristic: ${characteristicData.uuid}');
 
     characteristicData.value.listen((List<int> data) {
       if (data.isEmpty) return;
-      print(data);
+      print('device data: $data');
 
       DeviceData deviceData = _createDeviceDataByDeviceDataType(dataType, data);
       onData(deviceData);
