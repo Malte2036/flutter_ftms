@@ -147,11 +147,6 @@ void main() {
     var d1 = CrossTrainer(dataWithMoreData[0]);
     var d2 = CrossTrainer(dataWithMoreData[1]);
 
-    //d1.getDeviceDataParameterValues().forEach((element) {
-    //  print(
-    //      '${element.name.name}: ${element.value * element.factor} ${element.unit}');
-    //});
-
     expect(
         d1
             .getParameterValueByName(DeviceDataParameterName.totalDistance)!
@@ -163,6 +158,21 @@ void main() {
         43);
     expect(
         d2.getParameterValueByName(DeviceDataParameterName.totalEnergy)!.value,
+        2);
+
+    d1.merge(d2);
+
+    expect(
+        d1
+            .getParameterValueByName(DeviceDataParameterName.totalDistance)!
+            .value,
+        33);
+
+    expect(
+        d1.getParameterValueByName(DeviceDataParameterName.elapsedTime)!.value,
+        43);
+    expect(
+        d1.getParameterValueByName(DeviceDataParameterName.totalEnergy)!.value,
         2);
   });
 }

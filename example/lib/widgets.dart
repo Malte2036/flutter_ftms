@@ -73,6 +73,7 @@ Widget getButtonForBluetoothDevice(
             );
           case BluetoothDeviceState.connected:
             return SizedBox(
+              width: 250,
               child: Wrap(
                 spacing: 2,
                 alignment: WrapAlignment.end,
