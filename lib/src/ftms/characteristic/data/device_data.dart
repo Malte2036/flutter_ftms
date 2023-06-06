@@ -6,7 +6,7 @@ import 'package:flutter_ftms/src/utils.dart';
 enum DeviceDataType { crossTrainer, indoorBike, treadmill, rower }
 
 abstract class DeviceData {
-  final List<int> _deviceData;
+  late final List<int> _deviceData;
   late final _parameterValues =
       List<DeviceDataParameterValue>.empty(growable: true);
 
@@ -22,38 +22,49 @@ abstract class DeviceData {
 
     int ftmsDataOffset = 2;
     for (var dataParameter in allDeviceDataParameters) {
-      if (dataParameter.flag == null &&
+      if (dataParameter.flag == null) {
+        //print("DataParameter ${dataParameter.name.name} is placeholder");
+        ftmsDataOffset += dataParameter.size;
+        continue;
+      }
+
+      if (dataParameter.flag == DeviceDataFlag.moreDataFlag &&
           features[DeviceDataFlag.moreDataFlag] == true) {
-        print(
-            'More Data is not implemented. Skipping ${dataParameter.name.name}');
-      } else {
-        var parameterIsEnabled =
-            dataParameter.flag == null || features[dataParameter.flag] == true;
+        //print('Skipping ${dataParameter.name.name}. Should be in the next data package.');
+        continue;
+      }
 
-        if (parameterIsEnabled) {
-          List<int> data;
-          try {
-            data = _deviceData
-                .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
-                .toList();
+      var parameterIsEnabled = features[dataParameter.flag] == true;
+      if (dataParameter.flag == DeviceDataFlag.moreDataFlag) {
+        parameterIsEnabled = !parameterIsEnabled;
+      }
 
-            data = List<int>.from(data.reversed);
-          } catch (e) {
-            //print('Data is missing!');
-            break;
-          }
+      if (parameterIsEnabled) {
+        List<int> data;
+        try {
+          data = _deviceData
+              .getRange(ftmsDataOffset, ftmsDataOffset + dataParameter.size)
+              .toList();
 
-          var value =
-              Utils.readAndConvertLittleEndianValue(data, dataParameter);
-          //print(
-          //    '${dataParameter.name}: ${value} [${(value * dataParameter.factor).toInt()}${dataParameter.unit}]');
-
-          ftmsDataOffset += dataParameter.size;
-
-          _parameterValues.add(dataParameter.toDeviceDataParameterValue(value));
+          data = List<int>.from(data.reversed);
+        } catch (e) {
+          //print('Data is missing!');
+          break;
         }
+
+        var value = Utils.readAndConvertLittleEndianValue(data, dataParameter);
+        //print(
+        //    '${dataParameter.name}: ${value} [${(value * dataParameter.factor).toInt()}${dataParameter.unit}]');
+
+        ftmsDataOffset += dataParameter.size;
+
+        _parameterValues.add(dataParameter.toDeviceDataParameterValue(value));
       }
     }
+  }
+
+  merge(DeviceData other) {
+    _parameterValues.addAll(other._parameterValues);
   }
 
   Map<Flag, bool> getDeviceDataFeatures() {

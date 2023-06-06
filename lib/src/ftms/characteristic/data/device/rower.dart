@@ -23,10 +23,10 @@ class Rower extends DeviceData {
 
   @override
   List<DeviceDataParameter> get allDeviceDataParameters => [
-        const DeviceDataParameter(
-            DeviceDataParameterName.strokeRate, null, 1, "stroke/min", 0.5),
-        const DeviceDataParameter(
-            DeviceDataParameterName.strokeCount, null, 2, "", 1),
+        const DeviceDataParameter(DeviceDataParameterName.strokeRate,
+            DeviceDataFlag.moreDataFlag, 1, "stroke/min", 0.5),
+        const DeviceDataParameter(DeviceDataParameterName.strokeCount,
+            DeviceDataFlag.moreDataFlag, 2, "", 1),
         const DeviceDataParameter(DeviceDataParameterName.avgStrokeRate,
             DeviceDataFlag.avgStrokeFlag, 1, "stroke/min", 0.5),
         const DeviceDataParameter(DeviceDataParameterName.totalDistance,

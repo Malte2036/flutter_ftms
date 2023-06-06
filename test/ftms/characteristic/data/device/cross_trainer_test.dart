@@ -30,6 +30,11 @@ void main() {
     [158, 119, 0, 0, 0, 55, 1, 20, 0, 0, 0, 0, 48, 0, 190, 0, 10, 0, 0, 0],
   ];
 
+  List<List<int>> dataWithMoreData = [
+    [159, 3, 0, 27, 1, 33, 0, 0, 0, 0, 44, 0, 64, 1, 10, 0, 0, 0, 13, 0],
+    [0, 124, 0, 0, 0, 2, 0, 0, 0, 0, 0, 10, 43, 0, 221, 6]
+  ];
+
   test('cross trainer features', () {
     var d = data[0];
 
@@ -135,5 +140,29 @@ void main() {
           20
         ]),
         true);
+  });
+
+  test('cross trainer parse moreData data correct', () {
+    //print(dataWithMoreData[0]);
+    var d1 = CrossTrainer(dataWithMoreData[0]);
+    var d2 = CrossTrainer(dataWithMoreData[1]);
+
+    //d1.getDeviceDataParameterValues().forEach((element) {
+    //  print(
+    //      '${element.name.name}: ${element.value * element.factor} ${element.unit}');
+    //});
+
+    expect(
+        d1
+            .getParameterValueByName(DeviceDataParameterName.totalDistance)!
+            .value,
+        33);
+
+    expect(
+        d2.getParameterValueByName(DeviceDataParameterName.elapsedTime)!.value,
+        43);
+    expect(
+        d2.getParameterValueByName(DeviceDataParameterName.totalEnergy)!.value,
+        2);
   });
 }

@@ -21,8 +21,8 @@ class Treadmill extends DeviceData {
 
   @override
   List<DeviceDataParameter> get allDeviceDataParameters => [
-        const DeviceDataParameter(
-            DeviceDataParameterName.instSpeed, null, 2, "Km/h", 0.01),
+        const DeviceDataParameter(DeviceDataParameterName.instSpeed,
+            DeviceDataFlag.moreDataFlag, 2, "Km/h", 0.01),
         const DeviceDataParameter(DeviceDataParameterName.avgSpeed,
             DeviceDataFlag.avgSpeedFlag, 2, "Km/h", 0.01),
         const DeviceDataParameter(DeviceDataParameterName.totalDistance,

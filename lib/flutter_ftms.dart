@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_ftms/src/bluetooth.dart';
+import 'package:flutter_ftms/src/ftms/characteristic/data/device_data_flag.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/machine/control_point/machine_control_point.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/data/device_data.dart';
 import 'package:flutter_ftms/src/ftms/characteristic/machine/feature/machine_feature.dart';
@@ -76,7 +77,29 @@ class FTMS {
     var service = await FTMSBluetooth.getFTMSService(device);
     if (service == null) return;
 
-    await FTMSBluetooth.useDeviceDataCharacteristic(service, dataType, onData);
+    List<DeviceData> lastData = [];
+
+    onMergedData(DeviceData data) {
+      var features = data.getDeviceDataFeatures();
+      if (!features.containsKey(DeviceDataFlag.moreDataFlag) ||
+          features[DeviceDataFlag.moreDataFlag] == false) {
+        if (lastData.isNotEmpty) {
+          for (var element in lastData) {
+            data.merge(element);
+          }
+
+          lastData = [];
+          onData(data);
+          return;
+        }
+        onData(data);
+        return;
+      }
+      lastData.add(data);
+    }
+
+    await FTMSBluetooth.useDeviceDataCharacteristic(
+        service, dataType, onMergedData);
   }
 
   static Future<MachineFeature?> readMachineFeatureCharacteristic(

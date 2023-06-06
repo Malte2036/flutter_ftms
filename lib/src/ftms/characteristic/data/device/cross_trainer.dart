@@ -32,8 +32,8 @@ class CrossTrainer extends DeviceData {
   List<DeviceDataParameter> get allDeviceDataParameters => [
         const DeviceDataParameter(
             DeviceDataParameterName.placeholder /* WHY? */, null, 1, "", 1),
-        const DeviceDataParameter(
-            DeviceDataParameterName.instSpeed, null, 2, "Km/h", 0.01),
+        const DeviceDataParameter(DeviceDataParameterName.instSpeed,
+            DeviceDataFlag.moreDataFlag, 2, "Km/h", 0.01),
         const DeviceDataParameter(DeviceDataParameterName.avgSpeed,
             DeviceDataFlag.avgSpeedFlag, 2, "Km/h", 0.01),
         const DeviceDataParameter(DeviceDataParameterName.totalDistance,
