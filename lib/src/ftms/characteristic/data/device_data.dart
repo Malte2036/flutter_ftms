@@ -7,6 +7,7 @@ enum DeviceDataType { crossTrainer, indoorBike, treadmill, rower }
 
 abstract class DeviceData {
   late final List<int> _deviceData;
+  late final Map<Flag, bool> _deviceDataFeatures;
   late final _parameterValues =
       List<DeviceDataParameterValue>.empty(growable: true);
 
@@ -18,7 +19,8 @@ abstract class DeviceData {
   static const _featureBitSize = 16;
 
   DeviceData(this._deviceData) {
-    var features = getDeviceDataFeatures();
+    _deviceDataFeatures = Utils.flagsToFeatureMap(
+        _deviceData, _featureBitSize, allDeviceDataFlags);
 
     int ftmsDataOffset = 2;
     for (var dataParameter in allDeviceDataParameters) {
@@ -29,12 +31,12 @@ abstract class DeviceData {
       }
 
       if (dataParameter.flag == DeviceDataFlag.moreDataFlag &&
-          features[DeviceDataFlag.moreDataFlag] == true) {
+          _deviceDataFeatures[DeviceDataFlag.moreDataFlag] == true) {
         //print('Skipping ${dataParameter.name.name}. Should be in the next data package.');
         continue;
       }
 
-      var parameterIsEnabled = features[dataParameter.flag] == true;
+      var parameterIsEnabled = _deviceDataFeatures[dataParameter.flag] == true;
       if (dataParameter.flag == DeviceDataFlag.moreDataFlag) {
         parameterIsEnabled = !parameterIsEnabled;
       }
@@ -64,12 +66,20 @@ abstract class DeviceData {
   }
 
   merge(DeviceData other) {
+    if (deviceDataType != other.deviceDataType) {
+      throw 'Cannot merge DeviceDataType $deviceDataType with ${other.deviceDataType}';
+    }
+
+    for (var feature in other._deviceDataFeatures.entries) {
+      _deviceDataFeatures.update(
+          feature.key, (value) => value || feature.value);
+    }
+
     _parameterValues.addAll(other._parameterValues);
   }
 
   Map<Flag, bool> getDeviceDataFeatures() {
-    return Utils.flagsToFeatureMap(
-        _deviceData, _featureBitSize, allDeviceDataFlags);
+    return _deviceDataFeatures;
   }
 
   List<DeviceDataParameterValue> getDeviceDataParameterValues() {
