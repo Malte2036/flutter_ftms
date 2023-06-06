@@ -1,3 +1,9 @@
+## 0.8.0
+
+- merge DeviceData features correctly
+- allow ftms data in multiple packages (moreDataFlag)
+- fix wrong rower configuration
+
 ## 0.7.1
 
 - implement more MachineControlPoints
