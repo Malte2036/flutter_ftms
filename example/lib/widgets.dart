@@ -61,6 +61,12 @@ Widget getButtonForBluetoothDevice(
             return ElevatedButton(
               child: const Text("Connect"),
               onPressed: () async {
+                final snackBar = SnackBar(
+                  content: Text('Connecting to ${device.name}...'),
+                  duration: const Duration(seconds: 2),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                 await FTMS.connectToFTMSDevice(device);
                 device.state.listen((state) async {
                   if (state == BluetoothDeviceState.disconnected ||

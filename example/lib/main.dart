@@ -127,15 +127,34 @@ class _FTMSPageState extends State<FTMSPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 3,
+      child: Scaffold(
         appBar: AppBar(
           title: Text(
               '${widget.ftmsDevice.name} (${FTMS.getDeviceDataTypeWithoutConnecting(widget.ftmsDevice)})'),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                text: 'Data',
+                icon: Icon(Icons.data_object),
+              ),
+              Tab(
+                text: 'Device Data Features',
+                icon: Icon(Icons.featured_play_list_outlined),
+              ),
+              Tab(
+                text: 'Machine Features',
+                icon: Icon(Icons.settings),
+              ),
+            ],
+          ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              StreamBuilder<DeviceData?>(
+        body: TabBarView(
+          children: <Widget>[
+            SingleChildScrollView(
+              child: StreamBuilder<DeviceData?>(
                 stream: ftmsBloc.ftmsDeviceDataControllerStream,
                 builder: (c, snapshot) {
                   if (!snapshot.hasData) {
@@ -154,26 +173,60 @@ class _FTMSPageState extends State<FTMSPage> {
                       ],
                     );
                   }
+                  return Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      children: [
+                        Text(
+                          FTMS.convertDeviceDataTypeToString(
+                              snapshot.data!.deviceDataType),
+                          textScaleFactor: 4,
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: snapshot.data!
+                              .getDeviceDataParameterValues()
+                              .map((parameterValue) => Text(
+                                    parameterValue.toString(),
+                                    textScaleFactor: 2,
+                                  ))
+                              .toList(),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            SingleChildScrollView(
+              child: StreamBuilder<DeviceData?>(
+                stream: ftmsBloc.ftmsDeviceDataControllerStream,
+                builder: (c, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Column(
+                      children: [
+                        const Center(child: Text("No FTMSData found!")),
+                        ElevatedButton(
+                          onPressed: () async {
+                            await FTMS.useDeviceDataCharacteristic(
+                                widget.ftmsDevice, (DeviceData data) {
+                              ftmsBloc.ftmsDeviceDataControllerSink.add(data);
+                            });
+                          },
+                          child: const Text("use FTMS"),
+                        ),
+                      ],
+                    );
+                  }
+
                   return Column(
                     children: [
                       Text(
-                        FTMS.convertDeviceDataTypeToString(
-                            snapshot.data!.deviceDataType),
+                        "Device Data Features",
                         textScaleFactor: 3,
                         style: TextStyle(color: Theme.of(context).primaryColor),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: snapshot.data!
-                            .getDeviceDataParameterValues()
-                            .map((parameterValue) => Text(
-                                  parameterValue.toString(),
-                                  textScaleFactor: 1.2,
-                                ))
-                            .toList(),
-                      ),
-                      const Divider(
-                        thickness: 2,
                       ),
                       Column(
                         children: snapshot.data!
@@ -184,37 +237,40 @@ class _FTMSPageState extends State<FTMSPage> {
                                 Text('${entry.key.name}: ${entry.value}'))
                             .toList(),
                       ),
-                      const Divider(
-                        thickness: 2,
-                      ),
                     ],
                   );
                 },
               ),
-              MachineFeatureWidget(ftmsDevice: widget.ftmsDevice),
-              const Divider(
-                thickness: 2,
-              ),
-              SizedBox(
-                height: 60,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: MachineControlPointOpcodeType.values
-                      .map(
-                        (MachineControlPointOpcodeType opcodeType) => Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: OutlinedButton(
-                            onPressed: () => writeCommand(opcodeType),
-                            child: Text(opcodeType.name),
-                          ),
-                        ),
-                      )
-                      .toList(),
+            ),
+            Column(
+              children: [
+                MachineFeatureWidget(ftmsDevice: widget.ftmsDevice),
+                const Divider(
+                  height: 2,
                 ),
-              )
-            ],
-          ),
-        ));
+                SizedBox(
+                  height: 60,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: MachineControlPointOpcodeType.values
+                        .map(
+                          (MachineControlPointOpcodeType opcodeType) => Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: OutlinedButton(
+                              onPressed: () => writeCommand(opcodeType),
+                              child: Text(opcodeType.name),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
