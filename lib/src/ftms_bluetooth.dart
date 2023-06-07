@@ -21,7 +21,11 @@ class FTMSBluetooth {
   static Future<void> useDeviceDataCharacteristic(BluetoothService ftmsService,
       DeviceDataType dataType, void Function(DeviceData) onData) async {
     var dataChar = _getBluetoothCharacteristicUUID(dataType);
-    var characteristicData = _getBluetoothCharacteristic(ftmsService, dataChar);
+    var characteristicData = _getBluetoothCharacteristic(ftmsService, dataChar,
+        characteristicRead: false,
+        characteristicNotify: true,
+        characteristicWrite: false);
+
     if (characteristicData == null) {
       return;
     }
@@ -42,8 +46,12 @@ class FTMSBluetooth {
 
   static Future<MachineFeature?> readMachineFeatureCharacteristic(
       BluetoothService ftmsService) async {
-    var characteristicData =
-        _getBluetoothCharacteristic(ftmsService, _featureChar);
+    var characteristicData = _getBluetoothCharacteristic(
+        ftmsService, _featureChar,
+        characteristicRead: true,
+        characteristicNotify: false,
+        characteristicWrite: false);
+
     if (characteristicData == null) {
       return null;
     }
@@ -62,14 +70,13 @@ class FTMSBluetooth {
 
   static Future<void> useMachineStatusCharacteristic(
       BluetoothService ftmsService, void Function(MachineStatus) onData) async {
-    var characteristicData =
-        _getBluetoothCharacteristic(ftmsService, _machineStatusChar);
+    var characteristicData = _getBluetoothCharacteristic(
+        ftmsService, _machineStatusChar,
+        characteristicRead: false,
+        characteristicNotify: true,
+        characteristicWrite: false);
     if (characteristicData == null) {
       return;
-    }
-
-    if (!characteristicData.properties.notify) {
-      throw 'notify not supported on machine status char';
     }
 
     print('Found Machine Status characteristic: ${characteristicData.uuid}');
@@ -88,14 +95,13 @@ class FTMSBluetooth {
 
   static Future<void> writeMachineControlPointCharacteristic(
       BluetoothService ftmsService, MachineControlPoint controlPoint) async {
-    var characteristicData =
-        _getBluetoothCharacteristic(ftmsService, _machineControlPointChar);
+    var characteristicData = _getBluetoothCharacteristic(
+        ftmsService, _machineControlPointChar,
+        characteristicRead: false,
+        characteristicNotify: false,
+        characteristicWrite: true);
     if (characteristicData == null) {
       return;
-    }
-
-    if (!characteristicData.properties.write) {
-      throw 'write not supported on machine control point char';
     }
 
     await characteristicData.write(controlPoint.getWriteData());
@@ -132,30 +138,68 @@ class FTMSBluetooth {
   }
 
   static BluetoothCharacteristic? _getBluetoothCharacteristic(
-      BluetoothService ftmsService, String startsWithUUID) {
+    BluetoothService ftmsService,
+    String startsWithUUID, {
+    required bool characteristicRead,
+    required bool characteristicNotify,
+    required bool characteristicWrite,
+  }) {
     var chars = ftmsService.characteristics
         .where((element) => _characteristicStartWith(element, startsWithUUID))
         .toList();
 
-    return chars.isNotEmpty ? chars[0] : null;
+    if (chars.isEmpty) {
+      return null;
+    }
+
+    BluetoothCharacteristic char = chars[0];
+
+    if (characteristicRead && !char.properties.read) {
+      throw 'read not supported on characteristic: ${char.uuid}';
+    }
+
+    if (characteristicNotify && !char.properties.notify) {
+      throw 'notify not supported on characteristic: ${char.uuid}';
+    }
+
+    if (characteristicWrite && !char.properties.read) {
+      throw 'write not supported on characteristic: ${char.uuid}';
+    }
+
+    return char;
   }
 
   static Future<DeviceDataType?> getDeviceDataType(
       BluetoothService ftmsService) async {
-    if (_getBluetoothCharacteristic(ftmsService, _dataCrossTrainerChar) !=
+    if (_getBluetoothCharacteristic(ftmsService, _dataCrossTrainerChar,
+            characteristicRead: false,
+            characteristicNotify: true,
+            characteristicWrite: false) !=
         null) {
       return DeviceDataType.crossTrainer;
     }
 
-    if (_getBluetoothCharacteristic(ftmsService, _dataIndoorBikeChar) != null) {
+    if (_getBluetoothCharacteristic(ftmsService, _dataIndoorBikeChar,
+            characteristicRead: false,
+            characteristicNotify: true,
+            characteristicWrite: false) !=
+        null) {
       return DeviceDataType.indoorBike;
     }
 
-    if (_getBluetoothCharacteristic(ftmsService, _dataTreadmillChar) != null) {
+    if (_getBluetoothCharacteristic(ftmsService, _dataTreadmillChar,
+            characteristicRead: false,
+            characteristicNotify: true,
+            characteristicWrite: false) !=
+        null) {
       return DeviceDataType.treadmill;
     }
 
-    if (_getBluetoothCharacteristic(ftmsService, _dataRowerChar) != null) {
+    if (_getBluetoothCharacteristic(ftmsService, _dataRowerChar,
+            characteristicRead: false,
+            characteristicNotify: true,
+            characteristicWrite: false) !=
+        null) {
       return DeviceDataType.rower;
     }
 
