@@ -17,8 +17,14 @@ class Bluetooth {
     ].request();
   }
 
+  static Stream<BluetoothState> stateStream =
+      flutterBlue.state.asBroadcastStream();
   static Stream<bool> isScanningStream = flutterBlue.isScanning;
   static Stream<List<ScanResult>> scanResultsStream = flutterBlue.scanResults;
+
+  static Future<bool> isEnabled() async {
+    return await flutterBlue.isOn;
+  }
 
   static scanForBluetoothDevices() async {
     print("scanForBluetoothDevices");
