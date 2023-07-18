@@ -1,3 +1,8 @@
+## 0.8.1
+
+- add BluetoothState stream
+- add isBluetoothEnabled function
+
 ## 0.8.0
 
 - merge DeviceData features correctly
