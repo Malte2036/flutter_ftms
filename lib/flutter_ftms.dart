@@ -53,6 +53,10 @@ class FTMS {
   static Stream<List<ScanResult>> get scanResults =>
       Bluetooth.scanResultsStream;
 
+  static Future<List<BluetoothDevice>> listDevices() async {
+    return await Bluetooth.getConnectedDevice();
+  }
+
   static Future<bool> isBluetoothEnabled() async {
     return await Bluetooth.isEnabled();
   }

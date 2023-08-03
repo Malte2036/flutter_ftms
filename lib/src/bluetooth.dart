@@ -20,6 +20,10 @@ class Bluetooth {
   static Stream<bool> isScanningStream = FlutterBluePlus.isScanning;
   static Stream<List<ScanResult>> scanResultsStream = FlutterBluePlus.scanResults;
 
+  static Future<List<BluetoothDevice>> getConnectedDevice()async {
+    return await FlutterBluePlus.connectedSystemDevices;
+  } 
+
   static Future<bool> isEnabled() async {
     return await FlutterBluePlus.isAvailable;
   }
