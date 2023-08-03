@@ -11,7 +11,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  flutter_blue_plus: ^1.4.0
+  flutter_blue_plus: ^1.12.9
   permission_handler: ^10.2.0
   flutter:
     sdk: flutter
