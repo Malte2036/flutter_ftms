@@ -1,3 +1,7 @@
+## 0.9.0
+
+- BREAKING CHANGE: upgrade flutter_blue_plus to 1.12.9
+
 ## 0.8.1
 
 - add BluetoothState stream
