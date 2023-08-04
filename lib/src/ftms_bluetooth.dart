@@ -32,7 +32,7 @@ class FTMSBluetooth {
 
     print('Found FTMS device data characteristic: ${characteristicData.uuid}');
 
-    characteristicData.value.listen((List<int> data) {
+    characteristicData.onValueReceived.listen((List<int> data) {
       if (data.isEmpty) return;
       print('device data: $data');
 
@@ -81,7 +81,7 @@ class FTMSBluetooth {
 
     print('Found Machine Status characteristic: ${characteristicData.uuid}');
 
-    characteristicData.value.listen((data) {
+    characteristicData.onValueReceived.listen((data) {
       if (data.isEmpty) {
         return;
       }
@@ -120,7 +120,8 @@ class FTMSBluetooth {
 
   static Future<bool> isBluetoothDeviceFTMSDevice(
       BluetoothDevice device) async {
-    if (await device.state.first == BluetoothDeviceState.disconnected) {
+    if (await device.connectionState.first ==
+        BluetoothConnectionState.disconnected) {
       return false;
     }
 

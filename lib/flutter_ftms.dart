@@ -45,13 +45,17 @@ export 'src/ftms/characteristic/machine/control_point/machine_control_point_opco
     show MachineControlPointOpcode, MachineControlPointOpcodeType;
 
 export 'package:flutter_blue_plus/flutter_blue_plus.dart'
-    show BluetoothState, BluetoothDevice, BluetoothDeviceState, ScanResult;
+    show BluetoothAdapterState, BluetoothDevice, BluetoothConnectionState, ScanResult;
 
 class FTMS {
-  static Stream<BluetoothState> get bluetoothState => Bluetooth.stateStream;
+  static Stream<BluetoothAdapterState> get bluetoothState => Bluetooth.stateStream;
   static Stream<bool> get isScanning => Bluetooth.isScanningStream;
   static Stream<List<ScanResult>> get scanResults =>
       Bluetooth.scanResultsStream;
+
+  static Future<List<BluetoothDevice>> listDevices() async {
+    return await Bluetooth.getConnectedDevice();
+  }
 
   static Future<bool> isBluetoothEnabled() async {
     return await Bluetooth.isEnabled();
@@ -148,7 +152,7 @@ class FTMS {
 
   static DeviceDataType? getDeviceDataTypeWithoutConnecting(
       BluetoothDevice device) {
-    return FTMSBluetooth.getDeviceDataTypeByBluetoothId(device.id.id);
+    return FTMSBluetooth.getDeviceDataTypeByBluetoothId(device.remoteId.str);
   }
 
   static String convertDeviceDataTypeToString(DeviceDataType dataType) {
