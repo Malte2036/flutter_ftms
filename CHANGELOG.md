@@ -1,3 +1,8 @@
+## 1.0.0
+
+- FIRST STABLE RELEASE
+- upgrade dependencies
+
 ## 0.9.0
 
 - BREAKING CHANGE: upgrade flutter_blue_plus to 1.12.9
