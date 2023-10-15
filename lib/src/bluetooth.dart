@@ -4,7 +4,6 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Bluetooth {
-
   static requestBluetoothPermissions() async {
     print("requestPermissions");
     await [
@@ -16,16 +15,18 @@ class Bluetooth {
     ].request();
   }
 
-  static Stream<BluetoothAdapterState> stateStream = FlutterBluePlus.adapterState.asBroadcastStream();
+  static Stream<BluetoothAdapterState> stateStream =
+      FlutterBluePlus.adapterState.asBroadcastStream();
   static Stream<bool> isScanningStream = FlutterBluePlus.isScanning;
-  static Stream<List<ScanResult>> scanResultsStream = FlutterBluePlus.scanResults;
+  static Stream<List<ScanResult>> scanResultsStream =
+      FlutterBluePlus.scanResults;
 
-  static Future<List<BluetoothDevice>> getConnectedDevice()async {
+  static Future<List<BluetoothDevice>> getConnectedDevice() async {
     return await FlutterBluePlus.connectedSystemDevices;
-  } 
+  }
 
   static Future<bool> isEnabled() async {
-    return await FlutterBluePlus.isAvailable;
+    return await FlutterBluePlus.isSupported;
   }
 
   static scanForBluetoothDevices() async {
@@ -41,12 +42,12 @@ class Bluetooth {
   static connectToBluetoothDevice(BluetoothDevice device) {
     //await device.pair();
 
-    print('connectToBluetoothDevice: ${device.localName}');
+    print('connectToBluetoothDevice: ${device.platformName}');
     device.connect();
   }
 
   static disconnectFromBluetoothDevice(BluetoothDevice device) {
-    print('disconnectFromBluetoothDevice: ${device.localName}');
+    print('disconnectFromBluetoothDevice: ${device.platformName}');
     device.disconnect();
   }
 }
