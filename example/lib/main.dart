@@ -66,7 +66,7 @@ class _ScanPageState extends State<ScanPage> {
           initialData: const [],
           builder: (c, snapshot) => scanResultsToWidget(
               (snapshot.data ?? [])
-                  .where((element) => element.device.name.isNotEmpty)
+                  .where((element) => element.device.platformName.isNotEmpty)
                   .toList(),
               context),
         ),
@@ -133,7 +133,7 @@ class _FTMSPageState extends State<FTMSPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-              '${widget.ftmsDevice.name} (${FTMS.getDeviceDataTypeWithoutConnecting(widget.ftmsDevice)})'),
+              '${widget.ftmsDevice.platformName} (${FTMS.getDeviceDataTypeWithoutConnecting(widget.ftmsDevice)})'),
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(
