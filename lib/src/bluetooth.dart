@@ -22,7 +22,7 @@ class Bluetooth {
       FlutterBluePlus.scanResults;
 
   static Future<List<BluetoothDevice>> getConnectedDevice() async {
-    return await FlutterBluePlus.connectedSystemDevices;
+    return await FlutterBluePlus.systemDevices;
   }
 
   static Future<bool> isEnabled() async {
