@@ -1,3 +1,7 @@
+## 1.0.1
+
+- upgrade dependencies
+
 ## 1.0.0
 
 - FIRST STABLE RELEASE
