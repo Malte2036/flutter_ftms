@@ -30,10 +30,12 @@ Widget scanResultsToWidget(List<ScanResult> data, BuildContext context) {
                 initialData: false,
                 builder: (c, snapshot) {
                   return Text(
-                    d.device.name.isEmpty ? "(unknown device)" : d.device.name,
+                    d.device.platformName.isEmpty
+                        ? "(unknown device)"
+                        : d.device.platformName,
                   );
                 }),
-            subtitle: Text(d.device.id.id),
+            subtitle: Text(d.device.remoteId.str),
             leading: SizedBox(
               width: 40,
               child: Center(
@@ -49,35 +51,34 @@ Widget scanResultsToWidget(List<ScanResult> data, BuildContext context) {
 
 Widget getButtonForBluetoothDevice(
     BluetoothDevice device, BuildContext context) {
-  return StreamBuilder<BluetoothDeviceState>(
-      stream: device.state,
+  return StreamBuilder<BluetoothConnectionState>(
+      stream: device.connectionState,
       builder: (c, snapshot) {
         if (!snapshot.hasData) {
           return const Text("...");
         }
         var deviceState = snapshot.data!;
         switch (deviceState) {
-          case BluetoothDeviceState.disconnected:
+          case BluetoothConnectionState.disconnected:
             return ElevatedButton(
               child: const Text("Connect"),
               onPressed: () async {
                 final snackBar = SnackBar(
-                  content: Text('Connecting to ${device.name}...'),
+                  content: Text('Connecting to ${device.platformName}...'),
                   duration: const Duration(seconds: 2),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
                 await FTMS.connectToFTMSDevice(device);
-                device.state.listen((state) async {
-                  if (state == BluetoothDeviceState.disconnected ||
-                      state == BluetoothDeviceState.disconnecting) {
+                device.connectionState.listen((state) async {
+                  if (state == BluetoothConnectionState.disconnected) {
                     ftmsBloc.ftmsDeviceDataControllerSink.add(null);
                     return;
                   }
                 });
               },
             );
-          case BluetoothDeviceState.connected:
+          case BluetoothConnectionState.connected:
             return SizedBox(
               width: 250,
               child: Wrap(
