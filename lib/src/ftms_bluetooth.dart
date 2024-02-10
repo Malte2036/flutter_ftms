@@ -163,7 +163,7 @@ class FTMSBluetooth {
       throw 'notify not supported on characteristic: ${char.uuid}';
     }
 
-    if (characteristicWrite && !char.properties.read) {
+    if (characteristicWrite && !char.properties.write) {
       throw 'write not supported on characteristic: ${char.uuid}';
     }
 
