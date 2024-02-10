@@ -33,7 +33,7 @@ After completing the `flutter_blue_plus` setup, you can add the following depend
 
 ```yaml
 dependencies:
-  flutter_ftms: 1.0.1
+  flutter_ftms: 1.0.2
 ```
 
 Then, run `flutter pub get` to install the package.

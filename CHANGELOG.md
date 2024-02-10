@@ -1,3 +1,7 @@
+## 1.0.2
+
+- fix control point not working
+
 ## 1.0.1
 
 - upgrade dependencies
