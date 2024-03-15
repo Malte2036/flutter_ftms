@@ -77,5 +77,5 @@ class CrossTrainer extends DeviceData {
             DeviceDataFlag.remainingTimeFlag, 2, "second", 1),
       ];
 
-  CrossTrainer(ftmsData) : super(ftmsData);
+  CrossTrainer(super.ftmsData);
 }

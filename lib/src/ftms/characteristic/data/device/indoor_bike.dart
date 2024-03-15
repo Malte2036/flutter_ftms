@@ -56,5 +56,5 @@ class IndoorBike extends DeviceData {
             DeviceDataFlag.remainingTimeFlag, 2, "second", 1),
       ];
 
-  IndoorBike(ftmsData) : super(ftmsData);
+  IndoorBike(super.ftmsData);
 }

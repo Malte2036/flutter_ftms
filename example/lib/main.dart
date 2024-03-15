@@ -78,7 +78,7 @@ class _ScanPageState extends State<ScanPage> {
 class FTMSPage extends StatefulWidget {
   final BluetoothDevice ftmsDevice;
 
-  const FTMSPage({Key? key, required this.ftmsDevice}) : super(key: key);
+  const FTMSPage({super.key, required this.ftmsDevice});
 
   @override
   State<FTMSPage> createState() => _FTMSPageState();
@@ -277,8 +277,7 @@ class _FTMSPageState extends State<FTMSPage> {
 class MachineFeatureWidget extends StatefulWidget {
   final BluetoothDevice ftmsDevice;
 
-  const MachineFeatureWidget({Key? key, required this.ftmsDevice})
-      : super(key: key);
+  const MachineFeatureWidget({super.key, required this.ftmsDevice});
 
   @override
   State<MachineFeatureWidget> createState() => _MachineFeatureWidgetState();
