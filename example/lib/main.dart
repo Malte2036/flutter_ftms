@@ -180,7 +180,7 @@ class _FTMSPageState extends State<FTMSPage> {
                         Text(
                           FTMS.convertDeviceDataTypeToString(
                               snapshot.data!.deviceDataType),
-                          textScaleFactor: 4,
+                          textScaler: const TextScaler.linear(4),
                           style:
                               TextStyle(color: Theme.of(context).primaryColor),
                         ),
@@ -190,7 +190,7 @@ class _FTMSPageState extends State<FTMSPage> {
                               .getDeviceDataParameterValues()
                               .map((parameterValue) => Text(
                                     parameterValue.toString(),
-                                    textScaleFactor: 2,
+                                    textScaler: const TextScaler.linear(2),
                                   ))
                               .toList(),
                         ),
@@ -225,7 +225,7 @@ class _FTMSPageState extends State<FTMSPage> {
                     children: [
                       Text(
                         "Device Data Features",
-                        textScaleFactor: 3,
+                        textScaler: const TextScaler.linear(3),
                         style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                       Column(
