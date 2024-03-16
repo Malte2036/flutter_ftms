@@ -20,7 +20,7 @@ class Utils {
     ByteData byteData = ByteData(length * 4);
     byteData.setInt32(0, value, Endian.little);
     List<int> byteArray = byteData.buffer.asUint8List();
-    return List<int>.from(byteArray.getRange(0, length).toList());
+    return List<int>.from(byteArray.getRange(0, length).toList().reversed);
   }
 
   static String dataToBinaryFlags(intArray, {int count = 2}) {
