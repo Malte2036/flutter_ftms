@@ -72,7 +72,7 @@ class MachineControlPoint {
     List<int> writeData = [opCode.value];
     if (parameter != null) {
       writeData.addAll(
-          Utils.intToLittleEndianArray(parameter!.value, parameter!.size));
+          Utils.intToLittleEndianArray(parameter!.value, parameter!.size).reversed);
     }
     return writeData;
   }

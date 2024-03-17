@@ -18,4 +18,12 @@ void main() {
     expect(controlPoint.opCode.type, MachineControlPointOpcodeType.stopOrPause);
     expect(controlPoint.getWriteData(), [0x8, 0x2]);
   });
+
+  test("test machine control point with Target Power", () {
+    var controlPoint = MachineControlPoint.setTargetPower(power: 300);
+
+    expect(controlPoint.opCode.value, 0x5);
+    expect(controlPoint.opCode.type, MachineControlPointOpcodeType.setTargetPower);
+    expect(controlPoint.getWriteData(), [0x5, 0x2C,0x01]);
+  });
 }
