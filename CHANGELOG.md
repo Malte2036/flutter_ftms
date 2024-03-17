@@ -1,3 +1,7 @@
+## 1.1.0
+
+- fix machine control point parameters not working
+
 ## 1.0.2
 
 - fix control point not working
