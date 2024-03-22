@@ -30,7 +30,8 @@ class FTMSBluetooth {
       return;
     }
 
-    print('Found FTMS device data characteristic: ${characteristicData.uuid}');
+    print(
+        'Found FTMS device data characteristic: ${characteristicData.uuid.str128}');
 
     characteristicData.onValueReceived.listen((List<int> data) {
       if (data.isEmpty) return;
@@ -56,7 +57,7 @@ class FTMSBluetooth {
       return null;
     }
 
-    print('Found Feature characteristic: ${characteristicData.uuid}');
+    print('Found Feature characteristic: ${characteristicData.uuid.str128}');
 
     var data = await characteristicData.read();
     print('featureData: $data');
@@ -79,7 +80,8 @@ class FTMSBluetooth {
       return;
     }
 
-    print('Found Machine Status characteristic: ${characteristicData.uuid}');
+    print(
+        'Found Machine Status characteristic: ${characteristicData.uuid.str128}');
 
     characteristicData.onValueReceived.listen((data) {
       if (data.isEmpty) {
@@ -136,10 +138,9 @@ class FTMSBluetooth {
     return service != null;
   }
 
-  static bool _characteristicStartWith(
+  static bool characteristicStartWith(
       BluetoothCharacteristic characteristic, String startsWithValue) {
-    return characteristic.uuid
-        .toString()
+    return characteristic.uuid.str128
         .toUpperCase()
         .startsWith(startsWithValue.toUpperCase());
   }
@@ -152,7 +153,7 @@ class FTMSBluetooth {
     required bool characteristicWrite,
   }) {
     var chars = ftmsService.characteristics
-        .where((element) => _characteristicStartWith(element, startsWithUUID))
+        .where((element) => characteristicStartWith(element, startsWithUUID))
         .toList();
 
     if (chars.isEmpty) {
@@ -162,15 +163,15 @@ class FTMSBluetooth {
     BluetoothCharacteristic char = chars[0];
 
     if (characteristicRead && !char.properties.read) {
-      throw 'read not supported on characteristic: ${char.uuid}';
+      throw 'read not supported on characteristic: ${char.uuid.str128}';
     }
 
     if (characteristicNotify && !char.properties.notify) {
-      throw 'notify not supported on characteristic: ${char.uuid}';
+      throw 'notify not supported on characteristic: ${char.uuid.str128}';
     }
 
     if (characteristicWrite && !char.properties.write) {
-      throw 'write not supported on characteristic: ${char.uuid}';
+      throw 'write not supported on characteristic: ${char.uuid.str128}';
     }
 
     return char;

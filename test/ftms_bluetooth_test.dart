@@ -8,7 +8,7 @@ import 'package:mockito/mockito.dart';
 import 'ftms_bluetooth_test.mocks.dart';
 
 // generate mock files: dart run build_runner build
-@GenerateMocks([BluetoothDevice, BluetoothService])
+@GenerateMocks([BluetoothDevice, BluetoothService, BluetoothCharacteristic])
 void main() {
   test("test getDeviceDataTypeByBluetoothId", () {
     var res = FTMSBluetooth.getDeviceDataTypeByBluetoothId("22:22:A4:A6:02:00");
@@ -40,6 +40,24 @@ void main() {
 
       var res = await FTMSBluetooth.getFTMSService(device);
       expect(res, null);
+    });
+  });
+
+  group("test characteristicStartWith", () {
+    test("test characteristicStartWith with right uuid", () {
+      var char = MockBluetoothCharacteristic();
+      when(char.uuid).thenReturn(Guid("00005678-0000-0000-0000-000000000000"));
+
+      var res = FTMSBluetooth.characteristicStartWith(char, "00005678");
+      expect(res, true);
+    });
+
+    test("test characteristicStartWith with wrong uuid", () {
+      var char = MockBluetoothCharacteristic();
+      when(char.uuid).thenReturn(Guid("00005678-0000-0000-0000-000000000000"));
+
+      var res = FTMSBluetooth.characteristicStartWith(char, "00009999");
+      expect(res, false);
     });
   });
 }
