@@ -110,12 +110,18 @@ class FTMSBluetooth {
   static Future<BluetoothService?> getFTMSService(
       BluetoothDevice device) async {
     var services = await device.discoverServices();
-    // FTMS service starts with 00001826
-    var service = services.firstWhere((service) =>
-        service.uuid.toString().toUpperCase().startsWith(_ftmsServiceUUID));
 
-    print('Found FTMS service: ${service.uuid}');
-    return service;
+    try {
+      // FTMS service starts with 00001826
+      var service = services.firstWhere((service) =>
+          service.uuid.str128.toUpperCase().startsWith(_ftmsServiceUUID));
+
+      print('Found FTMS service: ${service.uuid.str128}');
+      return service;
+    } catch (e) {
+      print('FTMS service not found');
+      return null;
+    }
   }
 
   static Future<bool> isBluetoothDeviceFTMSDevice(
