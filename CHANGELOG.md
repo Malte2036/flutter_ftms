@@ -1,3 +1,8 @@
+## 1.1.1
+
+- fix bluetooth service uuid not parsed correctly
+- upgrade flutter version to >=3.16.0
+
 ## 1.1.0
 
 - fix machine control point parameters not working
