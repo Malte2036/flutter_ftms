@@ -156,6 +156,8 @@ class FTMS {
   }
 
   /// @limitation: This function will not work on ios, because "For privacy, iOS & macOS use a randomly generated uuid." (https://github.com/Malte2036/flutter_ftms/issues/14).
+  ///
+  /// On iOS use [getDeviceDataType] after connecting to the device instead.
   static DeviceDataType? getDeviceDataTypeWithoutConnecting(
       BluetoothDevice device) {
     return FTMSBluetooth.getDeviceDataTypeByBluetoothId(device.remoteId.str);
