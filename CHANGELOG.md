@@ -1,3 +1,7 @@
+## 1.1.2
+
+- fix getDeviceDataTypeWithoutConnecting for anonymous bluetooth mac addresses on iOS
+
 ## 1.1.1
 
 - fix bluetooth service uuid not parsed correctly
