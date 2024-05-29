@@ -45,10 +45,15 @@ export 'src/ftms/characteristic/machine/control_point/machine_control_point_opco
     show MachineControlPointOpcode, MachineControlPointOpcodeType;
 
 export 'package:flutter_blue_plus/flutter_blue_plus.dart'
-    show BluetoothAdapterState, BluetoothDevice, BluetoothConnectionState, ScanResult;
+    show
+        BluetoothAdapterState,
+        BluetoothDevice,
+        BluetoothConnectionState,
+        ScanResult;
 
 class FTMS {
-  static Stream<BluetoothAdapterState> get bluetoothState => Bluetooth.stateStream;
+  static Stream<BluetoothAdapterState> get bluetoothState =>
+      Bluetooth.stateStream;
   static Stream<bool> get isScanning => Bluetooth.isScanningStream;
   static Stream<List<ScanResult>> get scanResults =>
       Bluetooth.scanResultsStream;
@@ -150,6 +155,7 @@ class FTMS {
     return FTMSBluetooth.getDeviceDataType(service);
   }
 
+  /// @limitation: This function will not work on ios, because "For privacy, iOS & macOS use a randomly generated uuid." (https://github.com/Malte2036/flutter_ftms/issues/14).
   static DeviceDataType? getDeviceDataTypeWithoutConnecting(
       BluetoothDevice device) {
     return FTMSBluetooth.getDeviceDataTypeByBluetoothId(device.remoteId.str);
