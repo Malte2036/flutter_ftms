@@ -216,6 +216,11 @@ class FTMSBluetooth {
   }
 
   static DeviceDataType? getDeviceDataTypeByBluetoothId(String id) {
+    if (id.length != 17) {
+      // no valid mac address
+      return null;
+    }
+
     var data = List<int>.from(id
         .split(":")
         .getRange(4, 6)

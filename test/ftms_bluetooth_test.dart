@@ -10,9 +10,30 @@ import 'ftms_bluetooth_test.mocks.dart';
 // generate mock files: dart run build_runner build
 @GenerateMocks([BluetoothDevice, BluetoothService, BluetoothCharacteristic])
 void main() {
-  test("test getDeviceDataTypeByBluetoothId", () {
-    var res = FTMSBluetooth.getDeviceDataTypeByBluetoothId("22:22:A4:A6:02:00");
-    expect(res, DeviceDataType.crossTrainer);
+  group("test getDeviceDataTypeByBluetoothId", () {
+    test("test getDeviceDataTypeByBluetoothId with treadmill mac address", () {
+      var res =
+          FTMSBluetooth.getDeviceDataTypeByBluetoothId("22:22:A4:A6:02:00");
+      expect(res, DeviceDataType.crossTrainer);
+    });
+
+    test("test getDeviceDataTypeByBluetoothId with unkown mac address", () {
+      var res =
+          FTMSBluetooth.getDeviceDataTypeByBluetoothId("22:22:A4:A6:00:00");
+      expect(res, null);
+    });
+
+    test("test getDeviceDataTypeByBluetoothId with invalid mac address", () {
+      var res = FTMSBluetooth.getDeviceDataTypeByBluetoothId("invalid");
+      expect(res, null);
+    });
+
+    // see https://github.com/Malte2036/flutter_ftms/issues/14
+    test("test getDeviceDataTypeByBluetoothId with anonymous ios uuid", () {
+      var res = FTMSBluetooth.getDeviceDataTypeByBluetoothId(
+          "6920a902-ba0e-4a13-a35f-6bc91161c517");
+      expect(res, null);
+    });
   });
 
   group("test getFTMSService", () {
