@@ -1,3 +1,7 @@
+## 1.1.3
+
+- only scan for bluetooth devices with FTMS service
+
 ## 1.1.2
 
 - fix getDeviceDataTypeWithoutConnecting for anonymous bluetooth mac addresses on iOS
