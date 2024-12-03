@@ -5,7 +5,7 @@ import 'package:flutter_ftms/flutter_ftms.dart';
 import 'package:flutter_ftms/src/utils.dart';
 
 class FTMSBluetooth {
-  static const _ftmsServiceUUID = "00001826";
+  static const ftmsServiceUUID = "00001826";
 
   static const _dataCrossTrainerChar = "00002ACE";
   static const _dataIndoorBikeChar = "00002AD2";
@@ -116,7 +116,7 @@ class FTMSBluetooth {
     try {
       // FTMS service starts with 00001826
       var service = services.firstWhere((service) =>
-          service.uuid.str128.toUpperCase().startsWith(_ftmsServiceUUID));
+          service.uuid.str128.toUpperCase().startsWith(ftmsServiceUUID));
 
       print('Found FTMS service: ${service.uuid.str128}');
       return service;

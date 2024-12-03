@@ -21,22 +21,27 @@ class Bluetooth {
   static Stream<List<ScanResult>> scanResultsStream =
       FlutterBluePlus.scanResults;
 
-  static Future<List<BluetoothDevice>> getConnectedDevice() async {
-    return await FlutterBluePlus.systemDevices;
+  static Future<List<BluetoothDevice>> getConnectedDevice(
+    List<Guid> withServices,
+  ) async {
+    return await FlutterBluePlus.systemDevices(withServices);
   }
 
   static Future<bool> isEnabled() async {
     return await FlutterBluePlus.isSupported;
   }
 
-  static scanForBluetoothDevices() async {
+  static scanForBluetoothDevices(
+    List<Guid> withServices,
+  ) async {
     print("scanForBluetoothDevices");
 
     await requestBluetoothPermissions();
 
     //await flutterBlue.turnOn();
 
-    FlutterBluePlus.startScan(timeout: const Duration(seconds: 4));
+    FlutterBluePlus.startScan(
+        timeout: const Duration(seconds: 4), withServices: withServices);
   }
 
   static connectToBluetoothDevice(BluetoothDevice device) {

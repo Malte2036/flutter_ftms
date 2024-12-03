@@ -59,7 +59,9 @@ class FTMS {
       Bluetooth.scanResultsStream;
 
   static Future<List<BluetoothDevice>> listDevices() async {
-    return await Bluetooth.getConnectedDevice();
+    return await Bluetooth.getConnectedDevice([
+      Guid.fromString(FTMSBluetooth.ftmsServiceUUID),
+    ]);
   }
 
   static Future<bool> isBluetoothEnabled() async {
@@ -67,7 +69,9 @@ class FTMS {
   }
 
   static Future<void> scanForBluetoothDevices() async {
-    await Bluetooth.scanForBluetoothDevices();
+    await Bluetooth.scanForBluetoothDevices([
+      Guid.fromString(FTMSBluetooth.ftmsServiceUUID),
+    ]);
   }
 
   static Future<void> connectToFTMSDevice(BluetoothDevice device) async {

@@ -247,6 +247,7 @@ class MockBluetoothDevice extends _i1.Mock implements _i2.BluetoothDevice {
 
   @override
   _i4.Future<void> disconnect({
+    int? androidDelay = 0,
     int? timeout = 35,
     bool? queue = true,
   }) =>
@@ -255,6 +256,7 @@ class MockBluetoothDevice extends _i1.Mock implements _i2.BluetoothDevice {
           #disconnect,
           [],
           {
+            #androidDelay: androidDelay,
             #timeout: timeout,
             #queue: queue,
           },
