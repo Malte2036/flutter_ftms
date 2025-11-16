@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -6,13 +7,15 @@ import 'package:permission_handler/permission_handler.dart';
 class Bluetooth {
   static requestBluetoothPermissions() async {
     print("requestPermissions");
-    await [
-      Permission.location,
-      Permission.storage,
-      Permission.bluetooth,
-      Permission.bluetoothConnect,
-      Permission.bluetoothScan
-    ].request();
+    if (!Platform.isMacOS) {
+      await [
+        Permission.location,
+        Permission.storage,
+        Permission.bluetooth,
+        Permission.bluetoothConnect,
+        Permission.bluetoothScan
+      ].request();
+    }
   }
 
   static Stream<BluetoothAdapterState> stateStream =
@@ -38,6 +41,9 @@ class Bluetooth {
 
     await requestBluetoothPermissions();
 
+    // Wait for Bluetooth to be on
+    await FlutterBluePlus.adapterState.where((state) => state == BluetoothAdapterState.on).first;
+
     //await flutterBlue.turnOn();
 
     FlutterBluePlus.startScan(
@@ -48,7 +54,7 @@ class Bluetooth {
     //await device.pair();
 
     print('connectToBluetoothDevice: ${device.platformName}');
-    device.connect();
+    device.connect(license: License.free);
   }
 
   static disconnectFromBluetoothDevice(BluetoothDevice device) {
