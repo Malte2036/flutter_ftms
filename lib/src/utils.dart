@@ -23,7 +23,7 @@ class Utils {
     return List<int>.from(byteArray.getRange(0, length).toList().reversed);
   }
 
-  static String dataToBinaryFlags(intArray, {int count = 2}) {
+  static String dataToBinaryFlags(List<int> intArray, {int count = 2}) {
     Uint8List byteList =
         Uint8List.fromList(intArray.getRange(0, count).toList());
     ByteData byteData = ByteData.sublistView(byteList);
@@ -34,7 +34,7 @@ class Utils {
     return binary;
   }
 
-  static int dataToFlags(intArray, {int count = 2}) {
+  static int dataToFlags(List<int> intArray, {int count = 2}) {
     var binary = dataToBinaryFlags(intArray, count: count);
     //print(binary);
     return binaryToInt(binary);

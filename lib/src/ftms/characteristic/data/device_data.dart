@@ -65,7 +65,7 @@ abstract class DeviceData {
     }
   }
 
-  merge(DeviceData other) {
+  void merge(DeviceData other) {
     if (deviceDataType != other.deviceDataType) {
       throw 'Cannot merge DeviceDataType $deviceDataType with ${other.deviceDataType}';
     }

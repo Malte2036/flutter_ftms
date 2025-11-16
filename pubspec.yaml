@@ -11,17 +11,17 @@ environment:
   flutter: ">=3.16.0"
 
 dependencies:
-  flutter_blue_plus: ^1.34.5
-  permission_handler: ^11.3.0
+  flutter_blue_plus: ^2.0.2
+  permission_handler: ^12.0.1
   flutter:
     sdk: flutter
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
-  mockito: ^5.4.4
-  build_runner: ^2.4.8
+  flutter_lints: ^6.0.0
+  mockito: ^5.5.1
+  build_runner: ^2.10.3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
