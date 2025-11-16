@@ -117,18 +117,17 @@ class _FTMSPageState extends State<FTMSPage> {
       case MachineControlPointOpcodeType.stopOrPause:
         controlPoint = MachineControlPoint.stopOrPause(pause: true);
         break;
-      default:
-        throw 'MachineControlPointOpcodeType $opcodeType is not implemented in this example';
     }
 
+    final messenger = ScaffoldMessenger.of(context);
     try {
       await FTMS.writeMachineControlPointCharacteristic(
           widget.ftmsDevice, controlPoint);
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         SnackBar(content: Text('Command ${opcodeType.name} sent successfully')),
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         SnackBar(content: Text('Failed to send command ${opcodeType.name}: $e')),
       );
     }

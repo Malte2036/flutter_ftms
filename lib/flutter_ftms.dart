@@ -1,5 +1,3 @@
-library flutter_ftms;
-
 import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -75,11 +73,11 @@ class FTMS {
   }
 
   static Future<void> connectToFTMSDevice(BluetoothDevice device) async {
-    await Bluetooth.connectToBluetoothDevice(device);
+    Bluetooth.connectToBluetoothDevice(device);
   }
 
   static Future<void> disconnectFromFTMSDevice(BluetoothDevice device) async {
-    await Bluetooth.disconnectFromBluetoothDevice(device);
+    Bluetooth.disconnectFromBluetoothDevice(device);
   }
 
   static Future<bool> isBluetoothDeviceFTMSDevice(

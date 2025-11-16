@@ -5,7 +5,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Bluetooth {
-  static requestBluetoothPermissions() async {
+  static Future<void> requestBluetoothPermissions() async {
     print("requestPermissions");
     if (!Platform.isMacOS) {
       await [
@@ -34,7 +34,7 @@ class Bluetooth {
     return await FlutterBluePlus.isSupported;
   }
 
-  static scanForBluetoothDevices(
+  static Future<void> scanForBluetoothDevices(
     List<Guid> withServices,
   ) async {
     print("scanForBluetoothDevices");
@@ -50,14 +50,14 @@ class Bluetooth {
         timeout: const Duration(seconds: 4), withServices: withServices);
   }
 
-  static connectToBluetoothDevice(BluetoothDevice device) {
+  static void connectToBluetoothDevice(BluetoothDevice device) {
     //await device.pair();
 
     print('connectToBluetoothDevice: ${device.platformName}');
     device.connect(license: License.free);
   }
 
-  static disconnectFromBluetoothDevice(BluetoothDevice device) {
+  static void disconnectFromBluetoothDevice(BluetoothDevice device) {
     print('disconnectFromBluetoothDevice: ${device.platformName}');
     device.disconnect();
   }
