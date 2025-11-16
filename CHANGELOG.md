@@ -1,3 +1,8 @@
+## 1.2.0
+
+- update dependencies
+- add MacOS runner for the example app
+
 ## 1.1.3
 
 - only scan for bluetooth devices with FTMS service
