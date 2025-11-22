@@ -1,3 +1,9 @@
+## 1.3.0
+
+- fix critical Treadmill data parsing bug where missing energy parameters caused incorrect parsing of heart rate and elapsed time
+- add missing energyPerHour and energyPerMinute parameters when expendedEnergyFlag is set
+- BREAKING CHANGE: rename expendedEnergy to totalEnergy for consistency with other device types
+
 ## 1.2.0
 
 - update dependencies
