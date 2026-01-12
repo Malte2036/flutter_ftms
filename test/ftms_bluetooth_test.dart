@@ -8,7 +8,7 @@ import 'package:mockito/mockito.dart';
 import 'ftms_bluetooth_test.mocks.dart';
 
 // generate mock files: dart run build_runner build
-@GenerateMocks([BluetoothDevice, BluetoothService, BluetoothCharacteristic])
+@GenerateMocks([BluetoothDevice, BluetoothService, BluetoothCharacteristic, CharacteristicProperties])
 void main() {
   group("test getDeviceDataTypeByBluetoothId", () {
     test("test getDeviceDataTypeByBluetoothId with treadmill mac address", () {
@@ -79,6 +79,61 @@ void main() {
 
       var res = FTMSBluetooth.characteristicStartWith(char, "00009999");
       expect(res, false);
+    });
+  });
+
+  group("test isDeviceDataTypeSupported", () {
+    test("test isDeviceDataTypeSupported with supported treadmill", () async {
+      var service = MockBluetoothService();
+      var char = MockBluetoothCharacteristic();
+      var properties = MockCharacteristicProperties();
+
+      when(char.uuid).thenReturn(Guid("00002ACD-0000-1000-8000-00805f9b34fb"));
+      when(char.properties).thenReturn(properties);
+      when(properties.notify).thenReturn(true);
+      when(service.characteristics).thenReturn([char]);
+
+      var res = await FTMSBluetooth.isDeviceDataTypeSupported(service, DeviceDataType.treadmill);
+      expect(res, true);
+    });
+
+    test("test isDeviceDataTypeSupported with unsupported treadmill", () async {
+      var service = MockBluetoothService();
+      var char = MockBluetoothCharacteristic();
+      var properties = MockCharacteristicProperties();
+
+      when(char.uuid).thenReturn(Guid("00002ACD-0000-1000-8000-00805f9b34fb"));
+      when(char.properties).thenReturn(properties);
+      when(properties.notify).thenReturn(false); // not notify
+      when(service.characteristics).thenReturn([char]);
+
+      var res = await FTMSBluetooth.isDeviceDataTypeSupported(service, DeviceDataType.treadmill);
+      expect(res, false);
+    });
+
+    test("test isDeviceDataTypeSupported with no matching characteristic", () async {
+      var service = MockBluetoothService();
+      var char = MockBluetoothCharacteristic();
+
+      when(char.uuid).thenReturn(Guid("00009999-0000-1000-8000-00805f9b34fb"));
+      when(service.characteristics).thenReturn([char]);
+
+      var res = await FTMSBluetooth.isDeviceDataTypeSupported(service, DeviceDataType.treadmill);
+      expect(res, false);
+    });
+
+    test("test isDeviceDataTypeSupported with indoor bike", () async {
+      var service = MockBluetoothService();
+      var char = MockBluetoothCharacteristic();
+      var properties = MockCharacteristicProperties();
+
+      when(char.uuid).thenReturn(Guid("00002AD2-0000-1000-8000-00805f9b34fb"));
+      when(char.properties).thenReturn(properties);
+      when(properties.notify).thenReturn(true);
+      when(service.characteristics).thenReturn([char]);
+
+      var res = await FTMSBluetooth.isDeviceDataTypeSupported(service, DeviceDataType.indoorBike);
+      expect(res, true);
     });
   });
 }
