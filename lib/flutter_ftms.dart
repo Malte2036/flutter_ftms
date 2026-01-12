@@ -85,6 +85,16 @@ class FTMS {
     return FTMSBluetooth.isBluetoothDeviceFTMSDevice(device);
   }
 
+  /// Subscribes to the FTMS "Device Data" characteristic of [device] and
+  /// invokes [onData] with merged [DeviceData] updates.
+  ///
+  /// The optional [preferredDeviceDataType] can be used to request a specific
+  /// FTMS device data type when the device exposes multiple FTMS data
+  /// characteristics (for example, different types for treadmill, bike, etc.).
+  ///
+  /// If [preferredDeviceDataType] is `null` or not supported by the target
+  /// device, this method falls back to automatic detection of the appropriate
+  /// device data type.
   static Future<void> useDeviceDataCharacteristic(
       BluetoothDevice device, void Function(DeviceData) onData, {DeviceDataType? preferredDeviceDataType}) async {
     DeviceDataType? dataType;
