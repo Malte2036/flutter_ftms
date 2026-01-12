@@ -179,28 +179,36 @@ class FTMSBluetooth {
 
   static Future<DeviceDataType?> getDeviceDataType(
       BluetoothService ftmsService) async {
-    var feature = await readMachineFeatureCharacteristic(ftmsService);
-
-    if (feature == null) {
-      return null;
-    }
-
-    var typeNum = Utils.intArrayToLittleEndian(feature.data.sublist(0, 2));
-
-    if (Utils.isNthBitSet(typeNum, 0)) {
-      return DeviceDataType.treadmill;
-    }
-
-    if (Utils.isNthBitSet(typeNum, 1)) {
+    if (_getBluetoothCharacteristic(ftmsService, _dataCrossTrainerChar,
+        characteristicRead: false,
+        characteristicNotify: true,
+        characteristicWrite: false) !=
+        null) {
       return DeviceDataType.crossTrainer;
     }
 
-    if (Utils.isNthBitSet(typeNum, 4)) {
-      return DeviceDataType.rower;
+    if (_getBluetoothCharacteristic(ftmsService, _dataIndoorBikeChar,
+        characteristicRead: false,
+        characteristicNotify: true,
+        characteristicWrite: false) !=
+        null) {
+      return DeviceDataType.indoorBike;
     }
 
-    if (Utils.isNthBitSet(typeNum, 5)) {
-      return DeviceDataType.indoorBike;
+    if (_getBluetoothCharacteristic(ftmsService, _dataTreadmillChar,
+        characteristicRead: false,
+        characteristicNotify: true,
+        characteristicWrite: false) !=
+        null) {
+      return DeviceDataType.treadmill;
+    }
+
+    if (_getBluetoothCharacteristic(ftmsService, _dataRowerChar,
+        characteristicRead: false,
+        characteristicNotify: true,
+        characteristicWrite: false) !=
+        null) {
+      return DeviceDataType.rower;
     }
 
     print("No DeviceDataType found");
