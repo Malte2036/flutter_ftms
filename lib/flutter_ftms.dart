@@ -86,12 +86,21 @@ class FTMS {
   }
 
   static Future<void> useDeviceDataCharacteristic(
-      BluetoothDevice device, void Function(DeviceData) onData) async {
-    var dataType = await getDeviceDataType(device);
-    if (dataType == null) return;
+      BluetoothDevice device, void Function(DeviceData) onData, {DeviceDataType? preferredDeviceDataType}) async {
+    DeviceDataType? dataType;
 
     var service = await FTMSBluetooth.getFTMSService(device);
     if (service == null) return;
+
+    if (preferredDeviceDataType != null) {
+      if (await FTMSBluetooth.isDeviceDataTypeSupported(service, preferredDeviceDataType)) {
+        dataType = preferredDeviceDataType;
+      }
+    }
+
+    dataType ??= await FTMSBluetooth.getDeviceDataType(service);
+
+    if (dataType == null) return;
 
     List<DeviceData> lastData = [];
 

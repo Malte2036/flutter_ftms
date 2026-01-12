@@ -179,36 +179,28 @@ class FTMSBluetooth {
 
   static Future<DeviceDataType?> getDeviceDataType(
       BluetoothService ftmsService) async {
-    if (_getBluetoothCharacteristic(ftmsService, _dataCrossTrainerChar,
-            characteristicRead: false,
-            characteristicNotify: true,
-            characteristicWrite: false) !=
-        null) {
-      return DeviceDataType.crossTrainer;
+    var feature = await readMachineFeatureCharacteristic(ftmsService);
+
+    if (feature == null) {
+      return null;
     }
 
-    if (_getBluetoothCharacteristic(ftmsService, _dataIndoorBikeChar,
-            characteristicRead: false,
-            characteristicNotify: true,
-            characteristicWrite: false) !=
-        null) {
-      return DeviceDataType.indoorBike;
-    }
+    var typeNum = Utils.intArrayToLittleEndian(feature.data.sublist(0, 2));
 
-    if (_getBluetoothCharacteristic(ftmsService, _dataTreadmillChar,
-            characteristicRead: false,
-            characteristicNotify: true,
-            characteristicWrite: false) !=
-        null) {
+    if (Utils.isNthBitSet(typeNum, 0)) {
       return DeviceDataType.treadmill;
     }
 
-    if (_getBluetoothCharacteristic(ftmsService, _dataRowerChar,
-            characteristicRead: false,
-            characteristicNotify: true,
-            characteristicWrite: false) !=
-        null) {
+    if (Utils.isNthBitSet(typeNum, 1)) {
+      return DeviceDataType.crossTrainer;
+    }
+
+    if (Utils.isNthBitSet(typeNum, 4)) {
       return DeviceDataType.rower;
+    }
+
+    if (Utils.isNthBitSet(typeNum, 5)) {
+      return DeviceDataType.indoorBike;
     }
 
     print("No DeviceDataType found");
@@ -256,6 +248,19 @@ class FTMSBluetooth {
         return _dataRowerChar;
       default:
         throw 'DeviceDataType $dataType not found!';
+    }
+  }
+
+  static Future<bool> isDeviceDataTypeSupported(BluetoothService ftmsService, DeviceDataType dataType) async {
+    try {
+      var dataChar = _getBluetoothCharacteristicUUID(dataType);
+      var characteristicData = _getBluetoothCharacteristic(ftmsService, dataChar,
+          characteristicRead: false,
+          characteristicNotify: true,
+          characteristicWrite: false);
+      return characteristicData != null;
+    } catch (e) {
+      return false;
     }
   }
 
