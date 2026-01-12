@@ -1,3 +1,8 @@
+## 1.4.0
+
+- improve handling of FTMS devices exposing multiple data characteristics
+- allow selecting a preferred device data type when subscribing to data
+
 ## 1.3.0
 
 - fix critical Treadmill data parsing bug where missing energy parameters caused incorrect parsing of heart rate and elapsed time
