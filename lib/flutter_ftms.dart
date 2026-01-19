@@ -29,6 +29,8 @@ export 'src/ftms/characteristic/machine/feature/machine_feature.dart'
     show MachineFeature;
 export 'src/ftms/characteristic/machine/feature/machine_feature_flag.dart'
     show MachineFeatureFlag;
+export 'src/ftms/characteristic/machine/feature/target_setting_flag.dart'
+    show TargetSettingFlag;
 
 export 'src/ftms/characteristic/machine/status/machine_status.dart'
     show MachineStatus;
